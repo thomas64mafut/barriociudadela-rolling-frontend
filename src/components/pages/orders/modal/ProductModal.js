@@ -36,7 +36,7 @@ const ProductModal = ({show, setShow, product, itemsToRemove, toppings, principa
         }
             preferences.name = product.name;
             preferences.totalPrice = (product.price+addition)*count;
-            preferences.amount = count;
+            preferences.quantity = count;
             if (removed.length !== 0) { 
                 preferences.removed = removed;
             }
