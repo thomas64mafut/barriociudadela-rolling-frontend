@@ -1,0 +1,28 @@
+.abm-container {
+    width: 100%;
+    height: calc(100vh - 4rem);
+    padding: 2rem;
+    background-color: white;
+    color: black;
+    font-family: 'VictorMono';
+    font-weight: 100;
+}
+
+.table-container {
+    width: 100%;
+    border-top: 5px solid var(--fire-opal);
+    border-collapse: collapse;
+    color: var(--fire-opal);
+    overflow: auto;
+}
+
+.table-container td, .table-container th {
+    text-align: center;
+    border: 2px solid var(--fire-opal);
+    padding: .5rem;
+}
+
+.table-container th {
+    font-family: 'Leonardo-Rounded';
+    font-weight: 100;
+}
