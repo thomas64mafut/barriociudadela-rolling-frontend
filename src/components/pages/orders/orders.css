@@ -1,0 +1,10 @@
+.orders_container{
+    background-color: black;
+    color: rgb(182, 180, 180);
+}
+
+.orders_header{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2rem;
+}
