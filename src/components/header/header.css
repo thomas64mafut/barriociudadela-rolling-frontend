@@ -1,13 +1,15 @@
 .navHome{
   background-color: rgba(238, 238, 238, 0.94);
-  height: 5rem;
+  height: 4rem;
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 12;
 }
 
 .logo{
   height: 4.6rem;
+  padding: .8rem;
 }
 
 .navOptions{
