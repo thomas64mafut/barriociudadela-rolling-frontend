@@ -17,6 +17,7 @@ const Burgers = ({category, defaultItem, item2 }) => {
     useEffect(() => {
         handleGetProducts();
         handleGetIngredients();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
 
@@ -24,7 +25,8 @@ const Burgers = ({category, defaultItem, item2 }) => {
     const handleGetProducts = async() => {
         try {
             const {data} = await axios('http://localhost:4000/api/products/burger');
-            setProducts(data.burgers);
+            const productFiltered = data.burgers?.filter((product) => product.category === category)
+            setProducts(productFiltered);
         } catch (error) {
             Alert('Products not found')   
         }
@@ -116,7 +118,6 @@ const Burgers = ({category, defaultItem, item2 }) => {
                 {
                     products.length ? (
                         products?.map((product) => {
-                            if(product.category === category) {
                             return (
                             <Card key={product._id} className='card' style={{ width: '18rem' }}>
                                 <Card.Img variant="top" src={product.image} />
@@ -127,7 +128,7 @@ const Burgers = ({category, defaultItem, item2 }) => {
                                 
                                 </Card.Body>
                             </Card>
-                        )}
+                        )
                     })
                     ) : (
                         <Spinner className='spinnerLoading' animation="border" variant="success" />      

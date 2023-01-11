@@ -10,12 +10,14 @@ const Drinks = ({category, defaultItem, item2}) => {
 
     useEffect(() => {
         handleGetdrinks();        
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     
     const handleGetdrinks = async() => {
         try {
             const {data} = await axios('http://localhost:4000/api/products/drink')
-            setDrinks(data.Drinks)
+            const drinksFiltered = data.Drinks?.filter((drink) => drink.category === category)
+            setDrinks(drinksFiltered)
         } catch (error) {
             Alert('Drinks not found')
         }
@@ -35,7 +37,6 @@ const Drinks = ({category, defaultItem, item2}) => {
                 {
                     drinks?.length ? (
                         drinks?.map((drink) => { 
-                            if(drink.category === category) {
                                 return (
                                     <Card key={drink._id} className='card' style={{ width: '18rem' }}>
                                         <Card.Img variant="top" src= {drink.image} />
@@ -73,7 +74,7 @@ const Drinks = ({category, defaultItem, item2}) => {
                                         </div>
                                         </Card.Body>
                                     </Card>
-                            )} /* else return <></> */ 
+                            ) /* else return <></> */ 
                         })
                         ) : (
                             <Spinner className='spinnerLoading' animation="border" variant="success" />      
