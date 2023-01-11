@@ -3,26 +3,46 @@
     height: calc(100vh - 4rem);
     padding: 2rem;
     background-color: white;
-    color: black;
-    font-family: 'VictorMono';
+    color: var(--fire-opal);
+    font-family: "VictorMono";
     font-weight: 100;
+}
+
+.abm-container h1 {
+    font-family: "Blogh";
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}
+
+.users-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+button {
+    margin: 0;
+    padding: 0;
 }
 
 .table-container {
     width: 100%;
-    border-top: 5px solid var(--fire-opal);
     border-collapse: collapse;
-    color: var(--fire-opal);
     overflow: auto;
 }
 
-.table-container td, .table-container th {
+.table-container td,
+.table-container th {
     text-align: center;
     border: 2px solid var(--fire-opal);
-    padding: .5rem;
+    padding: 0.5rem;
 }
 
 .table-container th {
-    font-family: 'Leonardo-Rounded';
+    font-family: "Leonardo-Rounded";
     font-weight: 100;
+    border-top: 5px solid var(--fire-opal);
 }
