@@ -38,11 +38,24 @@ button {
 .table-container th {
     text-align: center;
     border: 2px solid var(--fire-opal);
-    padding: 0.5rem;
+    padding: 0.3rem;
+    color: var(--fire-opal);
 }
 
 .table-container th {
     font-family: "Leonardo-Rounded";
     font-weight: 100;
     border-top: 5px solid var(--fire-opal);
+    padding: .8rem;
+}
+
+.btn-User {
+    width: 2rem;
+    height: 2rem;
+    padding: .2rem!important;
+}
+
+.btn-User svg {
+    width: 100%;
+    height: 100%;
 }
