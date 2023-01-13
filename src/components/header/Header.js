@@ -6,7 +6,7 @@ import logo from '../../assets/img/logo-red.png'
 
 const Header = () => {
   return (
-    <Navbar className='navContainer' bg="light" expand="lg">
+    <Navbar className='navContainer' expand="lg">
       <Container fluid>
         <Navbar.Brand href="#"></Navbar.Brand>
         <img className='logoa' src={logo}/>

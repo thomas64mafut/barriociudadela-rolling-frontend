@@ -10,7 +10,7 @@
   height: 4rem;
   z-index: 6;
   background-color: rgba(238, 238, 238, 0.94) !important;
-  position: fixed;
+  position: fixed !important;
   width: 100%;
   top: 0;
 } 
