@@ -1,12 +1,95 @@
-.navHome{
-  background-color: rgba(238, 238, 238, 0.94);
+.logoa{
   height: 4rem;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 12;
+  position: absolute;
+  margin-left: -3rem;
+  left: 50%;
+  padding: 0.4rem;
 }
 
+.navContainer{
+  height: 4rem;
+  z-index: 6;
+  background-color: rgba(238, 238, 238, 0.94) !important;
+  position: fixed;
+  width: 100%;
+  top: 0;
+} 
 
+.primerNav{
+  display: flex;
+  margin-left: -1rem;
+}
 
+.segundoNav{
+  display: flex;
+}
 
+@media (max-width:991px){
+  .segundoNav{
+    display: block;
+  }
+  .navContainer{
+    height: auto;
+  }
+  .logoa{
+    height: 3rem;
+    margin-left: -2.2rem;
+  }
+  .primerNav{
+    margin-left: 0rem;
+    display: block;
+    margin-top: 20px;
+  }
+}
+
+.navOptions{
+  font-family: 'Blogh';
+  font-weight: 100;
+  font-size: 20px;
+  margin-left: 20px ;
+  margin-right: 20px ;
+  text-decoration: none;
+  color: #333;
+}
+
+.navOptions:hover{
+  cursor: pointer;
+  color: #E25447 ;
+  transition: 0.2s;
+}
+
+.boton1 {
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.boton1:focus,
+.boton1:hover {
+  color: #E25447;
+}
+
+.boton1:focus:after,
+.boton1:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.boton1:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #E25447;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
