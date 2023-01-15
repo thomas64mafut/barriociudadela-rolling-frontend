@@ -1,6 +1,5 @@
 .abm-container {
     width: 100%;
-    height: calc(100vh - 4rem);
     padding: 2rem;
     background-color: white;
     color: var(--fire-opal);
@@ -15,7 +14,7 @@
     padding: 0;
 }
 
-.users-header {
+.table-header {
     display: flex;
     flex-direction: row;
     width: 100%;
