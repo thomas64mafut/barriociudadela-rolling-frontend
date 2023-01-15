@@ -8,8 +8,7 @@ const Header = () => {
   return (
     <Navbar className='navContainer' expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#"></Navbar.Brand>
-        <img className='logoa' src={logo}/>
+        <Navbar.Brand href="#"> <img className='logoa' src={logo}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav

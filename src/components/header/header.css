@@ -2,6 +2,7 @@
   height: 4rem;
   position: absolute;
   margin-left: -3rem;
+  top: 0;
   left: 50%;
   padding: 0.4rem;
 }
@@ -38,7 +39,10 @@
   .primerNav{
     margin-left: 0rem;
     display: block;
-    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .boton1{
+    width: 20%;
   }
 }
 
