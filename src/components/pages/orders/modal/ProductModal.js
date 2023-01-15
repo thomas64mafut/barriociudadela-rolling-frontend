@@ -1,17 +1,43 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Accordion, Form, Modal} from 'react-bootstrap'
 import Counter from '../../../counter/Counter';
 
-
-const ProductModal = ({show, setShow, product, itemsToRemove, toppings, principalIngredientPricePrice, defaultItem, item2}) => {
+const ProductModal = ({
+        show, 
+        setShow, 
+        product, 
+        itemsToRemove, 
+        toppings, 
+        principalIngredientPricePrice, 
+        defaultItem, 
+        item2, 
+        setError, 
+        setMessageModalShow, 
+        setMessageToShow 
+    }) => {
     const [cart, setCart] = useState({}); 
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+    
 
     useEffect(() => {
-        console.log(cart)
+        if (cart.name){
+            postCart()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart])
 
+    const postCart = async() => {
+        try {
+            const {data} = await axios.post('http://localhost:4000/api/cart', cart) 
+            setMessageToShow(data.message)
+            } catch (error) {
+                setError(error.response.data.message)
+            }
+    }
+    
+    
     const addToCart = (e) => {
         e.preventDefault();
         const preferences = {};
@@ -27,22 +53,23 @@ const ProductModal = ({show, setShow, product, itemsToRemove, toppings, principa
                         toppingsToAdd.push(target.id)
                         target.checked = false;
                     }
-                }else {
-                    if(target.type === 'textarea' && target.value)
+                } else if(target.type === 'textarea' && target.value) {
                     preferences[target.name] = target.value;
                     target.value= '';
+                } else if (target.type === 'radio'){
+                    if(target.id === '2' && target.checked === true) {
+                        preferences.size= 'large'
+                        target.checked= false ;
+                    } else preferences.size= 'medium'
                 }
+                
             }
         }
             preferences.name = product.name;
-            preferences.totalPrice = (product.price+addition)*count;
+            preferences.price = (product.price+addition);
             preferences.quantity = count;
-            if (removed.length !== 0) { 
-                preferences.removed = removed;
-            }
-            if (toppingsToAdd.length !== 0) {    
-                preferences.toppingsToAdd = toppingsToAdd;
-            }
+            preferences.removed = removed;
+            preferences.toppings = toppingsToAdd;
             setCart(preferences)
             resetModal()
     }
@@ -67,6 +94,7 @@ const ProductModal = ({show, setShow, product, itemsToRemove, toppings, principa
     const resetModal = () => {
         setCount(1);
         setAddition(0);
+        setMessageModalShow(true)
         setShow(false);
     }
 
