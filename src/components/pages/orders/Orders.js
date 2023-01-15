@@ -6,9 +6,13 @@ import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 const Orders = () => {
+    let navigate = useNavigate();
     const [error, setError] = useState('')
     const [messageModalShow, setMessageModalShow] = useState(false)
     const [messageToShow, setMessageToShow] = useState('')
@@ -44,7 +48,7 @@ const Orders = () => {
     }
 
     const showCart = () => {
-        console.log('hola')
+        navigate('/cart')
     }
     
     
