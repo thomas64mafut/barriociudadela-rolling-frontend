@@ -30,8 +30,7 @@ const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, s
             setProducts(productFiltered);
             setErrorBurgers('');
         } catch (error) {
-            console.log(error)
-            setErrorBurgers(error.message||'Burgers y sandwich not found')   
+            setErrorBurgers(error.message||'Something was wrong')   
         }
     }
 

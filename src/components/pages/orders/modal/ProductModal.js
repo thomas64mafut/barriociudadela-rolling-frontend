@@ -14,7 +14,7 @@ const ProductModal = ({
         item2, 
         setError, 
         setMessageModalShow, 
-        setMessageToShow 
+        setMessageToShow
     }) => {
     const [cart, setCart] = useState({}); 
     const [count, setCount] = useState(1);

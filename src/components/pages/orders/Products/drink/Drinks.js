@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Alert, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import './drinks.css'
 import DrinksCard from './DrinksCard';
 
@@ -18,7 +18,7 @@ const Drinks = ({category, defaultItem, item2, setError, setMessageModalShow, se
             const drinksFiltered = data.Drinks?.filter((drink) => drink.category === category)
             setDrinks(drinksFiltered)
         } catch (error) {
-            Alert('Drinks not found')
+            setError('Drinks not found')
         }
     }
 

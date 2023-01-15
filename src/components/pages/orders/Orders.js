@@ -5,13 +5,19 @@ import Burgers from './Products/Burgers';
 import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
-
+import axios from 'axios';
 
 
 const Orders = () => {
     const [error, setError] = useState('')
     const [messageModalShow, setMessageModalShow] = useState(false)
     const [messageToShow, setMessageToShow] = useState('')
+    const [cartTotalPrice, setCartTotalPrice] = useState(0)
+
+    useEffect(() => {
+        handleGetCart();
+    }, [])
+    
 
     useEffect(() => {
         if (messageModalShow) {
@@ -19,16 +25,36 @@ const Orders = () => {
                 setError('')
                 setMessageToShow('')
                 setMessageModalShow(false)
+                handleGetCart();
             }, 1000);
         }
     }, [messageModalShow])
+
+    const handleGetCart =  async () => {
+        try {
+            let totalPrice = 0;
+            const {data} = await axios('http://localhost:4000/api/cart');
+            for (const product of data?.ownCart?.products) {
+                totalPrice = totalPrice+(product?.price*product?.quantity)
+            }
+            setCartTotalPrice(totalPrice)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const showCart = () => {
+        console.log('hola')
+    }
     
     
     return (
     <div className='orders_container'>
         <div className='orders_header'>
             <h3>What do you want to eat today?</h3>
-            <Button variant='primary'>Cart</Button>
+            <Button variant='secondary' onClick={showCart}>
+                Cart = $ {cartTotalPrice}
+            </Button>
         </div>    
         <Burgers
         category={'Burgers'}

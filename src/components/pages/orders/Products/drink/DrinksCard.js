@@ -50,7 +50,6 @@ const DrinksCard = ({drink, defaultItem, item2, setError, setMessageModalShow, s
         preferences.toppings = toppingsToAdd;
         setCount(1)
         e.target[0].checked = true;
-
         setCart(preferences)
     }
   return (
