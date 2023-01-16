@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Alert, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import './drinks.css'
 import DrinksCard from './DrinksCard';
 
-const Drinks = ({category, defaultItem, item2}) => {
+const Drinks = ({category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow}) => {
     const [drinks, setDrinks] = useState();
     
     useEffect(() => {
@@ -18,12 +18,9 @@ const Drinks = ({category, defaultItem, item2}) => {
             const drinksFiltered = data.Drinks?.filter((drink) => drink.category === category)
             setDrinks(drinksFiltered)
         } catch (error) {
-            Alert('Drinks not found')
+            setError('Drinks not found')
         }
     }
-
-
-   
 
     return (
         <div>
@@ -34,9 +31,13 @@ const Drinks = ({category, defaultItem, item2}) => {
                         drinks?.map((drink) => { 
                                 return (
                                     <DrinksCard
+                                        key={drink._id}
                                         drink= {drink}
                                         defaultItem = {defaultItem}
                                         item2 = {item2}
+                                        setError={setError}
+                                        setMessageToShow={setMessageToShow}
+                                        setMessageModalShow={setMessageModalShow}
                                     />
                             ) /* else return <></> */ 
                         })
