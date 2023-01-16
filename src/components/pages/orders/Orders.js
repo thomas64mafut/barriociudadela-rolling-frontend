@@ -8,9 +8,6 @@ import MessageModal from './modal/MessageModal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 const Orders = () => {
     let navigate = useNavigate();
     const [error, setError] = useState('')
