@@ -22,3 +22,8 @@
 .under-welcome{
   font-weight: 100 ;
 }
+
+.homeBack{
+  min-height: 100vh;
+  background-image: url(../../../assets/img/papelTexture.webp);
+}

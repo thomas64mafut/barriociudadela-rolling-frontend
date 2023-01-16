@@ -10,6 +10,9 @@ const Home = () => {
         <div className='text-white welcome'>WELCOME</div>
         <div className='text-white under-welcome'>To Barrio Ciudadela, our home in Tucuman.</div>
       </div>
+      <div className='homeBack'>
+
+      </div>
     </div>
   )
 }
