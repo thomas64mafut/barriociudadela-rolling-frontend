@@ -2,6 +2,65 @@
   height: 15rem;
 }
 
+@media (max-width: 769px){
+  .homeFooter{
+    height: auto;
+  }
+}
+
 .logo{
   height: 4.6rem;
+}
+
+.tarjetas{
+  width: 50px;
+  height: 30px;
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 2px;
+  margin-top: 1rem;
+}
+
+.socialAs{
+  text-decoration: none;
+  margin-top: 1rem;
+}
+
+.socialAs > div{
+  font-size: 20px;
+}
+
+.boton {
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.boton:focus,
+.boton:hover {
+  color: #fff;
+}
+
+.boton:focus:after,
+.boton:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.boton:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #E25447;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
 }
