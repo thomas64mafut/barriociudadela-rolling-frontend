@@ -32,13 +32,14 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ email, password }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    //withCredentials: true
-                }
-            );
+            const response = await axios.post(LOGIN_URL, { email, password });
+
+            console.log(response?.data?.message);
+            
+            localStorage.setItem('jwt', response?.data?.token);
+
+            //const token = response?.data?.token;
+
             setAuth({ email, password });
             setEmail('');
             setPassword('');

@@ -55,7 +55,6 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if button enabled with JS hack
         const v1 = USER_REGEX.test(username);
         const v2 = EMAIL_REGEX.test(email);
         const v3 = PWD_REGEX.test(password);
@@ -63,20 +62,11 @@ const Register = () => {
             setErrorMsg("Invalid Entry");
             return;
         }
-        /*console.log(user, pwd);// lineas para usar sin axios (55,56,57)
-        setSuccess(true);
-    }*/
+        
         try {
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ username, email, password }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    //withCredentials: true
-                }
-            );
+            const response = await axios.post(REGISTER_URL, { username, email, password });
             console.log(response?.data);
-            //console.log(response?.accessToken);
-            // console.log(JSON.stringify(response))
+
             setSuccess(true);
             setUsername('');
             setPassword('');
