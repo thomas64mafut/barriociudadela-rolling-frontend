@@ -1,13 +1,13 @@
 import './login.css'
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
 import axios from '../../../api/axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const LOGIN_URL = '/api/user/login';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    // const { setAuth } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,17 +33,11 @@ const Login = () => {
 
         try {
             const response = await axios.post(LOGIN_URL, { email, password });
-
-            console.log(response?.data?.message);
-            
             localStorage.setItem('jwt', response?.data?.token);
-
-            //const token = response?.data?.token;
-
-            setAuth({ email, password });
+            // setAuth({ email, password });
             setEmail('');
             setPassword('');
-            navigate(from, { replace: true });
+            navigate('/admin', { replace: true });
         } catch (error) {
             setErrorMsg(error?.response?.data?.message)
             errorRef.current.focus();

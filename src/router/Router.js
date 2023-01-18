@@ -25,11 +25,11 @@ const Router = () => {
                 <Route path='/register' element={<Register/>}/>
                 <Route path="unauthorized" element={<Unauthorized />} />
 
-                <Route element={<RequireAuth  />}>
+                <Route element={<RequireAuth />}>
                   <Route path='/orders' element={<Orders/>}/>
                 </Route>
 
-                <Route element={<RequireAuth  />}>
+                <Route element={<RequireAuth />}>
                   <Route path='/admin' element={<Admin/>}/>
                 </Route>
                 
