@@ -19,7 +19,7 @@ const Products = () => {
 
     const handleGetProoducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/products/');
+            const { data } = await axios.get('http://localhost:4000/api/product/');
             console.log(data);
             setProductsToShow(data?.products);
         } catch (error) {
@@ -71,12 +71,12 @@ const Products = () => {
                                     {
                                         product?.ingredients &&
                                         <Accordion>
-                                            <Accordion.Item>
+                                            <Accordion.Item eventKey={'ingredientOf' + index}>
                                                 <Accordion.Header>
                                                     Ingredients
                                                 </Accordion.Header>
                                                 <Accordion.Body>
-                                                    <ul className='d-flex justify-content-center align-items-center'>
+                                                    <ul className='d-flex justify-content-center align-items-center flex-wrap'>
                                                         {
                                                             product?.ingredients.map((ingredient) => (
                                                                 <li className='mx-4'>{ingredient?.name}</li>
