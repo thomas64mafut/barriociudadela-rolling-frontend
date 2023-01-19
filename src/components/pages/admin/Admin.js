@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table, Button, Alert } from "react-bootstrap";
+import { useOutletContext } from "react-router-dom";
 import "./admin.css";
 
-const Admin = () => {
+const Admin = (props) => {
+    const authProvider = useOutletContext();
+    console.log(authProvider, 'admin');
     const [usersToShow, setUsersToShow] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
 
