@@ -1,6 +1,7 @@
 import './login.css'
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 import axios from '../../../api/axios';
 
 const LOGIN_URL = '/api/user/login';
@@ -53,11 +54,12 @@ const Login = () => {
                         >
                             {errorMsg}
                         </p>
-                        <form onSubmit={handleSubmit}>
-                            <div className='login-form-container'>
-                                <label htmlFor="email">e-mail:</label>
-                                <input
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group >
+                                <Form.Label htmlFor="email">email:</Form.Label>
+                                <Form.Control
                                     type="text"
+                                    placeholder="user@mail.com"
                                     id="email"
                                     ref={emailRef}
                                     autoComplete="off"
@@ -65,22 +67,24 @@ const Login = () => {
                                     value={email}
                                     required
                                 />
-
-                                <label htmlFor="password">password:</label>
-                                <input
+                            </Form.Group>
+                            <Form.Group >
+                                <Form.Label htmlFor="password">password:</Form.Label>
+                                <Form.Control
+                                    placeholder="password"
                                     type="password"
                                     id="password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
                                     required
                                 />
-                                <button className='btn-custom'>
-                                    <span className='btn-custom_top'> sign in
-                                    </span>
-                                </button>
-                            </div>
-                        </form>
-                        <p className='my-1'>
+                            </Form.Group>
+                            <button className='btn-custom my-4'>
+                                <span className='btn-custom_top'> sign in
+                                </span>
+                            </button>
+                        </Form>
+                        <p>
                             Need an Account?
                         </p>
                         <span className="line m-0">
