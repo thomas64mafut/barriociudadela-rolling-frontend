@@ -15,28 +15,26 @@ import Missing from '../components/pages/Missing'
   'Admin': '63b36e00cf1222d30f57dcff',
 };*/
 
-const Router = () => {
+const Router = (props) => {
   return (
-    <BrowserRouter>
-        <Layout>
-          <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path="unauthorized" element={<Unauthorized />} />
+    <BrowserRouter >
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='unauthorized' element={<Unauthorized />} />
 
-                <Route element={<RequireAuth  />}>
-                  <Route path='/orders' element={<Orders/>}/>
-                </Route>
+          <Route element={<RequireAuth { ...props} />}>
+            <Route path='/orders' element={<Orders />} />
+          </Route>
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/admin' element={<Admin />} />
+          </Route>
 
-                <Route element={<RequireAuth  />}>
-                  <Route path='/admin' element={<Admin/>}/>
-                </Route>
-                
-                {/* catch all */}
-                <Route path="*" element={<Missing />} />
-          </Routes>
-        </Layout>
+          <Route path="*" element={<Missing />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   )
 }
