@@ -31,7 +31,6 @@ const Login = () => {
         try {
             const response = await axios.post(LOGIN_URL, { email, password });
             localStorage.setItem('jwt', response?.data?.token);
-            // setAuth({ email, password });
             setEmail('');
             setPassword('');
             navigate('/admin', { replace: true });
