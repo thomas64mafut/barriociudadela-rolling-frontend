@@ -1,14 +1,11 @@
 import './login.css'
 import { useRef, useState, useEffect } from 'react';
-// import useAuth from '../../../hooks/useAuth';
-import axios from '../../../api/axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from '../../../api/axios';
 
 const LOGIN_URL = '/api/user/login';
 
 const Login = () => {
-    // const { setAuth } = useAuth();
-
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
