@@ -1,10 +1,11 @@
 import axios from '../../api/axios';
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const AUTHSTATUS_URL = '/api/user/status';
 
 const RequireAuth = ({ authProvider }) => {
+    const location = useLocation();
     const { auth, setAuth } = authProvider;
     const [loggedStatus, setLoggedStatus] = useState();
     const [isLoading, setIsLoading] = useState(true);
@@ -37,9 +38,8 @@ const RequireAuth = ({ authProvider }) => {
         !isLoading 
             ? loggedStatus?.isLogged
                 ? <Outlet context={ authProvider }/>
-            : <Navigate to="/login"  replace />
+            : <Navigate to="/login"  state={{ from: location }} replace />
         : <p>loading</p>
     );
 }
-// state={{ from: location }}
 export default RequireAuth;
