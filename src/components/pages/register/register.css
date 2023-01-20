@@ -6,13 +6,9 @@
     padding: 0.25rem;
     position: relative;
     bottom: -10px;
-    width: 100%;
-    word-break: break-all;
-    white-space: normal;
-}
-
-.instructions > svg {
-    margin-right: 0.25rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .offscreen {
@@ -44,4 +40,23 @@
 
 .line {
     display: inline-block;
+}
+
+.valid-icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.valid-icons ul {
+    margin: 0;
+}
+
+.valid-icons svg {
+    height: 1.2rem;
+}
+
+.form-label {
+    width: 100%;
 }

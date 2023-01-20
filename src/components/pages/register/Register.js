@@ -1,11 +1,12 @@
 import '../login/login.css';
 import './register.css';
 import { useRef, useState, useEffect } from "react";
-// import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../../../api/axios';
 import { Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+import Check from '../../../assets/icons/dark/Check';
+import X from '../../../assets/icons/dark/X';
+import Info from '../../../assets/icons/light/Info';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -107,9 +108,15 @@ const Register = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group id='username'>
                                         <Form.Label htmlFor="username">
-                                            Username:
-                                            {/* <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} /> */}
+                                            <div className='valid-icons'>
+                                                Username:
+                                                <div className={validName ? "valid" : "hide"}>
+                                                    <Check />
+                                                </div>
+                                                <div className={validName || !username ? "hide" : "invalid"}>
+                                                    <X />
+                                                </div>
+                                            </div>
                                         </Form.Label>
                                         <Form.Control
                                             placeholder="username"
@@ -133,17 +140,33 @@ const Register = () => {
                                                     : "offscreen"
                                             }
                                         >
-                                            {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-                                            4 to 24 characters.<br />
-                                            Must begin with a letter.<br />
-                                            Letters, numbers, underscores, hyphens allowed.
+                                            <div className='valid-icons'>
+                                                <Info />
+                                                <ul>
+                                                    <li>
+                                                        4 to 24 characters. <br />
+                                                    </li>
+                                                    <li>
+                                                        Must begin with a letter. <br />
+                                                    </li>
+                                                    <li>
+                                                        Letters, numbers, underscores, hyphens allowed.
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </p>
                                     </Form.Group>
                                     <Form.Group id='email'>
                                         <Form.Label htmlFor="email">
-                                            e-mail:
-                                            {/* <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
-                                            <FontAwesomeIcon icon={faTimes} className={validEmail || !user ? "hide" : "invalid"} /> */}
+                                            <div className='valid-icons'>
+                                                e-mail:
+                                                <div className={validEmail ? "valid" : "hide"}>
+                                                    <Check />
+                                                </div>
+                                                <div className={validEmail || !email ? "hide" : "invalid"}>
+                                                    <X />
+                                                </div>
+                                            </div>
                                         </Form.Label>
                                         <Form.Control
                                             placeholder="Placeholder text"
@@ -166,15 +189,23 @@ const Register = () => {
                                                     : "offscreen"
                                             }
                                         >
-                                            {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-                                            Please enter a valid e-mail.<br />
+                                            <div className='valid-icons'>
+                                                <Info />
+                                                Please enter a valid e-mail.<br />
+                                            </div>
                                         </p>
                                     </Form.Group>
                                     <Form.Group id='pwd'>
                                         <Form.Label>
-                                            password:
-                                            {/* <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} /> */}
+                                            <div className='valid-icons'>
+                                                password:
+                                                <div className={validPwd ? "valid" : "hide"}>
+                                                    <Check />
+                                                </div>
+                                                <div className={validPwd || !password ? "hide" : "invalid"}>
+                                                    <X />
+                                                </div>
+                                            </div>
                                         </Form.Label>
                                         <Form.Control
                                             placeholder="Placeholder text"
@@ -189,22 +220,41 @@ const Register = () => {
                                             onBlur={() => setPwdFocus(false)}
                                         />
                                         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                                            {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-                                            6 to 16 characters.<br />
-                                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                                            Allowed special characters:
-                                            <span aria-label="exclamation mark">!</span>
-                                            <span aria-label="at symbol">@</span>
-                                            <span aria-label="hashtag">#</span>
-                                            <span aria-label="dollar sign">$</span>
-                                            <span aria-label="percent">%</span>
+                                            <div className="valid-icons flex-row ">
+                                                <Info />
+                                                <ul>
+                                                    <li>
+                                                        6 to 16 characters.<br />
+                                                    </li>
+                                                    <li>
+                                                        Must include uppercase and lowercase letters, a number and a special character.<br />
+                                                    </li>
+                                                    <li>
+                                                        <div className='flex-row '>
+                                                            Allowed special characters:
+                                                            <span aria-label="exclamation mark">!</span>
+                                                            <span aria-label="at symbol">@</span>
+                                                            <span aria-label="hashtag">#</span>
+                                                            <span aria-label="dollar sign">$</span>
+                                                            <span aria-label="percent">%</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </p>
                                     </Form.Group>
                                     <Form.Group id='confirmpwd'>
                                         <Form.Label htmlFor="confirm_pwd">
-                                            confirm Password:
-                                            {/* <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} /> */}
-                                            {/* <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} /> */}
+                                            <div className='valid-icons'>
+                                                confirm password:
+                                                {/* ver que esto no se muestre siempre  */}
+                                                <div className={validMatch ? "valid" : "hide"}> 
+                                                    <Check />
+                                                </div>
+                                                <div className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                                                    <X />
+                                                </div>
+                                            </div>
                                         </Form.Label>
                                         <Form.Control
                                             placeholder="Placeholder text"
@@ -227,8 +277,10 @@ const Register = () => {
                                                 : "offscreen"
                                         }
                                     >
-                                        {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-                                        Must match the first password input field.
+                                        <div className='valid-icons'>
+                                            <Info />
+                                            Must match the first password input field.
+                                        </div>
                                     </p>
                                     <button
                                         className='btn-custom my-4'
