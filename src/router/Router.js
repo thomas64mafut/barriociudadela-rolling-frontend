@@ -8,21 +8,32 @@ import Orders from '../components/pages/orders/Orders'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
 import Cart from '../components/pages/cart/Cart'
+import RequireAuth from './../components/requireAuthorization/RequireAuth';
+import Unauthorized from '../components/pages/Unauthorized'
+import Missing from '../components/pages/Missing'
+import UserProfile from '../components/pages/userProfile/UserProfile'
 
 const Router = () => {
   return (
-    <BrowserRouter>
-        <Layout>
-            <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path='/orders' element={<Orders/>}/>
-                <Route path='/cart' element={<Cart/>}/>
-                <Route path='/aboutUs' element={<AboutUs/>}/>
-                <Route path='/admin' element={<Admin/>}/>
-            </Routes>
-        </Layout>
+    <BrowserRouter >
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='unauthorized' element={<Unauthorized />} />
+          <Route path='/profile' element={<UserProfile />} />
+
+          <Route element={<RequireAuth { ...props} />}>
+            <Route path='/orders' element={<Orders />} />
+          </Route>
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/admin' element={<Admin />} />
+          </Route>
+
+          <Route path="*" element={<Missing />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   )
 }
