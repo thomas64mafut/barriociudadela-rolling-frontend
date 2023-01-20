@@ -6,13 +6,10 @@ import Login from '../components/pages/login/Login'
 import Orders from '../components/pages/orders/Orders'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
-<<<<<<< HEAD
-import Cart from '../components/pages/cart/Cart'
-=======
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
->>>>>>> 58a090ad107cd955682e996202c6ec16bd91bf6c
+import UserProfile from '../components/pages/userProfile/UserProfile'
 
 /*const ROLES = {
   'User': '63b750d9df706678b4bf105c',
@@ -21,20 +18,6 @@ import Missing from '../components/pages/Missing'
 
 const Router = (props) => {
   return (
-<<<<<<< HEAD
-    <BrowserRouter>
-        <Layout>
-            <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path='/orders' element={<Orders/>}/>
-                <Route path='/cart' element={<Cart/>}/>
-                <Route path='/aboutUs' element={<AboutUs/>}/>
-                <Route path='/admin' element={<Admin/>}/>
-            </Routes>
-        </Layout>
-=======
     <BrowserRouter >
       <Layout>
         <Routes>
@@ -42,6 +25,7 @@ const Router = (props) => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='unauthorized' element={<Unauthorized />} />
+          <Route path='/profile' element={<UserProfile />} />
 
           <Route element={<RequireAuth { ...props} />}>
             <Route path='/orders' element={<Orders />} />
@@ -53,7 +37,6 @@ const Router = (props) => {
           <Route path="*" element={<Missing />} />
         </Routes>
       </Layout>
->>>>>>> 58a090ad107cd955682e996202c6ec16bd91bf6c
     </BrowserRouter>
   )
 }
