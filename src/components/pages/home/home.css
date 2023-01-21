@@ -1,0 +1,60 @@
+.homeContainer{
+  min-height: calc(100vh - 15rem);
+  margin-top: 4rem;
+}
+
+.welcomeContainer{
+  height: 28.5rem;
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Blogh';
+}
+
+.welcome{
+  font-size: 5rem;
+}
+
+.under-welcome{
+  font-weight: 100;
+}
+
+.homeBack{
+  min-height: auto;
+  background-image: url(../../../assets/img/papelTexture.webp);
+}
+
+.texto-home{
+  padding-left: 11rem ;
+  padding-right: 11rem ;
+  font-size: 20px;
+}
+
+h2{
+  font-family: 'Blogh';
+  color: #5596CC;
+}
+
+.imgContainer{
+  padding-left: 8rem;
+  padding-right: 8rem;
+  object-fit: cover;
+}
+
+.img-burguer{
+  border-radius: 10% !important;
+}
+
+.img-burguer:hover{
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+

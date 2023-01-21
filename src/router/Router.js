@@ -9,6 +9,8 @@ import Admin from '../components/pages/admin/Admin';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
+import Cart from '../components/pages/cart/Cart'
+
 
 /*const ROLES = {
   'User': '63b750d9df706678b4bf105c',
@@ -35,6 +37,7 @@ const Router = (props) => {
           <Route path="*" element={<Missing />} />
         </Routes>
       </Layout>
+
     </BrowserRouter>
   )
 }
