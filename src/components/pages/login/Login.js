@@ -1,8 +1,8 @@
 import './login.css'
+import axios from '../../../api/axios';
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
-import axios from '../../../api/axios';
 
 const LOGIN_URL = '/api/user/login';
 
@@ -28,13 +28,12 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(LOGIN_URL, { email, password });
             localStorage.setItem('jwt', response?.data?.token);
             setEmail('');
             setPassword('');
-            navigate('/admin', { replace: true });
+            navigate(from, { replace: true });
         } catch (error) {
             setErrorMsg(error?.response?.data?.message)
             errorRef.current.focus();

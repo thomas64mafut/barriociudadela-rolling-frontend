@@ -50,7 +50,7 @@ const Register = () => {
 
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(password));
-        setValidMatch(password === matchPwd);
+        if (password) setValidMatch(password === matchPwd);
     }, [password, matchPwd])
 
     useEffect(() => {
@@ -69,7 +69,6 @@ const Register = () => {
 
         try {
             const response = await axios.post(REGISTER_URL, { username, email, password });
-            console.log(response?.data);
 
             setSuccess(true);
             setUsername('');
@@ -81,7 +80,8 @@ const Register = () => {
             } else if (error.response?.status === 409) {
                 setErrorMsg('Username Taken');
             } else if (error.response?.status === 400) {
-                setErrorMsg('Invalid e-mail');
+                if (error.response.data.errors[0].msg === 'e-mail already in use') setErrorMsg('e-mail already in use')
+                else setErrorMsg('Invalid e-mail');
             } else {
                 setErrorMsg('Registration Failed')
             }
@@ -109,7 +109,7 @@ const Register = () => {
                                     <Form.Group id='username'>
                                         <Form.Label htmlFor="username">
                                             <div className='valid-icons'>
-                                                Username:
+                                                username:
                                                 <div className={validName ? "valid" : "hide"}>
                                                     <Check />
                                                 </div>
@@ -191,7 +191,11 @@ const Register = () => {
                                         >
                                             <div className='valid-icons'>
                                                 <Info />
-                                                Please enter a valid e-mail.<br />
+                                                <ul className='w-100'>
+                                                    <li>
+                                                        Please enter a valid e-mail.
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </p>
                                     </Form.Group>
@@ -219,15 +223,31 @@ const Register = () => {
                                             onFocus={() => setPwdFocus(true)}
                                             onBlur={() => setPwdFocus(false)}
                                         />
-                                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                        <p id="pwdnote" className={
+                                            pwdFocus && !validPwd 
+                                                ? "instructions" 
+                                                : "offscreen"
+                                            }
+                                        >
                                             <div className="valid-icons flex-row ">
                                                 <Info />
-                                                <ul>
+                                                <ul className='w-100'>
                                                     <li>
                                                         6 to 16 characters.<br />
                                                     </li>
                                                     <li>
-                                                        Must include uppercase and lowercase letters, a number and a special character.<br />
+                                                        Must include
+                                                        <ul>
+                                                            <li>
+                                                                Uppercase and lowercase letters,
+                                                            </li>
+                                                            <li>
+                                                                An number
+                                                            </li>
+                                                            <li>
+                                                                A special character.
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                     <li>
                                                         <div className='flex-row '>
@@ -247,11 +267,20 @@ const Register = () => {
                                         <Form.Label htmlFor="confirm_pwd">
                                             <div className='valid-icons'>
                                                 confirm password:
-                                                {/* ver que esto no se muestre siempre  */}
-                                                <div className={validMatch ? "valid" : "hide"}> 
+                                                <div className={
+                                                    validMatch 
+                                                        ? "valid"
+                                                        : "hide"
+                                                    }
+                                                >
                                                     <Check />
                                                 </div>
-                                                <div className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                                                <div className={
+                                                    validMatch || !matchPwd 
+                                                        ? "hide" 
+                                                        : "invalid"
+                                                    }
+                                                >
                                                     <X />
                                                 </div>
                                             </div>
@@ -283,9 +312,14 @@ const Register = () => {
                                         </div>
                                     </p>
                                     <button
-                                        className='btn-custom my-4'
+                                        className={
+                                            !validName || !validEmail || !validPwd || !validMatch 
+                                                ? 'btn-custom-disabled my-4'
+                                                : 'btn-custom my-4'
+                                        }
+                                        
                                         disabled={
-                                            !validName || !validEmail || !validPwd || !validMatch
+                                            !validName || !validEmail || !validPwd || !validMatch 
                                                 ? true
                                                 : false
                                         }
@@ -298,7 +332,7 @@ const Register = () => {
                                     Already registered?<br />
                                 </p>
                                 <span className="line m-0">
-                                    <Link to="/">Sign In</Link>
+                                    <Link to="/login">Sign In</Link>
                                 </span>
                             </div>
                         )}

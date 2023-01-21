@@ -1,5 +1,5 @@
 .instructions {
-    font-size: 0.75rem;
+    font-size: 0.5rem;
     border-radius: 0.5rem;
     background: #000;
     color: #fff;
@@ -9,6 +9,10 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     overflow-x: hidden;
+}
+
+.instructions ul {
+    padding-left: .8rem;
 }
 
 .offscreen {
