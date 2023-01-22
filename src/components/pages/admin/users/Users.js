@@ -17,7 +17,8 @@ const Users = () => {
 
     const handleGetUsers = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/user/');
+            const token = localStorage.getItem('jwt');
+            const { data } = await axios.get('http://localhost:4000/api/user/', { headers: { Authorization: token }});
             console.log(data);
             setUsersToShow(data?.users);
         } catch (error) {
