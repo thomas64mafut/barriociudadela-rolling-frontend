@@ -14,18 +14,15 @@ const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, s
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
     const [errorBurgers, setErrorBurgers] = useState(false)
 
-
     useEffect(() => {
         handleGetProducts();
         handleGetIngredients();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
-
-
     const handleGetProducts = async() => {
         try {
-            const {data} = await axios('http://localhost:4000/api/products/burger');
+            const {data} = await axios('http://localhost:4000/api/product/burger');
             const productFiltered = data.burgers?.filter((product) => product.category === category)
             setProducts(productFiltered);
             setErrorBurgers('');
@@ -36,71 +33,13 @@ const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, s
 
     const handleGetIngredients = async() => {
         try {
-            const {data} = await axios('http://localhost:4000/api/ingredients');
+            const {data} = await axios('http://localhost:4000/api/ingredient');
             
             setIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')
         }
     }    
-
-
-    /* const products = [
-        {
-            _id: '1', 
-            name: 'Ciudadela',
-            ingredients: [
-                'Homemade bun', 
-                'Patty', 
-                'Cheddar cheese', 
-                'Bacon', 
-                'Caramelized onion'
-            ],
-            price: 1200,
-            image: 'https://img.freepik.com/foto-gratis/vista-frontal-hamburguesa-stand_141793-15542.jpg?w=740&t=st=1672705885~exp=1672706485~hmac=65b129f7c6864ce9986e6c049febd924fa6886b56effd81a59c2784a7dede656',
-        },
-        {
-            _id: '2',
-            name: 'Crispy',
-            ingredients: [
-                'Homemade bun', 
-                'Patty', 
-                'Cheddar cheese', 
-                'Bacon', 
-                'Caramelized onion'
-            ],
-            price: 1350,
-            image: 'https://img.freepik.com/foto-gratis/vista-frontal-hamburguesa-stand_141793-15542.jpg?w=740&t=st=1672705885~exp=1672706485~hmac=65b129f7c6864ce9986e6c049febd924fa6886b56effd81a59c2784a7dede656',
-        },
-        {
-            _id: '3',
-            name: 'Bacon',
-            ingredients: [
-                'Homemade bun', 
-                'Patty', 
-                'Cheddar cheese', 
-                'Bacon', 
-                'Caramelized onion'
-            ],
-            price: 1250,
-            image: 'https://img.freepik.com/foto-gratis/vista-frontal-hamburguesa-stand_141793-15542.jpg?w=740&t=st=1672705885~exp=1672706485~hmac=65b129f7c6864ce9986e6c049febd924fa6886b56effd81a59c2784a7dede656',
-        },
-        {
-            _id: '4',
-            name: 'Vieja confiable',
-            ingredients: [
-                'Homemade bun', 
-                'Patty', 
-                'Cheddar cheese', 
-                'Bacon', 
-                'Caramelized onion'
-            ],
-            price: 1100,
-            image: 'https://img.freepik.com/foto-gratis/vista-frontal-hamburguesa-stand_141793-15542.jpg?w=740&t=st=1672705885~exp=1672706485~hmac=65b129f7c6864ce9986e6c049febd924fa6886b56effd81a59c2784a7dede656',
-        }
-    ]; */
-
-    
 
     const openModal = (product, ingredients) => {
         let toppingsToShow= ingredients.filter(i => ingredients.category !== 'Burgers&Sandwich');

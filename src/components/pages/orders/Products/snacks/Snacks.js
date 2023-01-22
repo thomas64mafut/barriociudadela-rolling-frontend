@@ -5,49 +5,46 @@ import { Spinner } from 'react-bootstrap'
 import SnacksCard from './SnacksCard';
 
 
-const Snacks = ({setError, setMessageModalShow, setMessageToShow }) => {
-const [snacks, setSnacks] = useState();
+const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
+    const [snacks, setSnacks] = useState();
 
+    useEffect(() => {
+        handleGetSnacks();
+    }, [])
 
-useEffect(() => {
-    handleGetSnacks();   
-    // eslint-disable-next-line react-hooks/exhaustive-deps     
-}, [])
-
-
-const handleGetSnacks = async() => {
-    try {
-        const {data} = await axios('http://localhost:4000/api/products/snack')
-        setSnacks(data.Snacks)
-    } catch (error) {
-        setError('Snack not found')
+    const handleGetSnacks = async () => {
+        try {
+            const { data } = await axios('http://localhost:4000/api/product/snack')
+            setSnacks(data.Snacks)
+        } catch (error) {
+            setError('Snack not found')
+        }
     }
-}
 
-
-  return (
-    <div>
-        <h4 className='tittleSection'>Snacks</h4>
+    return (
+        <div>
+            <h4 className='tittleSection'>Snacks</h4>
             <div className='cards_container'>
                 {
                     snacks?.length ? (
-                        snacks?.map((snack) => { 
-                            return(
+                        snacks?.map((snack) => {
+                            return (
                                 <SnacksCard
                                     key={snack._id}
-                                    snack = {snack}
+                                    snack={snack}
                                     setError={setError}
                                     setMessageModalShow={setMessageModalShow}
                                     setMessageToShow={setMessageToShow}
-                                />    
-                        )})
-                        ) : (
-                            <Spinner className='spinnerLoading' animation="border" variant="success" />      
+                                />
                             )
-                        }
+                        })
+                    ) : (
+                        <Spinner className='spinnerLoading' animation="border" variant="success" />
+                    )
+                }
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Snacks

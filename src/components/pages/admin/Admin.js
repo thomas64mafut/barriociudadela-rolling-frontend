@@ -1,7 +1,7 @@
 import React from "react";
 import "./admin.css";
-import Users from './users/Users'
-import Products from './products/Products'
+import Users from "./users/Users";
+import Products from "./products/Products"
 
 const Admin = () => {
     return (
