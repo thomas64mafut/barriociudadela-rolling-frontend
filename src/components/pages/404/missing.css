@@ -1,0 +1,85 @@
+
+
+.main-container {
+    width: 100vw;
+    height: min-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items:flex-start;
+
+    flex-direction: row;
+    background-color: rgb(237, 227, 199);
+}
+
+.message-container {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img404-container > img{
+    width: 100%;
+    height: 100%;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 10%;
+}
+
+.stats-container {
+    height: 3rem;
+    width: 15rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.turns-container {
+    margin-top: 2rem;
+}
+
+.btn-custom {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+}
+
+.btn-custom_top {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+}
+
+.btn-custom:hover .btn-custom_top {
+    transform: translateY(-0.33em);
+}
+
+.btn-custom:active .btn-custom_top {
+    transform: translateY(0);
+}
+  .card-grid {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+  }
