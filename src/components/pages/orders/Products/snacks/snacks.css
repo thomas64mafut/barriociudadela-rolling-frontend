@@ -1,0 +1,7 @@
+.snack-card:hover {
+    border-color: var(--blue-gray)!important;
+}
+
+.snacks-title {
+    color: var(--blue-gray);
+}

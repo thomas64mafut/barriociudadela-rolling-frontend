@@ -7,6 +7,7 @@ import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cart from '../../../assets/icons/dark/Cart';
 
 const Orders = () => {
     let navigate = useNavigate();
@@ -17,6 +18,7 @@ const Orders = () => {
 
     useEffect(() => {
         handleGetCart();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -50,10 +52,16 @@ const Orders = () => {
     return (
         <div className='orders_container'>
             <div className='orders_header'>
-                <h3>What do you want to eat today?</h3>
-                <Button variant='secondary' onClick={showCart}>
+                <h2>what do you want to eat today?</h2>
+                {/* <Button variant='secondary' onClick={showCart}>
                     Cart = $ {cartTotalPrice}
-                </Button>
+                </Button> */}
+                <button className="btn-cart" onClick={showCart}>
+                    <div className="icon-cart ">
+                        <Cart />
+                    </div>
+                    <span>$ {cartTotalPrice}</span>
+                </button>
             </div>
             <Burgers
                 category={'Burgers'}
@@ -71,6 +79,11 @@ const Orders = () => {
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}
             />
+            <Snacks
+                setError={setError}
+                setMessageModalShow={setMessageModalShow}
+                setMessageToShow={setMessageToShow}
+            />
             <Drinks
                 category={"Drink"}
                 defaultItem={"1 lt"}
@@ -83,11 +96,6 @@ const Orders = () => {
                 category={"Beer"}
                 defaultItem={"Pinta"}
                 item2={"1/2 Pinta"}
-                setError={setError}
-                setMessageModalShow={setMessageModalShow}
-                setMessageToShow={setMessageToShow}
-            />
-            <Snacks
                 setError={setError}
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}

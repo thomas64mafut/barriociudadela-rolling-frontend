@@ -1,14 +1,68 @@
-.orders_container{
-    background-color: black;
-    color: rgb(182, 180, 180);
+.orders_container {
+    background-color: white;
+    min-height: auto;
+    background-image: url(../../../assets/img/papelTexture.webp);
 }
 
-.orders_header{
+.orders_header {
     display: flex;
     justify-content: space-between;
     margin: 0 2rem;
+    padding-block: 1rem;
+
+}
+
+.orders_header h2 {
+    font-family: 'Leonardo-Rounded';
+    margin-bottom: 0;
 }
 
 label {
     margin: 0;
+}
+
+.btn-cart {
+    font-family: inherit;
+    font-weight: 400;
+    background: var(--fire-opal);
+    color: white;
+    padding: 1.5em 0;
+    font-size: 17px;
+    border: none;
+    border-radius: 0.7em;
+    letter-spacing: 0.08em;
+    position: relative;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 2.1em;
+    padding-left: 3em;
+    padding-right: 0.7em;
+}
+
+.btn-cart .icon-cart {
+    background: #fff;
+    /* margin-right: 2em; */
+    height: 2.5em;
+    width: 2.2em;
+    border-radius: 0.5em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0.3em;
+    transition: all .7s;
+}
+
+.icon-cart svg {
+    height: 1.5rem;
+}
+
+.btn-cart:hover .icon-cart {
+    width: calc(100% - 0.5rem);
+}
+
+.btn-cart span {
+    font-family: 'VictorMono';
 }

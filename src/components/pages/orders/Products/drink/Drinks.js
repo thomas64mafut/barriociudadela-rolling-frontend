@@ -9,6 +9,7 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
 
     useEffect(() => {
         handleGetdrinks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleGetdrinks = async () => {

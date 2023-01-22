@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, Card, Spinner } from 'react-bootstrap'
+import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap'
 import ProductModal from '../modal/ProductModal';
 import './burgers.css'
 
-const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
+const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [productModalShow, setProductModalShow] = useState(false)
     const [productToAdd, setProductToAdd] = useState({})
     const [products, setProducts] = useState([])
@@ -19,30 +19,30 @@ const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, s
         handleGetIngredients();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
-    const handleGetProducts = async() => {
+
+    const handleGetProducts = async () => {
         try {
-            const {data} = await axios('http://localhost:4000/api/product/burger');
+            const { data } = await axios('http://localhost:4000/api/product/burger');
             const productFiltered = data.burgers?.filter((product) => product.category === category)
             setProducts(productFiltered);
             setErrorBurgers('');
         } catch (error) {
-            setErrorBurgers(error.message||'Something was wrong')   
+            setErrorBurgers(error.message || 'Something was wrong')
         }
     }
 
-    const handleGetIngredients = async() => {
+    const handleGetIngredients = async () => {
         try {
-            const {data} = await axios('http://localhost:4000/api/ingredient');
-            
+            const { data } = await axios('http://localhost:4000/api/ingredient');
+
             setIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')
         }
-    }    
+    }
 
     const openModal = (product, ingredients) => {
-        let toppingsToShow= ingredients.filter(i => ingredients.category !== 'Burgers&Sandwich');
+        let toppingsToShow = ingredients.filter(i => ingredients.category !== 'Burgers&Sandwich');
         setItemsToRemove(product?.ingredients?.filter(i => i._id !== product.ingredients[0]._id && i._id !== product.ingredients[1]._id))
         for (const productIngredient of product.ingredients) {
             toppingsToShow = toppingsToShow.filter(item => item._id !== productIngredient._id)
@@ -50,48 +50,75 @@ const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, s
         setToppings(toppingsToShow)
         setProductToAdd(product)
         setPrincipalIngredientPrice(product.ingredients[1].price)
-        setProductModalShow(true); 
+        setProductModalShow(true);
     }
 
     return (
-            <div>
-                <h4 className='tittleSection'>{category}</h4>
-                {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
-                <div className='cards_container'>
+        <div>
+            <h2 className='titleSection'>{category}</h2>
+            {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
+
+            <Row md='3' xl='4' className='p-3'>
                 {
                     products.length ? (
-                        products?.map((product) => {
+                        products?.map((product, index) => {
                             return (
-                            <Card key={product._id} className='card' style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={product.image} />
-                                <Card.Body>
-                                <Card.Title ><b className='title'>{product.name}</b> <div className='price'>price:${product.price}</div></Card.Title>
-                                <div>Ingredients: {product.ingredients.map((ingredient) => (<div className='ingredients_list' key={ingredient._id}>-{ingredient.name} </div>))}</div>
-                                {<Button variant='secondary' onClick={()=>openModal(product, ingredients)}>Options</Button>}
-                                
-                                </Card.Body>
-                            </Card>
-                        )
-                    })
+                                <Col>
+                                    <Card className='h-100 w-100 card burger-card'>
+                                        <Card.Img
+                                            variant="top"
+                                            src={product.image}
+                                            alt={'image of card' + product.name + index}
+                                        />
+                                        <Card.Header>
+                                            <Card.Title>
+                                                {product.name.toString().toLowerCase()}
+                                            </Card.Title>
+                                            <b className="text-body">
+                                                Price: $ {product.price}
+                                            </b>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <div>
+                                                <span>
+                                                    Ingredients:
+                                                </span>
+                                                {
+                                                    product.ingredients.map((ingredient) => (
+                                                        <ul
+                                                            className='ingredients-list row'
+                                                        >
+                                                            <li>{ingredient.name}</li>
+                                                        </ul>
+                                                    ))
+                                                }
+                                            </div>
+                                        </Card.Body>
+                                        <button class="card-button" onClick={() => openModal(product, ingredients)}>Options</button>
+                                    </Card>
+                                </Col>
+                            )
+                        })
                     ) : (
-                        <Spinner className='spinnerLoading' animation="border" variant="success" />      
-                        )
-                    }
-                    <ProductModal 
-                        show={productModalShow} 
-                        setShow={setProductModalShow}
-                        product={productToAdd}
-                        itemsToRemove={itemsToRemove}
-                        toppings={toppings}
-                        principalIngredientPricePrice={principalIngredientPricePrice}
-                        defaultItem={defaultItem}
-                        item2={item2}
-                        setError={setError}
-                        setMessageModalShow={setMessageModalShow}
-                        setMessageToShow={setMessageToShow}
-                    /> 
-            </div>
-        </div>
+                        <Spinner className='spinnerLoading' animation="border" variant="success" />
+                    )
+                }
+            </Row>
+
+            <ProductModal
+                show={productModalShow}
+                setShow={setProductModalShow}
+                product={productToAdd}
+                itemsToRemove={itemsToRemove}
+                toppings={toppings}
+                principalIngredientPricePrice={principalIngredientPricePrice}
+                defaultItem={defaultItem}
+                item2={item2}
+                setError={setError}
+                setMessageModalShow={setMessageModalShow}
+                setMessageToShow={setMessageToShow}
+            />
+        </div >
     )
 }
 

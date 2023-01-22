@@ -1,45 +1,16 @@
-.tittleSection{
-    color: rgb(182, 180, 180);
-    text-decoration: underline;
-    margin: 1rem;  
+.titleSection {
+    color: var(--fire-opal);
+    font-family: 'Blogh';
+    font-size: 3rem;
+    text-align: center;
 }
 
-.cards_container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    color: black;
-    padding: 2rem;
-    padding-top: .5rem;
-}
-
-.card {
-    border: 4px rgb(226, 84, 71) solid !important;
-    margin: .5rem;
-}
-
-.card-body{
-    background-color: rgb(196, 199, 198);
-}
-.title{
-    font-size: x-large;
-    font-weight: 500;
-}
-
-.price{
-    font-size: medium;
-}
-
-.ingredients_list{
-    display: inline;
-}
-
-.toRemove :checked  + label {
+.toRemove :checked+label {
     color: rgb(133, 133, 133);
     text-decoration: line-through;
 }
 
-.toppings :checked  + label {
+.toppings :checked+label {
     font-weight: bolder;
 }
 
@@ -53,12 +24,11 @@
     width: 100%;
 }
 
-.button_container{
+.button_container {
     margin-top: .5rem;
     display: flex;
     justify-content: space-around;
 }
-
 
 .icon-btn {
     width: 50px;
@@ -74,7 +44,7 @@
 }
 
 .add-btn:hover {
-    width: 120px;
+    width: 100%;
 }
 
 .add-btn::before,
@@ -154,4 +124,58 @@
     right: 15px;
     height: 4px;
     top: calc(50% - 2px);
+}
+
+/* CARD */
+.card {
+    max-width: 20rem;
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    font-family: 'VictorMono';
+    border: 2px solid rgb(191, 191, 191)!important;
+}
+
+.col {
+    margin-block: 3rem ;
+    display: flex;
+    justify-content: center;
+}
+
+.card-img-top {
+    width: auto;
+}
+
+.card-button {
+    transform: translate(-50%, 125%);
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    background-color: var(--fire-opal);
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
+/*Hover*/
+.burger-card:hover {
+    border-color: var(--fire-opal)!important;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+}
+
+.ingredients-list {
+    margin-bottom: .3rem;
+    font-size: smaller;
 }

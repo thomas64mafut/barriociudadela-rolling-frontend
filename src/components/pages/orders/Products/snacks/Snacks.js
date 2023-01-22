@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Spinner } from 'react-bootstrap'
+import { Spinner, Row, Col } from 'react-bootstrap'
 
 import SnacksCard from './SnacksCard';
 
@@ -10,6 +10,7 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
 
     useEffect(() => {
         handleGetSnacks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleGetSnacks = async () => {
@@ -23,25 +24,29 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
 
     return (
         <div>
-            <h4 className='tittleSection'>Snacks</h4>
+            <h2 className='titleSection snacks-title'>Snacks</h2>
             <div className='cards_container'>
-                {
-                    snacks?.length ? (
-                        snacks?.map((snack) => {
-                            return (
-                                <SnacksCard
-                                    key={snack._id}
-                                    snack={snack}
-                                    setError={setError}
-                                    setMessageModalShow={setMessageModalShow}
-                                    setMessageToShow={setMessageToShow}
-                                />
-                            )
-                        })
-                    ) : (
-                        <Spinner className='spinnerLoading' animation="border" variant="success" />
-                    )
-                }
+                <Row className='p-3'>
+                    {
+                        snacks?.length ? (
+                            snacks?.map((snack) => {
+                                return (
+                                    <Col className='h-100 w-100'>
+                                        <SnacksCard
+                                            key={snack._id}
+                                            snack={snack}
+                                            setError={setError}
+                                            setMessageModalShow={setMessageModalShow}
+                                            setMessageToShow={setMessageToShow}
+                                        />
+                                    </Col>
+                                )
+                            })
+                        ) : (
+                            <Spinner className='spinnerLoading' animation="border" variant="success" />
+                        )
+                    }
+                </Row>
             </div>
         </div>
     )
