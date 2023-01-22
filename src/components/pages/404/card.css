@@ -1,5 +1,10 @@
 .card {
   position: relative;
+  box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.75);
+}
+
+.card:hover {
+  transform: scale(1.1);
 }
 
 .card img {
@@ -8,8 +13,8 @@
   display: block;
   border: 2px solid #fff;
   border-radius: 6px;
+  cursor: pointer;
 }
-
 
 .card .front {
   transform: rotateY(90deg);
