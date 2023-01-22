@@ -3,7 +3,90 @@ h1 {
     font-weight: 100;
 }
 
-body { 
-    font-family: 'VictorMono';
+body {
     font-weight: 100;
+}
+
+.main-login-container {
+    height: 100%;
+    font-family: 'VictorMono';
+    display: flex;
+    justify-content: center;
+
+    background-image: url(../../../assets/img/bg-login.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.login-container {
+    background-color: var(--dutch-white);
+    background-size: cover;
+    margin-block: 2rem;
+    padding: .6rem;
+    border: 2px solid rgba(103, 66, 1, 0.5);
+    border-radius: .3rem;
+}
+
+.border-container {
+    border: 2px dashed rgba(103, 66, 1, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.login-container label {
+    font-family: 'Leonardo-Rounded';
+    margin-top: 1rem;
+}
+
+.login-container input {
+    font-family: 'VictorMono'!important;
+}
+
+.btn-custom {
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+}
+
+.btn-custom-disabled {
+    --button_radius: 0.75em;
+    --button_color: #aaaaaa;
+    --button_outline_color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+}
+
+.btn-custom-disabled span {
+    color: #666565;
+    cursor: not-allowed;
+}
+
+.btn-custom_top {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+    cursor: pointer;
+}
+
+.btn-custom:hover .btn-custom_top {
+    transform: translateY(-0.33em);
+}
+
+.btn-custom:active .btn-custom_top {
+    transform: translateY(0);
 }

@@ -1,24 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Alert, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 
 import SnacksCard from './SnacksCard';
 
 
-const Snacks = () => {
+const Snacks = ({setError, setMessageModalShow, setMessageToShow }) => {
 const [snacks, setSnacks] = useState();
 
 
 useEffect(() => {
-    handleGetSnacks();        
+    handleGetSnacks();   
+    // eslint-disable-next-line react-hooks/exhaustive-deps     
 }, [])
+
 
 const handleGetSnacks = async() => {
     try {
         const {data} = await axios('http://localhost:4000/api/products/snack')
         setSnacks(data.Snacks)
     } catch (error) {
-        Alert('Snack not found')
+        setError('Snack not found')
     }
 }
 
@@ -31,9 +33,13 @@ const handleGetSnacks = async() => {
                     snacks?.length ? (
                         snacks?.map((snack) => { 
                             return(
-                                 <SnacksCard
+                                <SnacksCard
+                                    key={snack._id}
                                     snack = {snack}
-                                 />    
+                                    setError={setError}
+                                    setMessageModalShow={setMessageModalShow}
+                                    setMessageToShow={setMessageToShow}
+                                />    
                         )})
                         ) : (
                             <Spinner className='spinnerLoading' animation="border" variant="success" />      

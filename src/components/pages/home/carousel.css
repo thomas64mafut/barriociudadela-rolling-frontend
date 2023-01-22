@@ -1,0 +1,17 @@
+.img-carousel{
+  height: 28.5rem;
+  object-fit: cover;
+}
+
+.carousel-indicators{
+  background-image: url(../../../assets/img/papelTexture.webp);
+  position: absolute;
+  bottom: -1rem !important;
+  height: 3rem;
+}
+
+button{
+  background-color: #e0b23e !important;
+  position: relative;
+  top: 20px;
+}

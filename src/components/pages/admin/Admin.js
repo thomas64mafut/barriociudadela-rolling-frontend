@@ -1,6 +1,5 @@
+import React from "react";
 import "./admin.css";
-import React from 'react'
-
 import Users from './users/Users'
 import Products from './products/Products'
 

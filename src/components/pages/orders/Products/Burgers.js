@@ -4,7 +4,7 @@ import { Alert, Button, Card, Spinner } from 'react-bootstrap'
 import ProductModal from '../modal/ProductModal';
 import './burgers.css'
 
-const Burgers = ({category, defaultItem, item2 }) => {
+const Burgers = ({category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [productModalShow, setProductModalShow] = useState(false)
     const [productToAdd, setProductToAdd] = useState({})
     const [products, setProducts] = useState([])
@@ -12,6 +12,7 @@ const Burgers = ({category, defaultItem, item2 }) => {
     const [itemsToRemove, setItemsToRemove] = useState([])
     const [toppings, setToppings] = useState([])
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
+    const [errorBurgers, setErrorBurgers] = useState(false)
 
 
     useEffect(() => {
@@ -27,14 +28,16 @@ const Burgers = ({category, defaultItem, item2 }) => {
             const {data} = await axios('http://localhost:4000/api/products/burger');
             const productFiltered = data.burgers?.filter((product) => product.category === category)
             setProducts(productFiltered);
+            setErrorBurgers('');
         } catch (error) {
-            Alert('Products not found')   
+            setErrorBurgers(error.message||'Something was wrong')   
         }
     }
 
     const handleGetIngredients = async() => {
         try {
             const {data} = await axios('http://localhost:4000/api/ingredients');
+            
             setIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')
@@ -114,6 +117,7 @@ const Burgers = ({category, defaultItem, item2 }) => {
     return (
             <div>
                 <h4 className='tittleSection'>{category}</h4>
+                {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
                 <div className='cards_container'>
                 {
                     products.length ? (
@@ -143,6 +147,9 @@ const Burgers = ({category, defaultItem, item2 }) => {
                         principalIngredientPricePrice={principalIngredientPricePrice}
                         defaultItem={defaultItem}
                         item2={item2}
+                        setError={setError}
+                        setMessageModalShow={setMessageModalShow}
+                        setMessageToShow={setMessageToShow}
                     /> 
             </div>
         </div>
