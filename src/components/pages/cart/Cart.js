@@ -16,8 +16,10 @@ const Cart = () => {
     
     const handleGetCart =  async () => {
         try {
+            const token = localStorage.getItem('jwt');
             let totalPrice = 0;
-            const {data} = await axios('http://localhost:4000/api/cart');
+            const { data } = await axios('http://localhost:4000/api/cart', { headers: { Authorization: token } });
+            console.log(data);
             setCart(data.ownCart)
             for (const product of data?.ownCart?.products) {
                 totalPrice = totalPrice+(product?.price*product?.quantity)

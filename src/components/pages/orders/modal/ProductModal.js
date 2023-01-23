@@ -29,7 +29,8 @@ const ProductModal = ({
 
     const postCart = async () => {
         try {
-            const { data } = await axios.post('http://localhost:4000/api/cart', cart)
+            const token = localStorage.getItem('jwt');
+            const { data } = await axios.post('http://localhost:4000/api/cart', cart, { headers: { Authorization: token } });
             setMessageToShow(data.message)
         } catch (error) {
             setError(error.response.data.message)

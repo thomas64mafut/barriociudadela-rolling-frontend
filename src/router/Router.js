@@ -33,6 +33,9 @@ const Router = (props) => {
           <Route element={<RequireAuth { ...props } />}>
             <Route path='/admin' element={<Admin />} />
           </Route>
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/cart' element={<Cart />} />
+          </Route>
 
           <Route path="*" element={<Missing />} />
         </Routes>
