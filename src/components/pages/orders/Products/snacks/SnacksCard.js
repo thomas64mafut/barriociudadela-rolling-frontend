@@ -1,8 +1,8 @@
-import axios from 'axios';
 import './snacks.css'
 import React, { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap';
 import Counter from '../../../../counter/Counter';
+import axios from 'axios';
 
 const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
@@ -65,7 +65,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                 </div>
             </Card.Header>
             <Card.Body>
-                <div className="mb-3 d-flex flex-column">
+                <div className="size-container">
                     <div>Size: </div>
                     <Form onSubmit={addToCart}>
                         <Form.Check

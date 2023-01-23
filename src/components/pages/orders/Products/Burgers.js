@@ -34,7 +34,6 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const handleGetIngredients = async () => {
         try {
             const { data } = await axios('http://localhost:4000/api/ingredient');
-
             setIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')
@@ -61,35 +60,35 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
             <Row md='3' xl='4' className='p-3'>
                 {
                     products.length ? (
-                        products?.map((product, index) => {
+                        products?.map((product) => {
                             return (
                                 <Col>
                                     <Card className='h-100 w-100 card burger-card'>
-                                        <Card.Img
-                                            variant="top"
-                                            src={product.image}
-                                            alt={'image of card' + product.name + index}
-                                        />
+                                        <div className='card-image-container' style={{ 
+                                            backgroundImage: `url(${product.image})`
+                                            }}
+                                        ></div>
                                         <Card.Header>
                                             <Card.Title>
-                                                {product.name.toString().toLowerCase()}
+                                                <h5 className='product-card-title'>
+                                                    {product.name.toString().toLowerCase()}
+                                                </h5>
                                             </Card.Title>
-                                            <b className="text-body">
-                                                Price: $ {product.price}
+                                            <b className="product-price">
+                                                $ {product.price}
                                             </b>
                                         </Card.Header>
                                         <Card.Body>
-                                            <div>
+                                            <div className='ingredients-list'>
                                                 <span>
-                                                    Ingredients:
+                                                    Ingredients: <br />
                                                 </span>
                                                 {
-                                                    product.ingredients.map((ingredient) => (
-                                                        <ul
-                                                            className='ingredients-list row'
-                                                        >
-                                                            <li>{ingredient.name}</li>
-                                                        </ul>
+                                                    product.ingredients.map((ingredient, index) => (
+                                                        index === (product.ingredients.length - 1)
+                                                            ? <span>{ingredient.name + '.'}</span>
+                                                            : <span>{ingredient.name + ', '}</span>
+
                                                     ))
                                                 }
                                             </div>

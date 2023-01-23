@@ -5,3 +5,10 @@
 .snacks-title {
     color: var(--blue-gray);
 }
+
+.size-container {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    font-size: smaller;
+}
