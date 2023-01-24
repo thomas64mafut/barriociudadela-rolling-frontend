@@ -81,7 +81,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                         />
                         <Form.Check
                             inline
-                            label={`large(4 people) ($${snack.price * 2})`}
+                            label={`large (4 people) ($${snack.price * 2})`}
                             name="size"
                             type='radio'
                             id='2'

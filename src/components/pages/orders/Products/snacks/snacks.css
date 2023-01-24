@@ -1,6 +1,7 @@
 .snack-card:hover {
     border-color: var(--blue-gray)!important;
     color: var(--blue-gray);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
 
 .snacks-title {
@@ -8,24 +9,28 @@
 }
 
 .size-container {
-    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
     font-size: smaller;
-    height: 5rem;
+    /* width: 100%; */
 }
 
 .icon-btn {
     width: 50px;
     height: 50px;
     border: 1px solid #cdcdcd;
-    background: white;
+    background: rgb(220, 202, 147);
     border-radius: 25px;
     overflow: hidden;
     position: relative;
     transition: width 0.2s ease-in-out;
     font-weight: 500;
     font-family: inherit;
+}
+
+.icon-btn:hover {
+    background-color: var(--blue-gray);
+    transition: .2s;
 }
 
 .add-btn:hover {
@@ -40,7 +45,7 @@
     height: 4px;
     width: 10px;
     top: calc(50% - 2px);
-    background: seagreen;
+    background: black;
 }
 
 .add-btn::after {
@@ -84,7 +89,7 @@
     height: 20px;
     width: 2px;
     top: calc(50% - 10px);
-    background: seagreen;
+    background: black;
     overflow: hidden;
 }
 
@@ -117,4 +122,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-top: 4px dotted rgb(202, 195, 97)!important;
 }

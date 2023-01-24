@@ -31,7 +31,7 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
                         snacks?.length ? (
                             snacks?.map((snack) => {
                                 return (
-                                    <Col className='h-100 w-100'>
+                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-3'>
                                         <SnacksCard
                                             key={snack._id}
                                             snack={snack}

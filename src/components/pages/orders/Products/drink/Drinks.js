@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import './drinks.css'
 import DrinksCard from './DrinksCard';
+import { Row, Col } from 'react-bootstrap'
+
 
 const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [drinks, setDrinks] = useState();
@@ -24,27 +26,31 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
 
     return (
         <div>
-            <h4 className='tittleSection'>{category}s</h4>
+            <h4 className='titleSection drinks-title'>{category}s</h4>
             <div className='cards_container'>
-                {
-                    drinks?.length ? (
-                        drinks?.map((drink) => {
-                            return (
-                                <DrinksCard
-                                    key={drink._id}
-                                    drink={drink}
-                                    defaultItem={defaultItem}
-                                    item2={item2}
-                                    setError={setError}
-                                    setMessageToShow={setMessageToShow}
-                                    setMessageModalShow={setMessageModalShow}
-                                />
-                            ) /* else return <></> */
-                        })
-                    ) : (
-                        <Spinner className='spinnerLoading' animation="border" variant="success" />
-                    )
-                }
+                <Row className='p-3'>
+                    {
+                        drinks?.length ? (
+                            drinks?.map((drink) => {
+                                return (
+                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-4'>
+                                        <DrinksCard
+                                            key={drink._id}
+                                            drink={drink}
+                                            defaultItem={defaultItem}
+                                            item2={item2}
+                                            setError={setError}
+                                            setMessageToShow={setMessageToShow}
+                                            setMessageModalShow={setMessageModalShow}
+                                        />
+                                    </Col>
+                                ) 
+                            })
+                        ) : (
+                            <Spinner className='spinnerLoading' animation="border" variant="success" />
+                        )
+                    }
+                </Row>
             </div>
         </div>
     )
