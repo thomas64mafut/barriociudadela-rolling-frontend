@@ -53,20 +53,23 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
     }
     return (
         <Card className='snack-card'>
-            <Card.Img variant="top" src={snack.image} />
+            <div className='card-image-container' style={{
+                backgroundImage: `url(${snack.image})`
+            }}
+            ></div>
             <Card.Header>
                 <Card.Title >
-                    <b className='title'>
-                        {snack.name}
-                    </b>
+                    <h5 className='product-card-title'>
+                        {snack.name.toString().toLowerCase()}
+                    </h5>
                 </Card.Title>
-                <div className='price'>
-                    price:${snack.price}
-                </div>
+                <b className='product-price'>
+                    ${snack.price}
+                </b>
             </Card.Header>
             <Card.Body>
                 <div className="size-container">
-                    <div>Size: </div>
+                    <span>Size: </span>
                     <Form onSubmit={addToCart}>
                         <Form.Check
                             inline
@@ -92,7 +95,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                     </Form>
                 </div>
             </Card.Body>
-            <Card.Footer className='text-center'>
+            <Card.Footer className='text-center button-footer'>
                 <button className='icon-btn add-btn' type='submit'>
                     <div className="add-icon"></div>
                     <div className="btn-txt">Add to Cart</div>
