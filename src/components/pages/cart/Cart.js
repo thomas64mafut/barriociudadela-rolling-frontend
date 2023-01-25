@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import {Button, Spinner, Table} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import BuyModal from './cart modal/BuyModal';
 
 const Cart = () => {
     let navigate = useNavigate();
     const [cart, setCart] = useState({})
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
+    const [buyModalShow, setBuyModalShow] = useState(false)
     let idkey=0
     
     useEffect(() => {
@@ -19,7 +21,7 @@ const Cart = () => {
             const token = localStorage.getItem('jwt');
             let totalPrice = 0;
             const { data } = await axios('http://localhost:4000/api/cart', { headers: { Authorization: token } });
-            console.log(data);
+            console.log(data.ownCart._id)
             setCart(data.ownCart)
             for (const product of data?.ownCart?.products) {
                 totalPrice = totalPrice+(product?.price*product?.quantity)
@@ -29,20 +31,30 @@ const Cart = () => {
             console.log(error)
         }
     }
+    
+    const handleDeleteCart = async() => {
+        try {
+            const {data} = await axios.patch('http://localhost:4000/api/cart/'+cart._id)
+            navigate('/orders')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     return (
         <div>
             <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Product Name</th>
-          <th>Preferences</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-      {
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Preferences</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {
                     cart?.products?.length ? (
                         cart?.products?.map((product) => {
                             idkey= idkey+1;
@@ -73,10 +85,25 @@ const Cart = () => {
             </tbody>
         </Table>
         <div>
-            <Button variant='secondary' onClick={() => navigate('/menus')}>Back to menu</Button>
+            {
+                cart._id? (
+                    <div>
+                        <Button variant='secondary' onClick={() => navigate('/orders')}>Back to menu</Button>
+                        <Button variant='secondary' onClick={handleDeleteCart}>Delete Cart</Button>
+                        <Button variant='secondary' onClick={()=>setBuyModalShow(true)}>Buy now</Button>
+                    </div>
+                ) : (
+                    <Button variant='secondary' onClick={() => navigate('/menus')}>Back to menu</Button>
+                )
+                
+            }
         </div>
+        <BuyModal
+            show={buyModalShow}
+            setShow={setBuyModalShow}
+            cart={cart}
+        />
         </div>
-
     )
 }
 
