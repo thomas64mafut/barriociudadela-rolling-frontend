@@ -40,7 +40,11 @@
     background-color: var(--dutch-white) !important;
 }
 
-.modal-content .accordion-item {
+.remove-ingredients {
+    border-bottom: 0 !important;
+}
+
+.modal-content .accordion-item{
     border-block: 2px solid rgb(220, 202, 147);
 }
 

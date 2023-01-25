@@ -106,7 +106,7 @@ const ProductModal = ({
             <Modal.Body className='p-0'>
                 <Form onSubmit={addToCart}>
                     <Accordion className='w-100 pt-3'>
-                        <Accordion.Item eventKey="0">
+                        <Accordion.Item eventKey="0" className='remove-ingredients'>
                             <Accordion.Header>remove ingredients</Accordion.Header>
                             <Accordion.Body>
                                 <div>
@@ -166,7 +166,7 @@ const ProductModal = ({
                                 </div>
                             </Col>
                             <Col sm={6} className='m-0'>
-                                <div className='size-container'>
+                                <div >
                                     <div className='my-2 w-100'>
                                         Size:
                                     </div>
