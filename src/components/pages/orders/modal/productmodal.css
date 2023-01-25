@@ -10,3 +10,52 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.preferences-container {
+    font-size: 18px;
+    border-block: 4px dotted rgb(202, 195, 97) !important;
+}
+
+.modal-content {
+    background-color: var(--dutch-white) !important;
+    border: 4px solid var(--fire-opal) !important;
+    font-family: 'VictorMono';
+}
+
+.modal-header {
+    border-bottom: 4px dotted rgb(202, 195, 97) !important;
+    font-family: 'Blogh';
+}
+
+.modal-footer {
+    border-top: 4px dotted rgb(202, 195, 97) !important;
+}
+
+.modal-btn:hover {
+    background-color: var(--fire-opal) !important;
+}
+
+.modal-content .accordion-item,
+.modal-content .accordion-button {
+    background-color: var(--dutch-white) !important;
+}
+
+.modal-content .accordion-item {
+    border-block: 2px solid rgb(220, 202, 147);
+}
+
+.modal-content .accordion-button {
+    font-family: 'Leonardo-Rounded';
+}
+
+.modal-content .accordion-button:not(.collapsed) {
+    color: var(--fire-opal)!important;
+}
+
+.modal-content h5 {
+    font-family: 'Leonardo-Rounded';
+}
+
+.total-price {
+    font-family: 'Leonardo-Rounded';
+}

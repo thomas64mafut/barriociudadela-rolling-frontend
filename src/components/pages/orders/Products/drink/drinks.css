@@ -11,7 +11,7 @@
 }
 
 .drinks-icon-btn:hover {
-    background-color: var(--gold-metalic);
+    background-color: var(--gold-metalic)!important;
     transition: .2s;
 }
 

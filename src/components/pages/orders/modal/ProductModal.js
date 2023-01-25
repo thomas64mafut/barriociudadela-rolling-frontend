@@ -99,15 +99,15 @@ const ProductModal = ({
     }
 
     return (
-        <Modal size="lg" show={show} onHide={resetModal}>
+        <Modal show={show} onHide={resetModal}>
             <Modal.Header closeButton>
                 <Modal.Title>{product.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='p-0'>
                 <Form onSubmit={addToCart}>
-                    <Accordion className='w-100'>
+                    <Accordion className='w-100 pt-3'>
                         <Accordion.Item eventKey="0">
-                            <Accordion.Header>Remove ingredients</Accordion.Header>
+                            <Accordion.Header>remove ingredients</Accordion.Header>
                             <Accordion.Body>
                                 <div>
                                     {
@@ -127,7 +127,7 @@ const ProductModal = ({
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
-                            <Accordion.Header>Add toppings</Accordion.Header>
+                            <Accordion.Header>add toppings</Accordion.Header>
                             <Accordion.Body>
                                 <div>
                                     {
@@ -148,15 +148,28 @@ const ProductModal = ({
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    <div className="mb-3 p-3 d-flex flex-column justify-content-lg-around">
-                        <h5>preferences</h5>
-                        <textarea className='textArea' name='preferences' id="mitextarea" rows="10" cols="50"></textarea>
-                        <Row>
-                            <Col>
+                    <div className="p-3 d-flex flex-column">
+                        <Row className='preferences-container py-2'>
+                            <h5>preferences</h5>
+                            <Col sm={6} className='m-0'>
+                                <div>
+                                    <div className='my-2 w-100'>
+                                        Order details:
+                                    </div>
+                                    <textarea
+                                        className='textArea'
+                                        name='preferences'
+                                        id="mitextarea"
+                                        rows="10"
+                                        cols="50"
+                                    ></textarea>
+                                </div>
+                            </Col>
+                            <Col sm={6} className='m-0'>
                                 <div className='size-container'>
-                                    <span>
+                                    <div className='my-2 w-100'>
                                         Size:
-                                    </span>
+                                    </div>
                                     <Form.Check
                                         inline
                                         label={`medium (${defaultItem})`}
@@ -168,7 +181,7 @@ const ProductModal = ({
                                     />
                                     <Form.Check
                                         inline
-                                        label={`large(${item2})`}
+                                        label={`large (${item2})`}
                                         name="size"
                                         type='radio'
                                         id='2'
@@ -176,21 +189,25 @@ const ProductModal = ({
                                     />
                                 </div>
                             </Col>
-                            <Col>
-                                <div className='button_container d-flex flex-column justify-content-center align-content-center'>
+                        </Row>
+                        <div className='button_container w-100'>
+                            <Row className='w-100 mt-2'>
+                                <Col sm={6} className='text-center my-2 p-0'>
                                     <Counter
                                         count={count}
                                         setCount={setCount}
                                     />
-                                    <span>$ {(product.price + addition) * count}</span>
-                                </div>
-                            </Col>
-                        </Row>
+                                </Col>
+                                <Col sm={6} className='text-center my-2 p-0'>
+                                    <span className='total-price'>total: ${(product.price + addition) * count}</span>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer className='d-flex justify-content-center'>
-                <button className='icon-btn add-btn' type="submit">
+                <button className='icon-btn add-btn modal-btn' type="submit">
                     <div className="add-icon"></div>
                     <div className="btn-txt">Add to Cart</div>
                 </button>
