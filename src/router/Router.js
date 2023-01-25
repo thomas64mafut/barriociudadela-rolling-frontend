@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from '../components/layout/Layout'
 import Home from '../components/pages/home/Home'
 import Login from '../components/pages/login/Login'
-import Orders from '../components/pages/orders/Orders'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
 import Cart from '../components/pages/cart/Cart'
+import Menus from '../components/pages/menus/Menus';
 
 
 /*const ROLES = {
@@ -28,7 +28,7 @@ const Router = (props) => {
           <Route path='unauthorized' element={<Unauthorized />} />
 
           <Route element={<RequireAuth { ...props} />}>
-            <Route path='/orders' element={<Orders />} />
+            <Route path='/menus' element={<Menus />} />
           </Route>
           <Route element={<RequireAuth { ...props } />}>
             <Route path='/admin' element={<Admin />} />

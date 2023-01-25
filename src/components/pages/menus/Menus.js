@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import './orders.css'
+import './menus.css'
 import Burgers from './Products/Burgers';
 import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
@@ -9,7 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cart from '../../../assets/icons/dark/Cart';
 
-const Orders = () => {
+const Menus = () => {
     let navigate = useNavigate();
     const [error, setError] = useState('')
     const [messageModalShow, setMessageModalShow] = useState(false)
@@ -109,4 +108,4 @@ const Orders = () => {
     )
 }
 
-export default Orders
+export default Menus 

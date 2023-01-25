@@ -73,7 +73,7 @@ const Cart = () => {
             </tbody>
         </Table>
         <div>
-            <Button variant='secondary' onClick={() => navigate('/orders')}>Back to menu</Button>
+            <Button variant='secondary' onClick={() => navigate('/menus')}>Back to menu</Button>
         </div>
         </div>
 
