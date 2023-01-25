@@ -1,0 +1,20 @@
+.addCartButton{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+
+.drink-card:hover {
+    border-color: var(--gold-metalic)!important;
+    color: rgb(193, 147, 31);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.drinks-icon-btn:hover {
+    background-color: var(--gold-metalic)!important;
+    transition: .2s;
+}
+
+.drinks-title {
+    color: var(--gold-metalic)!important;
+}

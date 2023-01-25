@@ -93,12 +93,10 @@ const Cart = () => {
                         <Button variant='secondary' onClick={()=>setBuyModalShow(true)}>Buy now</Button>
                     </div>
                 ) : (
-                    <Button variant='secondary' onClick={() => navigate('/orders')}>Back to menu</Button>
+                    <Button variant='secondary' onClick={() => navigate('/menus')}>Back to menu</Button>
                 )
                 
             }
-
-            
         </div>
         <BuyModal
             show={buyModalShow}
