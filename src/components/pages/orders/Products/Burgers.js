@@ -62,7 +62,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                     products.length ? (
                         products?.map((product) => {
                             return (
-                                <Col>
+                                <Col className='mb-5'>
                                     <Card className='h-100 w-100 card burger-card'>
                                         <div className='card-image-container' style={{ 
                                             backgroundImage: `url(${product.image})`

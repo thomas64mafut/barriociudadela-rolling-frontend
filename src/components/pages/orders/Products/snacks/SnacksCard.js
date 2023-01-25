@@ -17,7 +17,8 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
 
     const postCart = async () => {
         try {
-            const { data } = await axios.post('http://localhost:4000/api/cart', cart)
+            const token = localStorage.getItem('jwt');
+            const { data } = await axios.post('http://localhost:4000/api/cart', cart, { headers: { Authorization: token }});
             setMessageToShow(data.message)
             setMessageModalShow(true)
         } catch (error) {
@@ -67,10 +68,10 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                     ${snack.price}
                 </b>
             </Card.Header>
-            <Card.Body>
-                <div className="size-container">
-                    <span>Size: </span>
-                    <Form onSubmit={addToCart}>
+            <Card.Body className='p-0'>
+                <Form onSubmit={addToCart}>
+                    <div className="size-container">
+                        <span>Size: </span>
                         <Form.Check
                             inline
                             label={`medium (2 people) ($${snack.price})`}
@@ -92,15 +93,15 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                                 setCount={setCount}
                             />
                         </div>
-                    </Form>
-                </div>
+                    </div>
+                    <div className='text-center button-footer'>
+                        <button className='icon-btn add-btn' type='submit'>
+                            <div className="add-icon"></div>
+                            <div className="btn-txt">Add to Cart</div>
+                        </button>
+                    </div>
+                </Form>
             </Card.Body>
-            <Card.Footer className='text-center button-footer'>
-                <button className='icon-btn add-btn' type='submit'>
-                    <div className="add-icon"></div>
-                    <div className="btn-txt">Add to Cart</div>
-                </button>
-            </Card.Footer>
         </Card>
     )
 }

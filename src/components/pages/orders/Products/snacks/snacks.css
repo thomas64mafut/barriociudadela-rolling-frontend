@@ -11,6 +11,7 @@
 .size-container {
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     /* width: 100%; */
 }
 
@@ -33,7 +34,7 @@
 }
 
 .add-btn:hover {
-    width: 100%;
+    width: 90%;
 }
 
 .add-btn::before,

@@ -204,15 +204,15 @@ const ProductModal = ({
                             </Row>
                         </div>
                     </div>
+                    <div className='modal-footer d-flex justify-content-center'>
+                        <button className='icon-btn add-btn modal-btn' type="submit">
+                            <div className="add-icon"></div>
+                            <div className="btn-txt">Add to Cart</div>
+                        </button>
+                    </div>
                 </Form>
             </Modal.Body>
-            <Modal.Footer className='d-flex justify-content-center'>
-                <button className='icon-btn add-btn modal-btn' type="submit">
-                    <div className="add-icon"></div>
-                    <div className="btn-txt">Add to Cart</div>
-                </button>
-            </Modal.Footer>
-        </Modal>
+        </Modal >
     )
 }
 
