@@ -18,7 +18,7 @@ const Users = () => {
     const handleGetUsers = async () => {
         try {
             const token = localStorage.getItem('jwt');
-            const { data } = await axios.get('http://localhost:4000/api/user/', { headers: { Authorization: token }});
+            const { data } = await axios.get('http://localhost:4000/api/user/', { headers: { Authorization: token } });
             console.log(data);
             setUsersToShow(data?.users);
         } catch (error) {
@@ -76,58 +76,60 @@ const Users = () => {
                 ) : (
                     ""
                 )}
-                <Table className="table-container" size="sm">
-                    <thead>
-                        <tr>
-                            <th>role</th>
-                            <th>username</th>
-                            <th>email</th>
-                            <th>member since</th>
-                            <th>options</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {usersToShow?.map((user) => (
+                <div className="overflow-table-container">
+                    <Table className="table-container" size="sm">
+                        <thead>
                             <tr>
-                                <td>
-                                    <Dropdown className="m-2">
-                                        <Dropdown.Toggle variant='danger' className="btn-dropdown">
-                                            {user.role?.name}
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {
-                                                rolesToShow ?
-                                                    rolesToShow.map((role) => (
-                                                        <Dropdown.Item
-                                                            onClick={() => editRole(user?._id, role?._id)}
-                                                        >
-                                                            {role?.name}
-                                                        </Dropdown.Item>
-                                                    ))
-                                                    :
-                                                    ''
-                                            }
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </td>
-                                <td>{user.username}</td>
-                                <td>{user.email}</td>
-                                <td>{dateFormatter(user.createdAt)}</td>
-                                <td>
-                                    <Button
-                                        onClick={() =>
-                                            handleDeleteUser(user._id)
-                                        }
-                                        variant='danger'
-                                        className="btn-User"
-                                    >
-                                        <UserX />
-                                    </Button>
-                                </td>
+                                <th>role</th>
+                                <th>username</th>
+                                <th>email</th>
+                                <th>member since</th>
+                                <th>options</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {usersToShow?.map((user) => (
+                                <tr>
+                                    <td>
+                                        <Dropdown className="m-2">
+                                            <Dropdown.Toggle variant='danger' className="btn-dropdown">
+                                                {user.role?.name}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {
+                                                    rolesToShow ?
+                                                        rolesToShow.map((role) => (
+                                                            <Dropdown.Item
+                                                                onClick={() => editRole(user?._id, role?._id)}
+                                                            >
+                                                                {role?.name}
+                                                            </Dropdown.Item>
+                                                        ))
+                                                        :
+                                                        ''
+                                                }
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </td>
+                                    <td>{user.username}</td>
+                                    <td>{user.email}</td>
+                                    <td>{dateFormatter(user.createdAt)}</td>
+                                    <td>
+                                        <Button
+                                            onClick={() =>
+                                                handleDeleteUser(user._id)
+                                            }
+                                            variant='danger'
+                                            className="btn-User"
+                                        >
+                                            <UserX />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
             </div>
         </>
     )

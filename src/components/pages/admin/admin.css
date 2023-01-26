@@ -33,6 +33,10 @@ button {
     overflow: auto;
 }
 
+.overflow-table-container {
+    overflow-x: auto;
+}
+
 .table-container td,
 .table-container th {
     text-align: center;
