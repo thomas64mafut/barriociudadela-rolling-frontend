@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import './drinks.css'
@@ -16,7 +16,7 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
 
     const handleGetdrinks = async () => {
         try {
-            const { data } = await axios('http://localhost:4000/api/product/drink')
+            const { data } = await axios('/product/drink')
             const drinksFiltered = data.Drinks?.filter((drink) => drink.category === category)
             setDrinks(drinksFiltered)
         } catch (error) {

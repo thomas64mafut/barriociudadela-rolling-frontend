@@ -2,8 +2,6 @@ import axios from '../../api/axios';
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const AUTHSTATUS_URL = '/api/user/status';
-
 const RequireAuth = ({ authProvider }) => {
     const location = useLocation();
     const { auth, setAuth } = authProvider;
@@ -23,13 +21,11 @@ const RequireAuth = ({ authProvider }) => {
 
     const getAuthStatus = async () => {
         try {
-            const token = localStorage.getItem('jwt');
-            const { data } = await axios.get(AUTHSTATUS_URL, { headers: { Authorization: token } });
+            const { data } = await axios.get('/user/status');
             if (!data?.isLogged) setLoggedStatus({ isLogged: false });
             else setLoggedStatus({ isLogged: true, role: data.role }); 
         } catch (error) {
             alert(error.response?.data?.message); 
-            //customizar mensaje para en caso de que no haya token o token expirado
             setIsLoading(false)
         }
     }

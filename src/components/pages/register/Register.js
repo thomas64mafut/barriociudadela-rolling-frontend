@@ -11,7 +11,6 @@ import Info from '../../../assets/icons/light/Info';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,16}$/;
-const REGISTER_URL = '/api/user/register';
 
 const Register = () => {
     const userRef = useRef();
@@ -68,7 +67,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post(REGISTER_URL, { username, email, password });
+            const response = await axios.post('/user/register', { username, email, password });
 
             setSuccess(true);
             setUsername('');

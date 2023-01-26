@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap'
 import Counter from '../../../counter/Counter';
@@ -30,8 +30,7 @@ const ProductModal = ({
 
     const postCart = async () => {
         try {
-            const token = localStorage.getItem('jwt');
-            const { data } = await axios.post('http://localhost:4000/api/cart', cart, { headers: { Authorization: token } });
+            const { data } = await axios.post('/cart', cart);
             setMessageToShow(data.message)
         } catch (error) {
             setError(error.response.data.message)
