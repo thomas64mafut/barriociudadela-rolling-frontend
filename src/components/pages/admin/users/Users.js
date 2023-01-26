@@ -72,6 +72,7 @@ const Users = () => {
                 ) : (
                     ""
                 )}
+                <div className="overflow-table-container">
                     <Table className="table-container" size="sm">
                         <thead>
                             <tr>
@@ -124,6 +125,7 @@ const Users = () => {
                             ))}
                         </tbody>
                     </Table>
+                </div>
             </div>
         </>
     )
