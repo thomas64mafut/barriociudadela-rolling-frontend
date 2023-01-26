@@ -48,6 +48,19 @@
   border-radius: 10% !important;
 }
 
+@media (max-width: 767.5px){
+  .img-burguer{
+    margin-top: 2rem !important;
+  }
+  .texto-home{
+    padding-left: 4.5rem ;
+    padding-right: 4.5rem ;
+  }
+  .owners-photo{
+    height: 28rem !important;
+  }
+}
+
 .img-burguer:hover{
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
