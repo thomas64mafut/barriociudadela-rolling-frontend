@@ -4,8 +4,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 
-const LOGIN_URL = '/api/user/login';
-
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,7 +27,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(LOGIN_URL, { email, password });
+            const response = await axios.post('/user/login', { email, password });
             localStorage.setItem('jwt', response?.data?.token);
             setEmail('');
             setPassword('');
@@ -78,7 +76,7 @@ const Login = () => {
                                     required
                                 />
                             </Form.Group>
-                            <button className='btn-custom my-4'>
+                            <button className='btn-custom my-4' type='submit'>
                                 <span className='btn-custom_top'> sign in
                                 </span>
                             </button>

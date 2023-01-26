@@ -20,7 +20,6 @@ const Products = () => {
     const handleGetProoducts = async () => {
         try {
             const { data } = await axios.get('http://localhost:4000/api/product/');
-            console.log(data);
             setProductsToShow(data?.products);
         } catch (error) {
             setErrorMessage(error.response.data.message);
