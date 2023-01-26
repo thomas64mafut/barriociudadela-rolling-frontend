@@ -1,5 +1,5 @@
 import './drinks.css'
-import axios from 'axios';
+import axios from '../../../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap'
 
@@ -18,8 +18,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
 
     const postCart = async () => {
         try {
-            const token = localStorage.getItem('jwt');
-            const { data } = await axios.post('http://localhost:4000/api/cart', cart, { headers: { Authorization: token } });
+            const { data } = await axios.post('/cart', cart);
             setMessageToShow(data.message)
             setMessageModalShow(true)
         } catch (error) {

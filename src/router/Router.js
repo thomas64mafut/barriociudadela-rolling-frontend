@@ -11,12 +11,6 @@ import Missing from '../components/pages/Missing'
 import Cart from '../components/pages/cart/Cart'
 import Menus from '../components/pages/menus/Menus';
 
-
-/*const ROLES = {
-  'User': '63b750d9df706678b4bf105c',
-  'Admin': '63b36e00cf1222d30f57dcff',
-};*/
-
 const Router = (props) => {
   return (
     <BrowserRouter >

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap'
 import ProductModal from '../modal/ProductModal';
@@ -22,7 +22,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
 
     const handleGetProducts = async () => {
         try {
-            const { data } = await axios('http://localhost:4000/api/product/burger');
+            const { data } = await axios('/product/burger');
             const productFiltered = data.burgers?.filter((product) => product.category === category)
             setProducts(productFiltered);
             setErrorBurgers('');
@@ -33,7 +33,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
 
     const handleGetIngredients = async () => {
         try {
-            const { data } = await axios('http://localhost:4000/api/ingredient');
+            const { data } = await axios('/ingredient');
             setIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')

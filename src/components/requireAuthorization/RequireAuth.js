@@ -2,8 +2,6 @@ import axios from '../../api/axios';
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// const AUTHSTATUS_URL = '/api/user/status';
-
 const RequireAuth = ({ authProvider }) => {
     const location = useLocation();
     const { auth, setAuth } = authProvider;
