@@ -9,11 +9,15 @@ const Users = () => {
     const [usersToShow, setUsersToShow] = useState([]);
     const [rolesToShow, setRolesToShow] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        handleGetUsers();
-        getRoles();
-    }, []);
+        if (isLoading) {
+            handleGetUsers();
+            getRoles();
+            setIsLoading(false);
+        }
+    }, [isLoading]);
 
     const handleGetUsers = async () => {
         try {
@@ -30,6 +34,7 @@ const Users = () => {
             const { data } = await axios.patch(`/user/delete/${id}`);
             console.log(data);
             handleGetUsers();
+            setIsLoading(true);
         } catch (error) {
             console.log("mori");
         }
@@ -52,7 +57,7 @@ const Users = () => {
     const editRole = async (id, roleId) => {
         try {
             const { data } = await axios.patch(`/user/${id}`, { role: roleId });
-            console.log(data);
+            setIsLoading(true);
         } catch (error) {
             console.log('mori');
         }
@@ -63,9 +68,6 @@ const Users = () => {
             <div className="abm-container">
                 <div className="table-header">
                     <h1>User Control Panel</h1>
-                    <Button onClick={handleGetUsers} variant='success'>
-                        <UserPlus />
-                    </Button>
                 </div>
                 {errorMessage ? (
                     <Alert variant="danger">{errorMessage}</Alert>
@@ -87,7 +89,7 @@ const Users = () => {
                             {usersToShow?.map((user) => (
                                 <tr>
                                     <td>
-                                        <Dropdown className="m-2">
+                                        <Dropdown className="m-1">
                                             <Dropdown.Toggle variant='danger' className="btn-dropdown">
                                                 {user.role?.name}
                                             </Dropdown.Toggle>

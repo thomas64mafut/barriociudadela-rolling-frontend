@@ -1,23 +1,19 @@
 .product-image-container {
     display: flex;
     flex-direction: column;
-    width: 8rem;
+    width: 12rem;
     justify-content: center;
     align-items: center;
     border: 2px solid var(--fire-opal);
 }
 
 .product-image {
-    width: 5rem;
+    width: 9rem;
 }
 
-.product-image-button {
-    height: 2rem;
-    width: 75%;
+.product-size-container {
+    border: 2px solid var(--fire-opal);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
-
-.product-image-button span {
-    font-size: 15px;
 }

@@ -6,11 +6,15 @@ import axios from 'axios';
 import { Table, Button, Alert, Accordion } from "react-bootstrap";
 
 import UserPlus from '../../../../assets/icons/light/UserPlus';
-import AccordionItem from 'react-bootstrap/esm/AccordionItem';
+import EditProductModal from './modal/EditProductModal';
+import Edit from '../../../../assets/icons/light/Edit';
 
 const Products = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
+
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [productToEdit, setProductToEdit] = useState({});
 
     useEffect(() => {
         handleGetProoducts();
@@ -26,6 +30,11 @@ const Products = () => {
             setProductsToShow([]);
         }
     };
+
+    const handleOpenEditModal = (product) => {
+        setProductToEdit(product);
+        setEditModalShow(true);
+    }
 
     return (
         <>
@@ -47,26 +56,29 @@ const Products = () => {
                             <Accordion.Item eventKey={index}>
                                 <Accordion.Header>
                                     {product?.name}
+                                    <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <Table className='table-container' size='sm'>
-                                        <thead>
-                                            <tr>
-                                                <th className='col-3'>category</th>
-                                                <th className='col-3'>name</th>
-                                                <th className='col-3'>brand</th>
-                                                <th className='col-3'>price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{product?.category}</td>
-                                                <td>{product?.name}</td>
-                                                <td>{product?.brand}</td>
-                                                <td>{product?.price}</td>
-                                            </tr>
-                                        </tbody>
-                                    </Table>
+                                    <div className='overflow-table-container'>
+                                        <Table className='table-container' size='sm'>
+                                            <thead>
+                                                <tr>
+                                                    <th className='col-3'>category</th>
+                                                    <th className='col-3'>name</th>
+                                                    <th className='col-3'>brand</th>
+                                                    <th className='col-3'>price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{product?.category}</td>
+                                                    <td>{product?.name}</td>
+                                                    <td>{product?.brand}</td>
+                                                    <td>{product?.price}</td>
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                    </div>
                                     {
                                         product?.ingredients &&
                                         <Accordion>
@@ -86,13 +98,19 @@ const Products = () => {
                                             </Accordion.Item>
                                         </Accordion>
                                     }
-                                    <div className='product-image-container p-3 my-3'>
-                                        <img src={product?.image} alt={'image of' + product?.name} className='product-image' />
-                                        <Button className='product-image-button d-flex mt-3'>
-                                            <span>
-                                                Change Image
-                                            </span>
-                                        </Button>
+                                    <div className='w-100 d-flex justify-content-evenly'>
+                                        <div className='product-image-container p-3 my-3'>
+                                            <span className='mb-2'>Image: </span>
+                                            <img src={product?.image} alt={'image of' + product?.name} className='product-image' />
+                                        </div>
+                                        <div className='product-size-container p-3 my-3'>
+                                            <span>Sizes available: </span>
+                                            <ul>
+                                                <li>m</li>
+                                                <li>l</li>
+                                                <li>xl</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -100,6 +118,11 @@ const Products = () => {
                     }
                 </Accordion>
             </div>
+            <EditProductModal
+                show={editModalShow}
+                setShow={setEditModalShow}
+                product={productToEdit}
+            />
         </>
     )
 }
