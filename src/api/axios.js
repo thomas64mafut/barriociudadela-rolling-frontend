@@ -11,14 +11,14 @@ clientAxios.interceptors.response.use((response) => {
     return response;
 }, (error) => {
     if (error.response.status === 401) {
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = '/login'
     }
     return Promise.reject(error);
 })
 
 clientAxios.interceptors.request.use((config) => {
-    const token = localStorage.getItem('jwt');
+    const token = sessionStorage.getItem('jwt');
     config.headers.Authorization = token ?? '';
     return config;
 })
