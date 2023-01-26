@@ -28,7 +28,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post('/user/login', { email, password });
-            localStorage.setItem('jwt', response?.data?.token);
+            sessionStorage.setItem('jwt', response?.data?.token);
             setEmail('');
             setPassword('');
             navigate(from, { replace: true });
