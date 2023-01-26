@@ -1,5 +1,5 @@
 .logoa{
-  height: 4rem;
+  height: calc(4rem - 12px);
   position: absolute;
   margin-left: -3rem;
   top: 0;
@@ -8,7 +8,7 @@
 }
 
 .navContainer{
-  height: 4rem;
+  height: calc(4rem - 12px);
   z-index: 6;
   background-color: rgba(238, 238, 238, 0.94) !important;
   position: fixed !important;
@@ -17,6 +17,7 @@
 } 
 
 .primerNav{
+  overflow-y: hidden;
   display: flex;
   margin-left: -1rem;
 }
