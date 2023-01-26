@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import {Button, Spinner, Table} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -18,9 +18,8 @@ const Cart = () => {
     
     const handleGetCart =  async () => {
         try {
-            const token = localStorage.getItem('jwt');
             let totalPrice = 0;
-            const { data } = await axios('http://localhost:4000/api/cart', { headers: { Authorization: token } });
+            const { data } = await axios('/cart');
             console.log(data.ownCart._id)
             setCart(data.ownCart)
             for (const product of data?.ownCart?.products) {
@@ -34,8 +33,8 @@ const Cart = () => {
     
     const handleDeleteCart = async() => {
         try {
-            const {data} = await axios.patch('http://localhost:4000/api/cart/'+cart._id)
-            navigate('/orders')
+            const { data } = await axios.patch('/cart/'+cart._id)
+            navigate('/menus')
         } catch (error) {
             console.log(error)
         }

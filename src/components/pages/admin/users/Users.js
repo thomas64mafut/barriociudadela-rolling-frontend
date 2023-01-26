@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import "../admin.css";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Alert, Dropdown } from "react-bootstrap";
-import axios from "axios";
+import axios from "../../../../api/axios";
 import UserPlus from '../../../../assets/icons/light/UserPlus';
 import UserX from '../../../../assets/icons/light/UserX';
 
@@ -17,9 +17,7 @@ const Users = () => {
 
     const handleGetUsers = async () => {
         try {
-            const token = localStorage.getItem('jwt');
-            const { data } = await axios.get('http://localhost:4000/api/user/', { headers: { Authorization: token } });
-            console.log(data);
+            const { data } = await axios.get('/user/all');
             setUsersToShow(data?.users);
         } catch (error) {
             setErrorMessage(error.response.data.message);
@@ -29,9 +27,7 @@ const Users = () => {
 
     const handleDeleteUser = async (id) => {
         try {
-            const { data } = await axios.patch(
-                `http://localhost:4000/api/user/delete/${id}`
-            );
+            const { data } = await axios.patch(`/user/delete/${id}`);
             console.log(data);
             handleGetUsers();
         } catch (error) {
@@ -46,7 +42,7 @@ const Users = () => {
 
     const getRoles = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/role');
+            const { data } = await axios.get('/role');
             setRolesToShow(data.roles);
         } catch (error) {
             console.log('mori');
@@ -55,7 +51,7 @@ const Users = () => {
 
     const editRole = async (id, roleId) => {
         try {
-            const { data } = await axios.patch(`http://localhost:4000/api/user/${id}`, { role: roleId });
+            const { data } = await axios.patch(`/user/${id}`, { role: roleId });
             console.log(data);
         } catch (error) {
             console.log('mori');

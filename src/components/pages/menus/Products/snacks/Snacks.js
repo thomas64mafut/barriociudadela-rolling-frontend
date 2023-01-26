@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../../../api/axios';
 import React, { useEffect, useState } from 'react'
 import { Spinner, Row, Col } from 'react-bootstrap'
 
@@ -15,7 +15,7 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
 
     const handleGetSnacks = async () => {
         try {
-            const { data } = await axios('http://localhost:4000/api/product/snack')
+            const { data } = await axios('/product/snack')
             setSnacks(data.Snacks)
         } catch (error) {
             setError('Snack not found')

@@ -2,7 +2,7 @@ import './snacks.css'
 import React, { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap';
 import Counter from '../../../../counter/Counter';
-import axios from 'axios';
+import axios from '../../../../../api/axios';
 
 const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
@@ -17,8 +17,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
 
     const postCart = async () => {
         try {
-            const token = localStorage.getItem('jwt');
-            const { data } = await axios.post('http://localhost:4000/api/cart', cart, { headers: { Authorization: token }});
+            const { data } = await axios.post('/cart', cart);
             setMessageToShow(data.message)
             setMessageModalShow(true)
         } catch (error) {

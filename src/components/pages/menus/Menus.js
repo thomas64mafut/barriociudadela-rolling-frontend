@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
 import './menus.css'
+import React, { useEffect, useState } from 'react'
+import axios from '../../../api/axios';
 import Burgers from './Products/Burgers';
 import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cart from '../../../assets/icons/dark/Cart';
 
@@ -33,9 +33,8 @@ const Menus = () => {
 
     const handleGetCart = async () => {
         try {
-            const token = localStorage.getItem('jwt');
+            const { data } = await axios('/cart');
             let totalPrice = 0;
-            const { data } = await axios('http://localhost:4000/api/cart', { headers: { Authorization: token } });
             console.log(data);
             for (const product of data?.ownCart?.products) {
                 totalPrice = totalPrice + (product?.price * product?.quantity)
