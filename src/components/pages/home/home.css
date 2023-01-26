@@ -1,6 +1,6 @@
 .homeContainer{
   min-height: calc(100vh - 15rem);
-  margin-top: 4rem;
+  width: 100%;
 }
 
 .welcomeContainer{
@@ -24,7 +24,6 @@
 }
 
 .homeBack{
-  min-height: auto;
   background-image: url(../../../assets/img/papelTexture.webp);
 }
 
@@ -34,9 +33,9 @@
   font-size: 20px;
 }
 
-h2{
+.barrioCiudadela{
   font-family: 'Blogh';
-  color: #5596CC;
+  color: var(--blue-gray);
 }
 
 .imgContainer{
@@ -58,3 +57,47 @@ h2{
   transition: 0.5s;
 }
 
+.owners-photo{
+  border: 1px solid var(--fire-opal);
+  height: 10rem;
+  max-width: 70vw;
+  border-radius: 5rem;
+  margin-bottom: 1rem;
+}
+
+.owners-title{
+  font-family: 'Blogh';
+  color: var(--gold-metalic);
+}
+
+.owners-name{
+  font-family: 'Blogh';
+  color: var(--fire-opal);
+}
+
+.radius-owner{
+  height: 9rem;
+  width: 9rem;
+  border-radius: 50%;
+}
+
+.picture-radius{
+  height: 9rem;
+  width: 9rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 583px){
+  .welcome{
+    font-size: 60px;
+  }
+  .texto-home{
+    padding-left:20px ;
+    padding-right:20px ;
+  }
+  .owners-photo{
+    height: 38rem;
+    max-width: 90vw;
+  }
+}
