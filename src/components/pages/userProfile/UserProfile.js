@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Alert, Button, Table } from "react-bootstrap";
+import { Alert, Table } from "react-bootstrap";
 import axios from '../../../api/axios';
 import "./userProfile.css";
-import "../admin/admin.css";
 
 const USER_URL = '/api/user';
 
@@ -16,11 +15,13 @@ const UserProfile = () => {
 
   const handleGetUser = async () => {
     try {
-      const { data } = await axios.get(USER_URL);
+      const token = localStorage.getItem('jwt');
+      const { data } = await axios.get(USER_URL, { headers: { Authorization: token } }) ;
       console.log(data);
-      setUserToShow(data?.user);
+      setUserToShow(data?.userFound);
+      setProfileImg(data?.userFound?.profilePicture)
     } catch (error) {
-      console.log(error.response.data.message);
+      setErrorMessage(error.response.data.message);
       setUserToShow([]);
     }
   };
@@ -29,8 +30,6 @@ const UserProfile = () => {
     const formattedDate = new Date(date);
     return formattedDate.toDateString();
   };
-    
-  //LOGICA DE FOTO DE PERFIL
 
   const [profileImg, setProfileImg] = useState('');
 
@@ -63,17 +62,14 @@ const UserProfile = () => {
       return;
     }
   };
-    
-  //
 
-
-  const handleEditUser = async (id) => {
+  const handleEditUser = async () => {
     try {
+      const token = localStorage.getItem('jwt');
       const { data } = await axios.patch(
-        `http://localhost:4000/api/user/${id}`
+        USER_URL, { profilePicture: profileImg } , { headers: { Authorization: token } } 
       );
       console.log(data);
-      handleGetUser();
     } catch (error) {
       console.log("mori");
     }
@@ -81,7 +77,7 @@ const UserProfile = () => {
 
 
   return (
-    <>
+    <div className='main-container row'>
       <div className="users-header">
         <h1>User's Profile</h1>
       </div>
@@ -91,18 +87,20 @@ const UserProfile = () => {
           ""
       )}
 
-      <div className='profile_container'>
-        <div className='flex-grow-1 w-100 d-flex justify-content-around align-items-center'>
-          <div className='Profile_imgContainer'>
-            <img src={profileImg} alt='' />
+      <div className="profile-container row">
+        <div className='col-lg-6'>
+          <div className='flex-grow-1 w-100 d-flex justify-content-around align-items-center'>
+            <div className='profile-imgContainer'>
+              <img src={profileImg} alt='' />
+            </div>
           </div>
-        </div>
-        <div className='button_container'>
-          <button className='btn-custom my-4'onClick={handleClick}>
-            <span className='btn-custom_top'>
-              Select Profile Picture
-            </span>
-          </button>
+          <div className='button-container'>
+            <button className='btn-custom my-3'onClick={handleClick}>
+              <span className='btn-custom_top'>
+                Select Profile Picture
+              </span>
+            </button>
+          </div>
         </div>
         
         <input
@@ -113,42 +111,48 @@ const UserProfile = () => {
           onClick={handleUploadImg}
         >
         </input>
-
-
-        <Table className="table-container">
-          <thead>
-            <tr>
-              <th>role</th>
-              <th>username</th>
-              <th>email</th>
-              <th>password</th>
-              <th>member since</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userToShow?.map((user) => (
+        
+        <div className='col-lg-6'>
+          <Table className="table-container">
+            <thead>
               <tr>
-                <td>{user.role?.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.password}</td>
-                <td>{user.createdAt}</td>
-                  <Button onClick={() => handleEditUser(user._id)}>
-                    Listo
-                  </Button>
+                <th></th>
+                <th>User's Info</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-        <div className='button_container'>
-          <button className='btn-custom my-4'onClick={handleEditUser}>
+            </thead>
+            <tbody>
+              <tr>
+                <td>role:</td>
+                <tr>{userToShow.role?.name}</tr>
+              </tr>
+              <tr>
+                <td>username:</td>
+                <td>{userToShow.username}</td>
+              </tr>
+              <tr>
+                <td>email:</td>
+                <td>{userToShow.email}</td>
+              </tr>
+              <tr>
+                <td>password:</td>
+                <td>{userToShow.password}</td>
+              </tr>
+              <tr>
+                <td>member since:</td>
+                <td>{dateFormatter(userToShow.createdAt)}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        <div className='button-container'>
+          <button className='btn-custom my-3'onClick={handleEditUser}>
             <span className='btn-custom_top'>
               Save Changes
             </span>
           </button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

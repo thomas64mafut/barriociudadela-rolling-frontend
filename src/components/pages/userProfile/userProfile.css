@@ -1,31 +1,58 @@
-.Profile_imgContainer {
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-image: url(../../../assets/img/papelTexture.webp);
+    width: 100vw;
+    height: calc(100vh - 4rem);
+}
+.users-header {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    margin-left: 2rem;
+    margin-bottom: 0;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile-imgContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.Profile_imgContainer {
+    background-color: white;
     border-radius: 50%;
     height: 10rem;
     width: 10rem;
-    background-color: rgb(159, 136, 233);
+    box-shadow: 10px 10px 20px -1px rgba(0,0,0,0.6);
+   
 }
 
-.Profile_imgContainer > img{
+.profile-imgContainer :hover {
+    transform: scale(1.1);
+    transition: 0.7s;
+}
+
+.profile-imgContainer > img{
+    border: 2px solid var(--fire-opal);
     border-radius: 50%;
     height: 10rem;
     width: 10rem;
+    transition: 0.7s;
 }
 
-.button_container {
+.button-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .btn-custom {
-    /* Variables */
     --button_radius: 0.75em;
     --button_color: #e8e8e8;
     --button_outline_color: #000000;
@@ -54,4 +81,23 @@
 
 .btn-custom:active .btn-custom_top {
     transform: translateY(0);
+}
+
+.table-container {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: auto;
+}
+
+.table-container td,
+.table-container th {
+    text-align: left;
+    border: 2px solid var(--fire-opal);
+    padding: 0.5rem;
+}
+
+.table-container th {
+    font-family: "Leonardo-Rounded";
+    font-weight: 100;
+    border-top: 5px solid var(--fire-opal);
 }

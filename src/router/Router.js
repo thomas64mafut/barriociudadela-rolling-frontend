@@ -22,12 +22,12 @@ const Router = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='unauthorized' element={<Unauthorized />} />
-          <Route path='/profile' element={<UserProfile />} />
 
           <Route element={<RequireAuth { ...props} />}>
             <Route path='/orders' element={<Orders />} />
           </Route>
           <Route element={<RequireAuth { ...props } />}>
+            <Route path='/profile' element={<UserProfile />} />
             <Route path='/admin' element={<Admin />} />
           </Route>
 
