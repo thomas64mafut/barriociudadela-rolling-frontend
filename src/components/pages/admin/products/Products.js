@@ -75,7 +75,7 @@ const Products = () => {
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>{product?.category}</td>
+                                                    <td>{product?.category?.name}</td>
                                                     <td>{product?.name}</td>
                                                     <td>{product?.brand}</td>
                                                     <td>{product?.price}</td>

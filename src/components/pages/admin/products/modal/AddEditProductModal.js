@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from '../../../../../api/axios'
 import { Modal, Button, Form, Dropdown, Accordion } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const AddEditProductModal = (props) => {
     const {
@@ -11,47 +11,140 @@ const AddEditProductModal = (props) => {
         setProduct,
     } = props;
 
-    const [ingredientsList, setIngredientsList] = useState([])
     const [ingredientsToAdd, setIngredientsToAdd] = useState([])
+    const [allCategories, setAllCategories] = useState([])
+    const [allIngredients, setAllIngredients] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [isEditing, setIsEditing] = useState(true)
 
+    const [category, setCategory] = useState('')
     const [name, setName] = useState('');
+    const [detail, setDetail] = useState('');
     const [brand, setBrand] = useState('');
     const [price, setPrice] = useState(0);
+    const [image, setImage] = useState('');
+    const [ingredientsList, setIngredientsList] = useState([]);
 
     useEffect(() => {
-        if (Object.keys(product).length === 0) setIsEditing(false);
-        setIngredientsList(product?.ingredients ? product?.ingredients : []);
-    }, [show === true])
+        getAllIngredients();
+        getCategories();
+    }, [])
+
+    useEffect(() => {
+        if (Object.keys(product).length !== 0) {
+            handleSetProductToEdit();
+        } else {
+            setCategory('');
+            setName('');
+            setDetail('');
+            setBrand('');
+            setPrice('');
+            setImage('');
+            setIngredientsList([])
+            setIngredientsToAdd(allIngredients);
+        }
+        setIsLoading(false);
+    }, [show])
 
     useEffect(() => {
         getFilteredIngredients();
-        setIsLoading(false);
     }, [ingredientsList])
 
+    const handleSetProductToEdit = () => {
+        const categoryFound = allCategories.find(category => category._id === product?.category._id)
+        setCategory(categoryFound);
+        setName(product?.name);
+        setDetail(product?.detail);
+        setBrand(product?.brand);
+        setPrice(product?.price);
+        setImage(product?.image);
+        setIngredientsList(product?.ingredients)
+    }
+
+    const hiddenFileInput = useRef(null);
+
+    const handleClick = (event) => {
+        hiddenFileInput.current.click();
+    };
+
+    const handleUploadImg = async (e) => {
+        const fileUploaded = e.target.files[0];
+        e.target.value = '';
+        beforeUpload(fileUploaded);
+        const base64 = await getBase64(fileUploaded);
+        console.log(base64);
+        setImage(base64);
+    };
+
+    const getBase64 = (img) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => resolve(reader.result));
+            reader.readAsDataURL(img);
+        });
+    };
+
+    const beforeUpload = (file) => {
+        const isJpegOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpegOrPng) {
+            alert('Solo se admiten archivos png o jpeg.');
+            return;
+        }
+    };
 
     const getFilteredIngredients = async () => {
+        const filteredIngredients = allIngredients.filter(item1 => {
+            const item1Str = JSON.stringify(item1);
+            return !ingredientsList.find(item2 => item1Str === JSON.stringify(item2))
+        }
+        );
+        setIngredientsToAdd(filteredIngredients)
+    }
+
+    const getAllIngredients = async () => {
         try {
             const { data } = await axios.get('/ingredient');
-            const allIngredients = data?.ingredients;
-            const filteredIngredients = allIngredients.filter((ingredient) => !ingredientsList.includes(ingredient));
-            setIngredientsToAdd(filteredIngredients)
+            setAllIngredients(data?.ingredients);
         } catch (error) {
             console.log(error);
         }
     }
 
-    const addIngredientToList = (ingredient) => {
-        let newIngredientsList = ingredientsList;
+    const removeIngredientFromList = (ingredientToRemove) => {
+        const newIngredientList = ingredientsList.filter((ingredient) => {
+            return ingredient !== ingredientToRemove;
+        });
+        setIngredientsList(newIngredientList);
 
-        newIngredientsList.push(ingredient);
-        setIngredientsList(newIngredientsList);
     }
 
-    const handleAddEditModal = () => {
-        console.log(name, brand, price);
+    const getCategories = async () => {
+        try {
+            const { data } = await axios.get('/category');
+            setAllCategories(data?.categories);
+        } catch (error) {
+            console.log('mori');
+        }
     }
+
+    const handleAddEditModal = async () => {
+        try {
+            const payload = {
+                category: category?._id,
+                name: name,
+                brand: brand,
+                detail: detail,
+                price: price,
+                image: image,
+                ingredients: ingredientsList,
+            }
+            console.log(payload);
+            const { data } = await axios.post(`/product/${category?.name}`, payload);
+            console.log(data);
+            setShow(false);
+        } catch (error) {
+            console.log('mori', error);
+        }
+    };
 
     return (
         <>
@@ -66,21 +159,33 @@ const AddEditProductModal = (props) => {
                                     <Modal.Title>{product?.name || 'add modal'}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
+                                    <Form.Label>product category</Form.Label>
+                                    <Dropdown className="m-1">
+                                        <Dropdown.Toggle variant='secondary' className="btn-dropdown w-100 d-flex justify-content-between align-items-center">
+                                            {category?.name || 'no category'}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className='w-100'>
+                                            {
+                                                allCategories ?
+                                                    allCategories.map((category) => (
+                                                        <Dropdown.Item
+                                                            onClick={() => setCategory(category)}
+                                                        >
+                                                            {category?.name}
+                                                        </Dropdown.Item>
+                                                    ))
+                                                    :
+                                                    ''
+                                            }
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                     <Accordion>
                                         <Accordion.Item eventKey='1'>
                                             <Accordion.Header>
                                                 Basic product data
                                             </Accordion.Header>
                                             <Accordion.Body>
-                                                <Form.Group controlId="form-group-id">
-                                                    <Form.Label>category</Form.Label>
-                                                    <Form.Control
-                                                        type="text"
-                                                        defaultValue={product?.category}
-                                                        id='category'
-                                                    />
-                                                </Form.Group>
-                                                <Form.Group controlId="form-group-id">
+                                                <Form.Group >
                                                     <Form.Label>name</Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -89,7 +194,7 @@ const AddEditProductModal = (props) => {
                                                         onChange={(e) => setName(e.target.value)}
                                                     />
                                                 </Form.Group>
-                                                <Form.Group controlId="form-group-id">
+                                                <Form.Group >
                                                     <Form.Label>brand</Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -98,7 +203,16 @@ const AddEditProductModal = (props) => {
                                                         onChange={(e) => setBrand(e.target.value)}
                                                     />
                                                 </Form.Group>
-                                                <Form.Group controlId="form-group-id">
+                                                <Form.Group >
+                                                    <Form.Label>detail</Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        defaultValue={product?.detail}
+                                                        id='detail'
+                                                        onChange={(e) => setDetail(e.target.value)}
+                                                    />
+                                                </Form.Group>
+                                                <Form.Group >
                                                     <Form.Label>price</Form.Label>
                                                     <Form.Control
                                                         type="number"
@@ -115,52 +229,63 @@ const AddEditProductModal = (props) => {
                                             </Accordion.Header>
                                             <Accordion.Body className='d-flex flex-column align-items-center'>
                                                 <img
-                                                    src={product?.image}
+                                                    src={image}
                                                     alt={'image of' + product?.name}
                                                     className='product-image mb-3'
                                                 />
-                                                <Button>Change image</Button>
+                                                <Button onClick={handleClick}>Change image</Button>
+                                                <input
+                                                    type="file"
+                                                    ref={hiddenFileInput}
+                                                    onChange={handleUploadImg}
+                                                    style={{ display: 'none' }}
+                                                    onClick={handleUploadImg}
+                                                >
+                                                </input>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                        {
-                                            ingredientsList.length === 0 ?
-                                                <p>no hay nada culiao andate</p>
-                                                :
-                                                <Accordion.Item eventKey='3'>
-                                                    <Accordion.Header>
-                                                        ingredients
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <Form.Group controlId="form-group-id">
-                                                            <ul>
-                                                                {
-                                                                    ingredientsList?.map((ingredient) => (
-                                                                        <li>{ingredient?.name}</li>
-                                                                    ))
-                                                                }
-                                                            </ul>
-                                                        </Form.Group>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                        }
+                                        <Accordion.Item eventKey='3'>
+                                            <Accordion.Header>
+                                                ingredients
+                                            </Accordion.Header>
+                                            <Accordion.Body>
+                                                <Form.Group >
+                                                    <ul>
+                                                        {
+                                                            ingredientsList?.map((ingredient) => (
+                                                                <li>
+                                                                    {ingredient?.name}
+                                                                    <Button
+                                                                        variant='danger'
+                                                                        onClick={() => removeIngredientFromList(ingredient)}
+                                                                    >
+                                                                        x
+                                                                    </Button>
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </Form.Group>
+                                                <Dropdown className="m-1">
+                                                    <Dropdown.Toggle variant='danger' className="btn-dropdown">
+                                                        Add ingredient
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu>
+                                                        {
+                                                            ingredientsToAdd?.map((ingredient) => (
+                                                                <Dropdown.Item
+                                                                    onClick={() => setIngredientsList(current => [...current, ingredient])}
+                                                                    className='w-100'
+                                                                >
+                                                                    {ingredient?.name}
+                                                                </Dropdown.Item>
+                                                            ))
+                                                        }
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
                                     </Accordion>
-                                    <Dropdown className="m-1">
-                                        <Dropdown.Toggle variant='danger' className="btn-dropdown">
-                                            Add ingredient
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {
-                                                ingredientsToAdd?.map((ingredient) => (
-                                                    <Dropdown.Item
-                                                        onClick={() => addIngredientToList(ingredient)}
-                                                        className='w-100'
-                                                    >
-                                                        {ingredient?.name}
-                                                    </Dropdown.Item>
-                                                ))
-                                            }
-                                        </Dropdown.Menu>
-                                    </Dropdown>
                                     <Button variant="success" onClick={handleAddEditModal}>
                                         Submit
                                     </Button>
