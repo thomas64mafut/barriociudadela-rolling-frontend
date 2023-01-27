@@ -3,6 +3,8 @@ import { Button, Spinner, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
 import BuyModal from './cart modal/BuyModal';
+import './cart.css'
+
 
 export const Cart = ({cart}) => {
     let navigate = useNavigate();
@@ -12,8 +14,9 @@ export const Cart = ({cart}) => {
     let totalPrice=0;
 
     useEffect(() => {
+        console.log('cart en cart'+ cart)
         totalPrice=0;
-        for (const product of cart.products) {
+        for (const product of cart?.products) {
             totalPrice = totalPrice+(product?.price*product?.quantity)
         }
         setCartTotalPrice(totalPrice)
@@ -29,7 +32,7 @@ export const Cart = ({cart}) => {
     }
 
   return (
-    <div>
+    <div className={cart.cartStatus}>
         <Table striped bordered hover>
                                 <thead>
                                     <tr>
