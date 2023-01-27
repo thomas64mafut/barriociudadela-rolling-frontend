@@ -10,6 +10,7 @@ import EditProductModal from './modal/EditProductModal';
 import Edit from '../../../../assets/icons/light/Edit';
 
 const Products = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
 
@@ -17,11 +18,12 @@ const Products = () => {
     const [productToEdit, setProductToEdit] = useState({});
 
     useEffect(() => {
-        handleGetProoducts();
+        handleGetProducts();
+        setIsLoading(false);
     }, [])
 
 
-    const handleGetProoducts = async () => {
+    const handleGetProducts = async () => {
         try {
             const { data } = await axios.get('http://localhost:4000/api/product/');
             setProductsToShow(data?.products);
