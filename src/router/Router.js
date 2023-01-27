@@ -8,8 +8,9 @@ import Admin from '../components/pages/admin/Admin';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
-import Cart from '../components/pages/cart/Cart'
+import Carts from '../components/pages/cart/Carts'
 import Menus from '../components/pages/menus/Menus';
+import Orders from '../components/pages/orders/Orders'
 
 const Router = (props) => {
   return (
@@ -28,7 +29,10 @@ const Router = (props) => {
             <Route path='/admin' element={<Admin />} />
           </Route>
           <Route element={<RequireAuth { ...props } />}>
-            <Route path='/cart' element={<Cart />} />
+            <Route path='/myCarts' element={<Carts />} />
+          </Route>
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/orders' element={<Orders />} />
           </Route>
 
           <Route path="*" element={<Missing />} />

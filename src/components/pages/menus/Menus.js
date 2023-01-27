@@ -35,8 +35,8 @@ const Menus = () => {
         try {
             const { data } = await axios('/cart');
             let totalPrice = 0;
-            console.log(data);
-            for (const product of data?.ownCart?.products) {
+            const activeCart = data?.ownCarts?.find(cart => cart.cartStatus === 'active')
+            for (const product of activeCart.products) {
                 totalPrice = totalPrice + (product?.price * product?.quantity)
             }
             setCartTotalPrice(totalPrice)
@@ -46,7 +46,7 @@ const Menus = () => {
     }
 
     const showCart = () => {
-        navigate('/cart')
+        navigate('/myCarts')
     }
 
     return (
