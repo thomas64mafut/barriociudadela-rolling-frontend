@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
 import './products.css'
 import '../admin.css'
-import axios from 'axios';
-
+import React, { useState, useEffect } from 'react'
+import axios from '../../../../api/axios';
 import { Table, Button, Alert, Accordion } from "react-bootstrap";
-
 import UserPlus from '../../../../assets/icons/light/UserPlus';
-import EditProductModal from './modal/EditProductModal';
-import Edit from '../../../../assets/icons/light/Edit';
+import AddEditProductModal from './modal/AddEditProductModal';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -22,10 +19,9 @@ const Products = () => {
         setIsLoading(false);
     }, [])
 
-
     const handleGetProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/product/');
+            const { data } = await axios.get('/product/');
             setProductsToShow(data?.products);
         } catch (error) {
             setErrorMessage(error.response.data.message);
@@ -34,6 +30,11 @@ const Products = () => {
     };
 
     const handleOpenEditModal = (product) => {
+        setProductToEdit(product);
+        setEditModalShow(true);
+    }
+
+    const handleOpenAddModal = (product) => {
         setProductToEdit(product);
         setEditModalShow(true);
     }
@@ -52,6 +53,7 @@ const Products = () => {
                 ) : (
                     ""
                 )}
+                <Button onClick={() => handleOpenAddModal({})}>Add</Button>
                 <Accordion>
                     {
                         productsToShow?.map((product, index) => (
@@ -120,10 +122,11 @@ const Products = () => {
                     }
                 </Accordion>
             </div>
-            <EditProductModal
+            <AddEditProductModal
                 show={editModalShow}
                 setShow={setEditModalShow}
                 product={productToEdit}
+                setProduct={setProductToEdit}
             />
         </>
     )
