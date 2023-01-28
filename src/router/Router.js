@@ -5,6 +5,7 @@ import Home from '../components/pages/home/Home'
 import Login from '../components/pages/login/Login'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
+import Missing from '../components/pages/404/Missing';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
@@ -20,7 +21,7 @@ const Router = (props) => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='unauthorized' element={<Unauthorized />} />
-
+          
           <Route element={<RequireAuth { ...props} />}>
             <Route path='/menus' element={<Menus />} />
           </Route>
@@ -34,7 +35,6 @@ const Router = (props) => {
           <Route path="*" element={<Missing />} />
         </Routes>
       </Layout>
-
     </BrowserRouter>
   )
 }
