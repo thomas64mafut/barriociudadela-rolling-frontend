@@ -8,13 +8,16 @@ import AddEditProductModal from './modal/AddEditProductModal';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
+    const [isEditing, setIsEditing] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
+    const [allCategories, setAllCategories] = useState([])
 
     const [editModalShow, setEditModalShow] = useState(false);
     const [productToEdit, setProductToEdit] = useState({});
 
     useEffect(() => {
+        getCategories();
         handleGetProducts();
         setIsLoading(false);
     }, [])
@@ -29,13 +32,35 @@ const Products = () => {
         }
     };
 
+    const getCategories = async () => {
+        try {
+            const { data } = await axios.get('/category');
+            setAllCategories(data?.categories);
+        } catch (error) {
+            console.log('mori');
+        }
+    }
+
+    const handleDeleteProduct = async (categoryId, productId) => {
+        console.log(categoryId, productId);
+        try {
+            const { data } = await axios.patch(`/product/${categoryId.name}/delete/${productId}`, { });
+            console.log(data);
+            handleGetProducts();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const handleOpenEditModal = (product) => {
         setProductToEdit(product);
+        setIsEditing(true);
         setEditModalShow(true);
     }
 
     const handleOpenAddModal = (product) => {
         setProductToEdit(product);
+        setIsEditing(false);
         setEditModalShow(true);
     }
 
@@ -61,6 +86,7 @@ const Products = () => {
                                 <Accordion.Header>
                                     {product?.name}
                                     <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
+                                    <Button variant='danger' onClick={() => handleDeleteProduct(product?.category, product?._id)}>Delete</Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <div className='overflow-table-container'>
@@ -127,6 +153,7 @@ const Products = () => {
                 setShow={setEditModalShow}
                 product={productToEdit}
                 setProduct={setProductToEdit}
+                isEditing={isEditing}
             />
         </>
     )

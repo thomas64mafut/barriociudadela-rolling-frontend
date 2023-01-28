@@ -9,6 +9,7 @@ const AddEditProductModal = (props) => {
         setShow,
         product,
         setProduct,
+        isEditing,
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([])
@@ -30,7 +31,7 @@ const AddEditProductModal = (props) => {
     }, [])
 
     useEffect(() => {
-        if (Object.keys(product).length !== 0) {
+        if (isEditing) {
             handleSetProductToEdit();
         } else {
             setCategory('');
@@ -126,7 +127,7 @@ const AddEditProductModal = (props) => {
         }
     }
 
-    const handleAddEditModal = async () => {
+    const handleAddModal = async () => {
         try {
             const payload = {
                 category: category?._id,
@@ -146,6 +147,25 @@ const AddEditProductModal = (props) => {
         }
     };
 
+    const handleEditModal = async (productCategory, productId) => {
+        try {
+            const payload = {
+                category: category?._id,
+                name: name,
+                brand: brand,
+                detail: detail,
+                price: price,
+                image: image,
+                ingredients: ingredientsList,
+            }
+            const { data } = await axios.put(`/product/${productCategory}/${productId}`, payload);
+            console.log(data);
+            setShow(false);
+        } catch (error) {
+            console.log('mori', error);
+        }
+    };
+    
     return (
         <>
             <Modal centered show={show} onHide={() => setShow(false)}>
@@ -161,7 +181,17 @@ const AddEditProductModal = (props) => {
                                 <Modal.Body>
                                     <Form.Label>product category</Form.Label>
                                     <Dropdown className="m-1">
-                                        <Dropdown.Toggle variant='secondary' className="btn-dropdown w-100 d-flex justify-content-between align-items-center">
+                                        <Dropdown.Toggle 
+                                            variant='secondary' 
+                                            className="
+                                                btn-dropdown 
+                                                w-100 
+                                                d-flex 
+                                                justify-content-between 
+                                                align-items-center
+                                            "
+                                            disabled={ isEditing ? true : false }
+                                        >
                                             {category?.name || 'no category'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className='w-100'>
@@ -286,9 +316,11 @@ const AddEditProductModal = (props) => {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
-                                    <Button variant="success" onClick={handleAddEditModal}>
-                                        Submit
-                                    </Button>
+                                    {
+                                        isEditing
+                                            ? <Button variant="success" onClick={() => handleEditModal(product?.category?.name, product?._id)}>Edit Product</Button>
+                                            : <Button variant="success" onClick={handleAddModal}>Add product</Button>
+                                    }
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={() => setShow(false)}>
