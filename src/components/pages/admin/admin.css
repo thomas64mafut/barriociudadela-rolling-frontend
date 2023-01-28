@@ -1,6 +1,6 @@
 .abm-container {
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     background-color: white;
     color: var(--fire-opal);
     font-family: "VictorMono";
@@ -41,8 +41,10 @@ button {
 .table-container th {
     text-align: center;
     border: 2px solid var(--fire-opal);
-    padding: 0.3rem;
+    padding: .3rem;
     color: var(--fire-opal);
+    margin-top: 1rem;
+    white-space: nowrap;
 }
 
 .table-container th {
