@@ -4,9 +4,9 @@ import { useRef, useState, useEffect } from "react";
 import axios from '../../../api/axios';
 import { Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
-import Check from '../../../assets/icons/dark/Check';
-import X from '../../../assets/icons/dark/X';
-import Info from '../../../assets/icons/light/Info';
+import Check from '../../../assets/icons/Check';
+import Info from '../../../assets/icons/Info';
+import X from '../../../assets/icons/X';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;

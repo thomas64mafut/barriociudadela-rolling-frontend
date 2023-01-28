@@ -34,21 +34,7 @@ const AddEditProductModal = (props) => {
     }, [])
 
     useEffect(() => {
-        if (isEditing) {
-            handleSetProductToEdit();
-            console.log(product);
-        } else {
-            setCategory(categoryToAdd);
-            setName('');
-            setDetail('');
-            setPrice('');
-            setBrand('');
-            setIsVegan(false);
-            setHasAlcohol(false);
-            setImage('');
-            setIngredientsList([])
-            setIngredientsToAdd(allIngredients);
-        }
+        handleSetProductToEdit();
     }, [show]);
 
     useEffect(() => {
@@ -57,8 +43,7 @@ const AddEditProductModal = (props) => {
     }, [ingredientsList]);
 
     const handleSetProductToEdit = () => {
-        const categoryFound = allCategories.find(category => category._id === product?.category._id)
-        setCategory(categoryFound);
+        setCategory(product?.category);
         setName(product?.name);
         setDetail(product?.detail);
         setPrice(product?.price);
@@ -66,7 +51,16 @@ const AddEditProductModal = (props) => {
         setIsVegan(product?.isVegan);
         setHasAlcohol(product?.hasAlcohol);
         setImage(product?.image);
-        setIngredientsList(product?.ingredients)
+
+        let ingredientsFound = []; 
+        allIngredients.forEach((ingredient) => (
+            product?.ingredients.forEach(ingredientId => {
+                if (ingredientId === ingredient._id) {
+                    ingredientsFound.push(ingredient);
+                }
+            })
+        ))
+        setIngredientsList(ingredientsFound)
     }
 
     const hiddenFileInput = useRef(null);
@@ -147,7 +141,6 @@ const AddEditProductModal = (props) => {
                 image: image,
                 ingredients: ingredientsList,
             }
-            console.log(payload);
             const { data } = await axios.post(`/product/${category?.name}`, payload);
             console.log(data);
             setShow(false);

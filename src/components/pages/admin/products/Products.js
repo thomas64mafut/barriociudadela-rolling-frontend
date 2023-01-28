@@ -2,10 +2,10 @@ import './products.css'
 import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../../api/axios';
-import { Table, Button, Alert, Accordion, Dropdown } from "react-bootstrap";
+import { Table, Button, Alert, Accordion, Dropdown, Row, Col } from "react-bootstrap";
+import Beer from '../../../../assets/icons/Beer'
+import Leaf from '../../../../assets/icons/Leaf'
 import AddEditProductModal from './modal/AddEditProductModal';
-import Beer from '../../../../assets/icons/dark/Beer';
-import Leaf from '../../../../assets/icons/dark/Leaf';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -64,7 +64,25 @@ const Products = () => {
     }
 
     const handleOpenAddModal = (product, newProductCategory) => {
-        setProductToEdit(product);
+        const payload = {
+            category: newProductCategory,
+            name: '',
+            detail: '',
+            price: 0,
+            brand: '',
+            isVegan: false,
+            hasAlcohol: false,
+            image: '',
+            ingredients: [],
+        }
+        if (newProductCategory?.name === 'burger') {
+            const burgerPayload = { ...payload, ingredients: ['63b73c9b98bfe157938729af', '63b73ca498bfe157938729b1'] }
+            setProductToEdit(burgerPayload);
+        } else if (newProductCategory?.name === 'sandwich') {
+            const sandwichPayload = { ...payload, ingredients: ['63b73c9b98bfe157938729af', '63bce51107fcb77ab4bc1b85'] }
+            setProductToEdit(sandwichPayload);
+        } else setProductToEdit(payload);
+
         setCategoryToAdd(newProductCategory);
         setIsEditing(false);
         setAddEditModalShow(true);
@@ -112,22 +130,22 @@ const Products = () => {
                                                 <tr>
                                                     <th className='col-3'>category</th>
                                                     <th className='col-3'>name</th>
-                                                    <th className='col-3'>price</th>
                                                     {
                                                         product?.category?.name === 'drink' &&
                                                         <th>brand</th>
                                                     }
+                                                    <th className='col-3'>price</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>{product?.category?.name}</td>
-                                                    <td>{product?.name}{product?.isVegan && <Leaf />}</td>
-                                                    <td>$ {product?.price}</td>
+                                                    <td>{product?.name}{product?.isVegan && <Leaf />}{product?.hasAlcohol && <Beer />}</td>
                                                     {
                                                         product?.category?.name === 'drink' &&
-                                                        <td>{product?.brand}{product?.hasAlcohol && <Beer />}</td>
+                                                        <td>{product?.brand}</td>
                                                     }
+                                                    <td>$ {product?.price}</td>
                                                 </tr>
                                             </tbody>
                                         </Table>
@@ -152,31 +170,40 @@ const Products = () => {
                                         </Accordion>
                                     }
                                     <div className='w-100 d-flex justify-content-evenly'>
-                                        <div className='product-image-container p-3 my-3'>
-                                            <span className='mb-2'>Image: </span>
-                                            <img src={product?.image} alt={'image of' + product?.name} className='product-image' />
-                                        </div>
-                                        <div className='product-size-container p-3 my-3'>
-                                            <span>Sizes available: </span>
-                                            {
-                                                product?.category?.name === 'drink' ?
-                                                    <ul>
-                                                        {
-                                                            drinkSizes.map((size) => (
-                                                                <li>{size}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                    :
-                                                    <ul>
-                                                        {
-                                                            foodSizes.map((size) => (
-                                                                <li>{size}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                            }
-                                        </div>
+                                        <Row>
+                                            <Col className='w-100'>
+                                                <div className='product-image-container p-3 my-3'>
+                                                    <span className='mb-2'>Image: </span>
+                                                    {/* <div className='product-image' style={{
+                                                        background: `url("${product?.image}")`
+                                                    }}
+                                                    ></div> */}
+                                                </div>
+                                            </Col>
+                                            <Col className='w-100'>
+                                                <div className='product-size-container p-3 my-3'>
+                                                    <span>Sizes available: </span>
+                                                    {
+                                                        product?.category?.name === 'drink' ?
+                                                            <ul>
+                                                                {
+                                                                    drinkSizes.map((size) => (
+                                                                        <li>{size}</li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                            :
+                                                            <ul>
+                                                                {
+                                                                    foodSizes.map((size) => (
+                                                                        <li>{size}</li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                    }
+                                                </div>
+                                            </Col>
+                                        </Row>
                                     </div>
                                     <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
                                     <Button variant='danger' onClick={() => handleDeleteProduct(product?.category, product?._id)}>Delete</Button>

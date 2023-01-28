@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 import './counter.css'
-import Plus from '../../assets/icons/dark/Plus';
-import Minus from '../../assets/icons/dark/Minus';
+import Plus from '../../assets/icons/Plus'
+import Minus from '../../assets/icons/Minus'
 
 const Counter = ({ count, setCount }) => {
 
