@@ -12,21 +12,21 @@ function UncontrolledExample() {
           <img
             className="d-block w-100 img-carousel"
             src={Hamburguesauno}
-            alt="First slide"
+            alt="First slide burguer"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 img-carousel"
             src={Hamburguesados}
-            alt="Second slide"
+            alt="Second slide burguer"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100 img-carousel"
             src={Hamburguesatres}
-            alt="Third slide"
+            alt="Third slide burguer"
           />
         </Carousel.Item>
       </Carousel>
