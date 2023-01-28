@@ -1,19 +1,19 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from '../components/layout/Layout'
-import AboutUs from '../components/pages/about us/AboutUs'
 import Home from '../components/pages/home/Home'
 import Login from '../components/pages/login/Login'
-import Orders from '../components/pages/orders/Orders'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
-import Cart from '../components/pages/cart/Cart'
+import Missing from '../components/pages/404/Missing';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
+import Cart from '../components/pages/cart/Cart'
 import UserProfile from '../components/pages/userProfile/UserProfile'
+import Menus from '../components/pages/menus/Menus';
 
-const Router = () => {
+const Router = (props) => {
   return (
     <BrowserRouter >
       <Layout>
@@ -22,13 +22,26 @@ const Router = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='unauthorized' element={<Unauthorized />} />
-
+          
           <Route element={<RequireAuth { ...props} />}>
             <Route path='/orders' element={<Orders />} />
           </Route>
+          
           <Route element={<RequireAuth { ...props } />}>
             <Route path='/profile' element={<UserProfile />} />
             <Route path='/admin' element={<Admin />} />
+          </Route>
+          
+          <Route element={<RequireAuth { ...props} />}>
+            <Route path='/menus' element={<Menus />} />
+          </Route>
+          
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/admin' element={<Admin />} />
+          </Route>
+          
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/cart' element={<Cart />} />
           </Route>
 
           <Route path="*" element={<Missing />} />
