@@ -1,0 +1,23 @@
+.homeContainer{
+  min-height: calc(100vh - 15rem);
+}
+
+.welcomeContainer{
+  height: 28.5rem;
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Blogh';
+}
+
+.welcome{
+  font-size: 5rem;
+}
+
+.under-welcome{
+  font-weight: 100 ;
+}
