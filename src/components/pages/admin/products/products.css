@@ -17,3 +17,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.table-container svg {
+    stroke: var(--fire-opal);
+}

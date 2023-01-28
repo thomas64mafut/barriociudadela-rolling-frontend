@@ -2,25 +2,30 @@ import './products.css'
 import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../../api/axios';
-import { Table, Button, Alert, Accordion } from "react-bootstrap";
+import { Table, Button, Alert, Accordion, Dropdown } from "react-bootstrap";
 import UserPlus from '../../../../assets/icons/light/UserPlus';
 import AddEditProductModal from './modal/AddEditProductModal';
+import Beer from '../../../../assets/icons/dark/Beer';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
+    const [categoryToAdd, setCategoryToAdd] = useState('')
     const [allCategories, setAllCategories] = useState([])
 
-    const [editModalShow, setEditModalShow] = useState(false);
+    const [addEditModalShow, setAddEditModalShow] = useState(false);
     const [productToEdit, setProductToEdit] = useState({});
+
+    const foodSizes = ['l', 'xl'];
+    const drinkSizes = ['750ml', '1,5lts'];
 
     useEffect(() => {
         getCategories();
         handleGetProducts();
         setIsLoading(false);
-    }, [])
+    }, [addEditModalShow])
 
     const handleGetProducts = async () => {
         try {
@@ -44,7 +49,7 @@ const Products = () => {
     const handleDeleteProduct = async (categoryId, productId) => {
         console.log(categoryId, productId);
         try {
-            const { data } = await axios.patch(`/product/${categoryId.name}/delete/${productId}`, { });
+            const { data } = await axios.patch(`/product/${categoryId.name}/delete/${productId}`, {});
             console.log(data);
             handleGetProducts();
         } catch (error) {
@@ -55,13 +60,14 @@ const Products = () => {
     const handleOpenEditModal = (product) => {
         setProductToEdit(product);
         setIsEditing(true);
-        setEditModalShow(true);
+        setAddEditModalShow(true);
     }
 
-    const handleOpenAddModal = (product) => {
+    const handleOpenAddModal = (product, newProductCategory) => {
         setProductToEdit(product);
+        setCategoryToAdd(newProductCategory);
         setIsEditing(false);
-        setEditModalShow(true);
+        setAddEditModalShow(true);
     }
 
     return (
@@ -78,15 +84,29 @@ const Products = () => {
                 ) : (
                     ""
                 )}
-                <Button onClick={() => handleOpenAddModal({})}>Add</Button>
+                <Dropdown className="m-1">
+                    <Dropdown.Toggle variant='danger' className="btn-dropdown">
+                        Add 
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {
+                            allCategories?.map((category) => (
+                                <Dropdown.Item
+                                    onClick={() => handleOpenAddModal({}, category)}
+                                    className='w-100'
+                                >
+                                    {category?.name}
+                                </Dropdown.Item>
+                            ))
+                        }
+                    </Dropdown.Menu>
+                </Dropdown>
                 <Accordion>
                     {
                         productsToShow?.map((product, index) => (
                             <Accordion.Item eventKey={index}>
                                 <Accordion.Header>
                                     {product?.name}
-                                    <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
-                                    <Button variant='danger' onClick={() => handleDeleteProduct(product?.category, product?._id)}>Delete</Button>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <div className='overflow-table-container'>
@@ -95,16 +115,22 @@ const Products = () => {
                                                 <tr>
                                                     <th className='col-3'>category</th>
                                                     <th className='col-3'>name</th>
-                                                    <th className='col-3'>brand</th>
                                                     <th className='col-3'>price</th>
+                                                    {
+                                                        product?.category?.name === 'drink' && 
+                                                        <th>brand</th>
+                                                    }
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>{product?.category?.name}</td>
                                                     <td>{product?.name}</td>
-                                                    <td>{product?.brand}</td>
                                                     <td>{product?.price}</td>
+                                                    {
+                                                        product?.category?.name === 'drink' &&
+                                                        <td>{product?.brand}{product?.hasAlcohol && <Beer/>}</td>
+                                                    }
                                                 </tr>
                                             </tbody>
                                         </Table>
@@ -135,13 +161,28 @@ const Products = () => {
                                         </div>
                                         <div className='product-size-container p-3 my-3'>
                                             <span>Sizes available: </span>
-                                            <ul>
-                                                <li>m</li>
-                                                <li>l</li>
-                                                <li>xl</li>
-                                            </ul>
+                                            {
+                                                product?.category?.name === 'drink' ?
+                                                    <ul>
+                                                        {
+                                                            drinkSizes.map((size) => (
+                                                                <li>{size}</li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                    :
+                                                    <ul>
+                                                        {
+                                                            foodSizes.map((size) => (
+                                                                <li>{size}</li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                            }
                                         </div>
                                     </div>
+                                    <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
+                                    <Button variant='danger' onClick={() => handleDeleteProduct(product?.category, product?._id)}>Delete</Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         ))
@@ -149,10 +190,11 @@ const Products = () => {
                 </Accordion>
             </div>
             <AddEditProductModal
-                show={editModalShow}
-                setShow={setEditModalShow}
+                show={addEditModalShow}
+                setShow={setAddEditModalShow}
                 product={productToEdit}
                 setProduct={setProductToEdit}
+                categoryToAdd={categoryToAdd}
                 isEditing={isEditing}
             />
         </>
