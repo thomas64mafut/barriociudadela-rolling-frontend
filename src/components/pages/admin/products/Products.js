@@ -3,9 +3,9 @@ import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../../api/axios';
 import { Table, Button, Alert, Accordion, Dropdown } from "react-bootstrap";
-import UserPlus from '../../../../assets/icons/light/UserPlus';
 import AddEditProductModal from './modal/AddEditProductModal';
 import Beer from '../../../../assets/icons/dark/Beer';
+import Leaf from '../../../../assets/icons/dark/Leaf';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -75,9 +75,6 @@ const Products = () => {
             <div className='abm-container'>
                 <div className="table-header">
                     <h1>Products Control Panel</h1>
-                    <Button variant='success'>
-                        <UserPlus />
-                    </Button>
                 </div>
                 {errorMessage ? (
                     <Alert variant="danger">{errorMessage}</Alert>
@@ -86,7 +83,7 @@ const Products = () => {
                 )}
                 <Dropdown className="m-1">
                     <Dropdown.Toggle variant='danger' className="btn-dropdown">
-                        Add 
+                        Add
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {
@@ -117,7 +114,7 @@ const Products = () => {
                                                     <th className='col-3'>name</th>
                                                     <th className='col-3'>price</th>
                                                     {
-                                                        product?.category?.name === 'drink' && 
+                                                        product?.category?.name === 'drink' &&
                                                         <th>brand</th>
                                                     }
                                                 </tr>
@@ -125,11 +122,11 @@ const Products = () => {
                                             <tbody>
                                                 <tr>
                                                     <td>{product?.category?.name}</td>
-                                                    <td>{product?.name}</td>
-                                                    <td>{product?.price}</td>
+                                                    <td>{product?.name}{product?.isVegan && <Leaf />}</td>
+                                                    <td>$ {product?.price}</td>
                                                     {
                                                         product?.category?.name === 'drink' &&
-                                                        <td>{product?.brand}{product?.hasAlcohol && <Beer/>}</td>
+                                                        <td>{product?.brand}{product?.hasAlcohol && <Beer />}</td>
                                                     }
                                                 </tr>
                                             </tbody>
