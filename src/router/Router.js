@@ -10,6 +10,7 @@ import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
 import Missing from '../components/pages/Missing'
 import Cart from '../components/pages/cart/Cart'
+import UserProfile from '../components/pages/userProfile/UserProfile'
 import Menus from '../components/pages/menus/Menus';
 
 const Router = (props) => {
@@ -23,11 +24,22 @@ const Router = (props) => {
           <Route path='unauthorized' element={<Unauthorized />} />
           
           <Route element={<RequireAuth { ...props} />}>
+            <Route path='/orders' element={<Orders />} />
+          </Route>
+          
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/profile' element={<UserProfile />} />
+            <Route path='/admin' element={<Admin />} />
+          </Route>
+          
+          <Route element={<RequireAuth { ...props} />}>
             <Route path='/menus' element={<Menus />} />
           </Route>
+          
           <Route element={<RequireAuth { ...props } />}>
             <Route path='/admin' element={<Admin />} />
           </Route>
+          
           <Route element={<RequireAuth { ...props } />}>
             <Route path='/cart' element={<Cart />} />
           </Route>
