@@ -7,6 +7,7 @@ import Login from '../components/pages/login/Login'
 import Orders from '../components/pages/orders/Orders'
 import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
+import Missing from '../components/pages/404/Missing';
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/orders' element={<Orders/>}/>
+                <Route path='/missing' element={<Missing/>}/>
                 <Route path='/aboutUs' element={<AboutUs/>}/>
                 <Route path='/admin' element={<Admin/>}/>
             </Routes>
