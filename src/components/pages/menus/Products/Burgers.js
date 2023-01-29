@@ -8,11 +8,14 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const [productModalShow, setProductModalShow] = useState(false)
     const [productToAdd, setProductToAdd] = useState({})
     const [products, setProducts] = useState([])
-    const [ingredients, setIngredients] = useState([])
+    const [allIngredients, setAllIngredients] = useState([])
     const [itemsToRemove, setItemsToRemove] = useState([])
     const [toppings, setToppings] = useState([])
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
     const [errorBurgers, setErrorBurgers] = useState(false)
+
+    const burgerDefaultIngredients = ['homemade bun', 'steak-burger patty'];
+    const sandwichDefaultIngredients = ['homemade sandwich bread', 'grilled steak'];
 
     useEffect(() => {
         handleGetProducts();
@@ -22,9 +25,8 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
 
     const handleGetProducts = async () => {
         try {
-            const { data } = await axios('/product/burger');
-            const productFiltered = data.burgers?.filter((product) => product.category === category)
-            setProducts(productFiltered);
+            const { data } = await axios(`/product/${category}`);
+            setProducts(data?.products);
             setErrorBurgers('');
         } catch (error) {
             setErrorBurgers(error.message || 'Something was wrong')
@@ -34,19 +36,28 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const handleGetIngredients = async () => {
         try {
             const { data } = await axios('/ingredient');
-            setIngredients(data.ingredients);
+            setAllIngredients(data.ingredients);
         } catch (error) {
             Alert('Ingredients not found')
         }
     }
 
-    const openModal = (product, ingredients) => {
-        let toppingsToShow = ingredients.filter(i => ingredients.category !== 'Burgers&Sandwich');
-        setItemsToRemove(product?.ingredients?.filter(i => i._id !== product.ingredients[0]._id && i._id !== product.ingredients[1]._id))
-        for (const productIngredient of product.ingredients) {
-            toppingsToShow = toppingsToShow.filter(item => item._id !== productIngredient._id)
-        }
-        setToppings(toppingsToShow)
+    const openModal = (product, allIngredients) => {
+        console.log(allIngredients);
+        let toppingsToShow = [];
+        allIngredients.forEach(ingredient => (
+            ingredient.category.forEach((categoryToFilter) => {
+                if (categoryToFilter === category)
+                    toppingsToShow.push(ingredient);
+            })
+        ));
+
+        const filteredIngredients = toppingsToShow.filter(item1 => {
+            const item1Str = JSON.stringify(item1);
+            return !product?.ingredients.find(item2 => item1Str === JSON.stringify(item2))
+        });
+        setToppings(filteredIngredients)
+        setItemsToRemove(product?.ingredients)
         setProductToAdd(product)
         setPrincipalIngredientPrice(product.ingredients[1].price)
         setProductModalShow(true);
@@ -54,7 +65,6 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
 
     return (
         <div>
-            <h2 className='titleSection'>{category}</h2>
             {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
 
             <Row md='3' xl='4' className='p-3'>
@@ -64,9 +74,9 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                             return (
                                 <Col className='mb-5'>
                                     <Card className='h-100 w-100 card burger-card'>
-                                        <div className='card-image-container' style={{ 
+                                        <div className='card-image-container' style={{
                                             backgroundImage: `url(${product.image})`
-                                            }}
+                                        }}
                                         ></div>
                                         <Card.Header>
                                             <Card.Title>
@@ -93,7 +103,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                                                 }
                                             </div>
                                         </Card.Body>
-                                        <button class="card-button" onClick={() => openModal(product, ingredients)}>Options</button>
+                                        <button class="card-button" onClick={() => openModal(product, allIngredients)}>Options</button>
                                     </Card>
                                 </Col>
                             )
