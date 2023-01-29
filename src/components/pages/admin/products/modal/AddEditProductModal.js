@@ -1,7 +1,10 @@
 import React from 'react'
+import './modal.css'
 import axios from '../../../../../api/axios'
 import { Modal, Button, Form, Dropdown, Accordion } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
+import X from '../../../../../assets/icons/X'
+import Plus from '../../../../../assets/icons/Plus';
 
 const AddEditProductModal = (props) => {
     const {
@@ -52,7 +55,7 @@ const AddEditProductModal = (props) => {
         setHasAlcohol(product?.hasAlcohol);
         setImage(product?.image);
 
-        let ingredientsFound = []; 
+        let ingredientsFound = [];
         allIngredients.forEach((ingredient) => (
             product?.ingredients.forEach(ingredientId => {
                 if (ingredientId === ingredient._id) {
@@ -97,9 +100,17 @@ const AddEditProductModal = (props) => {
         const filteredIngredients = allIngredients.filter(item1 => {
             const item1Str = JSON.stringify(item1);
             return !ingredientsList.find(item2 => item1Str === JSON.stringify(item2))
-        }
-        );
-        setIngredientsToAdd(filteredIngredients)
+        });
+
+        let secondFilteredIngredients = [];
+        filteredIngredients.forEach((ingredient) => {
+            ingredient.category.forEach((category) => {
+                if (category === categoryToAdd?.name) {
+                    secondFilteredIngredients.push(ingredient)
+                }
+            })
+        })
+        setIngredientsToAdd(secondFilteredIngredients);
     }
 
     const getAllIngredients = async () => {
@@ -182,15 +193,15 @@ const AddEditProductModal = (props) => {
                                 <Modal.Header closeButton>
                                     <Modal.Title>{product?.name || 'add product'}</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>
-                                    <Form.Label>product category: {category?.name}</Form.Label>
+                                <Modal.Body className='p-2'>
+                                    <Form.Label className='mt-2 mb-3 text-center'>Category: {category?.name}</Form.Label>
                                     <Accordion>
                                         <Accordion.Item eventKey='1'>
-                                            <Accordion.Header>
+                                            <Accordion.Header >
                                                 Basic product data
                                             </Accordion.Header>
-                                            <Accordion.Body>
-                                                <Form.Group >
+                                            <Accordion.Body className='p-2'>
+                                                <Form.Group className='mb-3'>
                                                     <Form.Label>name</Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -199,7 +210,7 @@ const AddEditProductModal = (props) => {
                                                         onChange={(e) => setName(e.target.value)}
                                                     />
                                                 </Form.Group>
-                                                <Form.Group >
+                                                <Form.Group className='mb-3'>
                                                     <Form.Label>detail</Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -210,7 +221,7 @@ const AddEditProductModal = (props) => {
                                                 </Form.Group>
                                                 {
                                                     category?.name === 'drink' &&
-                                                    <Form.Group>
+                                                    <Form.Group className='mb-3'>
                                                         <Form.Label>brand</Form.Label>
                                                         <Form.Control
                                                             type="text"
@@ -220,7 +231,7 @@ const AddEditProductModal = (props) => {
                                                         />
                                                     </Form.Group>
                                                 }
-                                                <Form.Group>
+                                                <Form.Group className='mb-3'>
                                                     <Form.Label>price</Form.Label>
                                                     <Form.Control
                                                         type="number"
@@ -232,7 +243,7 @@ const AddEditProductModal = (props) => {
                                                 {
                                                     category?.name !== 'drink' ?
                                                         (
-                                                            <Form.Group >
+                                                            <Form.Group className='mb-3'>
                                                                 <Form.Check
                                                                     label="is this product vegan?"
                                                                     id="checkbox-id"
@@ -247,7 +258,7 @@ const AddEditProductModal = (props) => {
                                                                 />
                                                             </Form.Group>
                                                         ) : (
-                                                            <Form.Group >
+                                                            <Form.Group className='mb-3'>
                                                                 <Form.Check
                                                                     label="does it has alcohol?"
                                                                     id="checkbox-id"
@@ -270,12 +281,23 @@ const AddEditProductModal = (props) => {
                                                 product image
                                             </Accordion.Header>
                                             <Accordion.Body className='d-flex flex-column align-items-center'>
-                                                <img
-                                                    src={image}
-                                                    alt={'image of' + product?.name}
-                                                    className='product-image mb-3'
-                                                />
-                                                <Button onClick={handleClick}>Change image</Button>
+                                                {
+                                                    image &&
+                                                    <img
+                                                        src={image}
+                                                        alt={'image of' + product?.name}
+                                                        className='product-image my-3'
+                                                    />
+                                                }
+                                                <Button onClick={handleClick}>
+                                                    {
+                                                        image ? (
+                                                            'Change image'
+                                                        ) : (
+                                                            'Add image'
+                                                        )
+                                                    }
+                                                </Button>
                                                 <input
                                                     type="file"
                                                     ref={hiddenFileInput}
@@ -292,27 +314,30 @@ const AddEditProductModal = (props) => {
                                                 <Accordion.Header>
                                                     ingredients
                                                 </Accordion.Header>
-                                                <Accordion.Body>
+                                                <Accordion.Body className='p-1'>
                                                     <Form.Group >
-                                                        <ul>
+                                                        <ul className='ps-1 mt-3 m-0 ingredients-modal-list'>
                                                             {
                                                                 ingredientsList?.map((ingredient) => (
-                                                                    <li>
-                                                                        {ingredient?.name}
+                                                                    <div className='d-flex flex-row justify-content-between ingredient-item'>
+                                                                        <li>
+                                                                            {ingredient?.name}
+                                                                        </li>
                                                                         <Button
                                                                             variant='danger'
                                                                             onClick={() => removeIngredientFromList(ingredient)}
+                                                                            className='ingredient-delete-button'
                                                                         >
-                                                                            x
+                                                                           <X /> 
                                                                         </Button>
-                                                                    </li>
+                                                                    </div>
                                                                 ))
                                                             }
                                                         </ul>
                                                     </Form.Group>
-                                                    <Dropdown className="m-1">
-                                                        <Dropdown.Toggle variant='danger' className="btn-dropdown">
-                                                            Add ingredient
+                                                    <Dropdown className="m-1 d-flex justify-content-end">
+                                                        <Dropdown.Toggle variant='danger' className="btn-dropdown ">
+                                                            <Plus />
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
                                                             {
@@ -332,7 +357,7 @@ const AddEditProductModal = (props) => {
                                         }
                                     </Accordion>
                                 </Modal.Body>
-                                <Modal.Footer>
+                                <Modal.Footer className='d-flex justify-content-center'>
                                     {
                                         isEditing
                                             ? (
@@ -341,9 +366,6 @@ const AddEditProductModal = (props) => {
                                                 <Button variant="success" onClick={handleAddModal}>Add product</Button>
                                             )
                                     }
-                                    <Button variant="secondary" onClick={() => setShow(false)}>
-                                        Close
-                                    </Button>
                                 </Modal.Footer>
                             </Form>
                         </div>

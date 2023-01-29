@@ -6,6 +6,8 @@ import { Table, Button, Alert, Accordion, Dropdown, Row, Col } from "react-boots
 import Beer from '../../../../assets/icons/Beer'
 import Leaf from '../../../../assets/icons/Leaf'
 import AddEditProductModal from './modal/AddEditProductModal';
+import Edit from '../../../../assets/icons/Edit';
+import X from '../../../../assets/icons/X';
 
 const Products = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -39,7 +41,7 @@ const Products = () => {
 
     const getCategories = async () => {
         try {
-            const { data } = await axios.get('/category');
+            const { data } = await axios.get('/category/');
             setAllCategories(data?.categories);
         } catch (error) {
             console.log('mori');
@@ -76,10 +78,10 @@ const Products = () => {
             ingredients: [],
         }
         if (newProductCategory?.name === 'burger') {
-            const burgerPayload = { ...payload, ingredients: ['63b73c9b98bfe157938729af', '63b73ca498bfe157938729b1'] }
+            const burgerPayload = { ...payload, ingredients: ['63d5e91070dd61cda330900a', '63d5e97270dd61cda330900c'] }
             setProductToEdit(burgerPayload);
         } else if (newProductCategory?.name === 'sandwich') {
-            const sandwichPayload = { ...payload, ingredients: ['63b73c9b98bfe157938729af', '63bce51107fcb77ab4bc1b85'] }
+            const sandwichPayload = { ...payload, ingredients: ['63d5e9b170dd61cda3309010', '63d5e99770dd61cda330900e'] }
             setProductToEdit(sandwichPayload);
         } else setProductToEdit(payload);
 
@@ -93,29 +95,29 @@ const Products = () => {
             <div className='abm-container'>
                 <div className="table-header">
                     <h1>Products Control Panel</h1>
+                    <Dropdown className="m-1">
+                        <Dropdown.Toggle variant='danger' className="btn-dropdown">
+                            Add
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {
+                                allCategories?.map((category) => (
+                                    <Dropdown.Item
+                                        onClick={() => handleOpenAddModal({}, category)}
+                                        className='w-100'
+                                    >
+                                        {category?.name}
+                                    </Dropdown.Item>
+                                ))
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
                 {errorMessage ? (
                     <Alert variant="danger">{errorMessage}</Alert>
                 ) : (
                     ""
                 )}
-                <Dropdown className="m-1">
-                    <Dropdown.Toggle variant='danger' className="btn-dropdown">
-                        Add
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {
-                            allCategories?.map((category) => (
-                                <Dropdown.Item
-                                    onClick={() => handleOpenAddModal({}, category)}
-                                    className='w-100'
-                                >
-                                    {category?.name}
-                                </Dropdown.Item>
-                            ))
-                        }
-                    </Dropdown.Menu>
-                </Dropdown>
                 <Accordion>
                     {
                         productsToShow?.map((product, index) => (
@@ -123,9 +125,9 @@ const Products = () => {
                                 <Accordion.Header>
                                     {product?.name}
                                 </Accordion.Header>
-                                <Accordion.Body>
+                                <Accordion.Body className='p-2'>
                                     <div className='overflow-table-container'>
-                                        <Table className='table-container' size='sm'>
+                                        <Table className='table-container mt-2' size='sm'>
                                             <thead>
                                                 <tr>
                                                     <th className='col-3'>category</th>
@@ -149,6 +151,12 @@ const Products = () => {
                                                 </tr>
                                             </tbody>
                                         </Table>
+                                        <Table className='table-container'>
+                                            <tr>
+                                                <th>detail</th>
+                                                <td>{product?.detail}</td>
+                                            </tr>
+                                        </Table>
                                     </div>
                                     {
                                         product?.ingredients &&
@@ -158,7 +166,7 @@ const Products = () => {
                                                     Ingredients
                                                 </Accordion.Header>
                                                 <Accordion.Body>
-                                                    <ul className='d-flex justify-content-center align-items-center flex-wrap'>
+                                                    <ul className='d-flex flex-wrap p-0'>
                                                         {
                                                             product?.ingredients.map((ingredient) => (
                                                                 <li className='mx-4'>{ingredient?.name}</li>
@@ -171,16 +179,15 @@ const Products = () => {
                                     }
                                     <div className='w-100 d-flex justify-content-evenly'>
                                         <Row>
-                                            <Col className='w-100'>
+                                            <Col className='w-100 m-0'>
                                                 <div className='product-image-container p-3 my-3'>
                                                     <span className='mb-2'>Image: </span>
-                                                    {/* <div className='product-image' style={{
-                                                        background: `url("${product?.image}")`
-                                                    }}
-                                                    ></div> */}
+                                                    <div className='product-image-div'>
+                                                        <img src={product?.image} alt="" className='product-image' />
+                                                    </div>
                                                 </div>
                                             </Col>
-                                            <Col className='w-100'>
+                                            <Col className='w-100 m-0'>
                                                 <div className='product-size-container p-3 my-3'>
                                                     <span>Sizes available: </span>
                                                     {
@@ -205,8 +212,28 @@ const Products = () => {
                                             </Col>
                                         </Row>
                                     </div>
-                                    <Button onClick={() => handleOpenEditModal(product)}>Edit</Button>
-                                    <Button variant='danger' onClick={() => handleDeleteProduct(product?.category, product?._id)}>Delete</Button>
+                                    <div className='d-flex flex-row justify-content-center product-icons'>
+                                        <Button
+                                            onClick={() => handleOpenEditModal(product)}
+                                            className='mx-2'
+                                        >
+                                            <Edit />
+                                            <span className='d-sm-block d-none'>
+                                                Edit
+                                            </span>
+                                        </Button>
+                                        <Button
+                                            variant='danger'
+                                            onClick={() =>
+                                                handleDeleteProduct(product?.category, product?._id)
+                                            }
+                                        >
+                                            <X />
+                                            <span className='d-sm-block d-none'>
+                                                Delete
+                                            </span>
+                                        </Button>
+                                    </div>
                                 </Accordion.Body>
                             </Accordion.Item>
                         ))
