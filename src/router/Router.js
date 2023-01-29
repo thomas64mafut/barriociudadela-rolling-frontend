@@ -8,9 +8,11 @@ import Admin from '../components/pages/admin/Admin';
 import Missing from '../components/pages/404/Missing';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
 import Unauthorized from '../components/pages/Unauthorized'
+import Carts from '../components/pages/cart/Carts'
 import Cart from '../components/pages/cart/Cart'
 import UserProfile from '../components/pages/userProfile/UserProfile'
 import Menus from '../components/pages/menus/Menus';
+import Orders from '../components/pages/orders/Orders'
 
 const Router = (props) => {
   return (
@@ -36,7 +38,10 @@ const Router = (props) => {
           </Route>
           
           <Route element={<RequireAuth { ...props } />}>
-            <Route path='/cart' element={<Cart />} />
+            <Route path='/myCarts' element={<Carts />} />
+          </Route>
+          <Route element={<RequireAuth { ...props } />}>
+            <Route path='/orders' element={<Orders />} />
           </Route>
 
           <Route path="*" element={<Missing />} />
