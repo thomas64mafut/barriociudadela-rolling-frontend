@@ -17,7 +17,7 @@ const Header = () => {
             navbarScroll
           >
             <div className='primerNav'>
-              <div href="#action1" className='navOptions boton1 fourOne'> <a className='follow' href='aboutUs'>ABOUT US</a></div>
+              <div href="#action1" className='navOptions boton1 fourOne'> <a className='follow' href='#aboutUs'>ABOUT US</a></div>
               <div href="#action2" className='navOptions boton1' onClick={() => window.location.href = 'http://localhost:3000/menus'}>MENU</div>
               <div className='navOptions boton1 fourOne' >
                 <a className='follow' href="#followUs">FOLLOW US</a>

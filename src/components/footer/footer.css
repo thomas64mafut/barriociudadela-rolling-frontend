@@ -29,6 +29,12 @@
   font-size: 20px;
 }
 
+.instagram{
+  text-decoration: none;
+  color: inherit;
+  font-size: 20px;
+}
+
 .boton {
   cursor: pointer;
   position: relative;
@@ -64,3 +70,4 @@
   transition-duration: 400ms;
   transition-property: width, left;
 }
+

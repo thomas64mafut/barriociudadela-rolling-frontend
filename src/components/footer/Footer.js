@@ -13,21 +13,21 @@ const Footer = () => {
   return (
     <div className='bg-dark d-flex justify-content-center align-items-center row homeFooter g-0 w-100'>
       <div className='text-white col-12 col-md-4 d-flex flex-column align-items-center'>
-        <div className='fw-bold'>FOLLOW US</div>
+        <div className='fw-bold' id='followUs'>FOLLOW US</div>
         <div>
           <a className='d-flex socialAs'>
             <Instagram/>
-            <div className='text-white boton'>Instagram</div>
+            <a className='text-white boton instagram' href='https://instagram.com/'>Instagram</a>
           </a>
         </div>
         <div>
-          <a className='d-flex socialAs me-3'>
+          <a className='d-flex socialAs me-3' href='https://twitter.com/'>
             <Twitter/>
             <div className='text-white boton'>Twitter</div>
           </a>
         </div>
         <div>
-          <a className='d-flex socialAs me-2'>
+          <a className='d-flex socialAs me-2' href='https://www.facebook.com/'>
             <Facebook/>
             <div className='text-white boton'>Facebook</div>
           </a>
