@@ -17,8 +17,7 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
     const handleGetdrinks = async () => {
         try {
             const { data } = await axios('/product/drink')
-            const drinksFiltered = data.Drinks?.filter((drink) => drink.category === category)
-            setDrinks(drinksFiltered)
+            setDrinks(data.Drinks)
         } catch (error) {
             setError('Drinks not found')
         }

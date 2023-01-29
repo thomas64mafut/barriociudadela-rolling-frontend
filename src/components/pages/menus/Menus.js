@@ -35,7 +35,6 @@ const Menus = () => {
         try {
             const { data } = await axios('/cart');
             let totalPrice = 0;
-            console.log(data);
             for (const product of data?.ownCart?.products) {
                 totalPrice = totalPrice + (product?.price * product?.quantity)
             }
@@ -61,7 +60,7 @@ const Menus = () => {
                 </button>
             </div>
             <Burgers
-                category={'Burgers'}
+                category={'burger'}
                 defaultItem={"1 Patty"}
                 item2={"2 Patties"}
                 setError={setError}
@@ -69,7 +68,7 @@ const Menus = () => {
                 setMessageToShow={setMessageToShow}
             />
             <Burgers
-                category={'Sandwichs'}
+                category={'sandwich'}
                 defaultItem={"1 steak"}
                 item2={"Extra meet"}
                 setError={setError}
@@ -82,17 +81,9 @@ const Menus = () => {
                 setMessageToShow={setMessageToShow}
             />
             <Drinks
-                category={"Drink"}
+                category={"drink"}
                 defaultItem={"1 lt"}
                 item2={"500 cc"}
-                setError={setError}
-                setMessageModalShow={setMessageModalShow}
-                setMessageToShow={setMessageToShow}
-            />
-            <Drinks
-                category={"Beer"}
-                defaultItem={"Pinta"}
-                item2={"1/2 Pinta"}
                 setError={setError}
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}

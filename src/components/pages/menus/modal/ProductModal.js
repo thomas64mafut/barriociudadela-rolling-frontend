@@ -30,6 +30,7 @@ const ProductModal = ({
 
     const postCart = async () => {
         try {
+            console.log(cart);
             const { data } = await axios.post('/cart', cart);
             setMessageToShow(data.message)
         } catch (error) {
@@ -57,9 +58,9 @@ const ProductModal = ({
                     target.value = '';
                 } else if (target.type === 'radio') {
                     if (target.id === '2' && target.checked === true) {
-                        preferences.size = 'large'
+                        preferences.size = 'l'
                         target.checked = false;
-                    } else preferences.size = 'medium'
+                    } else preferences.size = 'xl'
                 }
 
             }
@@ -110,7 +111,7 @@ const ProductModal = ({
                             <Accordion.Body>
                                 <div>
                                     {
-                                        itemsToRemove.map((i) =>
+                                        itemsToRemove.map((i, index) =>
                                             <Form.Check
                                                 type="checkbox"
                                                 key={i._id}
@@ -119,6 +120,13 @@ const ProductModal = ({
                                                 value={i._id}
                                                 name='toRemove'
                                                 className='toRemove'
+                                                disabled={
+                                                    index === 0 || index === 1 ? (
+                                                        true
+                                                    ) : ( 
+                                                        false
+                                                    )
+                                                }
                                             />
                                         )
                                     }
