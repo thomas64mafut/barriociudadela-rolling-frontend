@@ -25,7 +25,6 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
 
     return (
         <div>
-            <h4 className='titleSection drinks-title'>{category}s</h4>
             <div className='cards_container'>
                 <Row className='p-3'>
                     {

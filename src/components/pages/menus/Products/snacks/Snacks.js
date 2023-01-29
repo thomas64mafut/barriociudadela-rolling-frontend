@@ -24,7 +24,6 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
 
     return (
         <div>
-            <h2 className='titleSection snacks-title'>Snacks</h2>
             <div className='cards_container'>
                 <Row className='p-3'>
                     {

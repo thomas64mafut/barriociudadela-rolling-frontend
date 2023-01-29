@@ -54,16 +54,19 @@ const AddEditProductModal = (props) => {
         setIsVegan(product?.isVegan);
         setHasAlcohol(product?.hasAlcohol);
         setImage(product?.image);
-
-        let ingredientsFound = [];
-        allIngredients.forEach((ingredient) => (
-            product?.ingredients.forEach(ingredientId => {
-                if (ingredientId === ingredient._id) {
-                    ingredientsFound.push(ingredient);
-                }
-            })
-        ))
-        setIngredientsList(ingredientsFound)
+        if (product?.ingredients) {
+            if (typeof (product?.ingredients[0]) === 'string') {
+                let ingredientsFound = [];
+                allIngredients.forEach((ingredient) => (
+                    product?.ingredients.forEach(ingredientId => {
+                        if (ingredientId === ingredient._id) {
+                            ingredientsFound.push(ingredient);
+                        }
+                    })
+                ))
+                setIngredientsList(ingredientsFound)
+            } else setIngredientsList(product?.ingredients);
+        }
     }
 
     const hiddenFileInput = useRef(null);
@@ -127,7 +130,6 @@ const AddEditProductModal = (props) => {
             return ingredient !== ingredientToRemove;
         });
         setIngredientsList(newIngredientList);
-
     }
 
     const getCategories = async () => {
@@ -326,9 +328,9 @@ const AddEditProductModal = (props) => {
                                                                         <Button
                                                                             variant='danger'
                                                                             onClick={() => removeIngredientFromList(ingredient)}
-                                                                            className='ingredient-delete-button'
+                                                                            className='ingredient-delete-button p-0'
                                                                         >
-                                                                           <X /> 
+                                                                            <X />
                                                                         </Button>
                                                                     </div>
                                                                 ))
@@ -336,7 +338,7 @@ const AddEditProductModal = (props) => {
                                                         </ul>
                                                     </Form.Group>
                                                     <Dropdown className="m-1 d-flex justify-content-end">
-                                                        <Dropdown.Toggle variant='danger' className="btn-dropdown ">
+                                                        <Dropdown.Toggle variant='danger' className="btn-dropdown px-2 d-flex justify-content-between">
                                                             <Plus />
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
