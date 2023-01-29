@@ -1,6 +1,6 @@
 .homeContainer{
   min-height: calc(100vh - 15rem);
-  margin-top: 4rem;
+  width: 100%;
 }
 
 .welcomeContainer{
@@ -24,7 +24,6 @@
 }
 
 .homeBack{
-  min-height: auto;
   background-image: url(../../../assets/img/papelTexture.webp);
 }
 
@@ -34,9 +33,9 @@
   font-size: 20px;
 }
 
-h2{
+.barrioCiudadela{
   font-family: 'Blogh';
-  color: #5596CC;
+  color: var(--blue-gray);
 }
 
 .imgContainer{
@@ -56,5 +55,133 @@ h2{
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   transition: 0.5s;
+}
+
+.owners-photo{
+  border: 1px solid var(--fire-opal);
+  height: 10rem;
+  max-width: 70vw;
+  border-radius: 5rem;
+  margin-bottom: 1rem;
+}
+
+.owners-title{
+  font-family: 'Blogh';
+  color: var(--gold-metalic);
+}
+
+.owners-name{
+  font-family: 'Blogh';
+  color: var(--fire-opal);
+}
+
+.radius-owner{
+  height: 9rem;
+  width: 9rem;
+  border-radius: 50%;
+}
+
+.picture-radius{
+  height: 9rem;
+  width: 9rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 1160px){
+  .picture-radius{
+    height: 7rem;
+    width: 7rem;
+  }
+}
+
+@media (max-width: 1100px){
+  .imgContainer{
+    padding-left: 4rem ;
+    padding-right: 4rem ;
+  }
+}
+
+@media (max-width: 930px){
+  .imgContainer{
+    padding-left: 2rem ;
+    padding-right: 2rem ;
+  }
+  .texto-home{
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .picture-radius{
+    height: 6rem;
+    width: 6rem;
+  }
+}
+
+@media (max-width: 930px){
+  .imgContainer{
+    padding-left: 2rem ;
+    padding-right: 2rem ;
+  }
+}
+
+@media (max-width: 767.5px){
+  .img-burguer{
+    margin-top: 2rem !important;
+  }
+  .texto-home{
+    padding-left: 4.5rem ;
+    padding-right: 4.5rem ;
+  }
+  .owners-photo{
+    height: 28rem !important;
+  }
+  .picture-radius{
+    height: 11rem ;
+    width: 11rem ;
+  }
+}
+
+@media (max-width: 583px){
+  .welcome{
+    font-size: 60px;
+  }
+  .texto-home{
+    padding-left:20px ;
+    padding-right:20px ;
+  }
+  .owners-photo{
+    height: 38rem;
+    max-width: 90vw;
+  }
+  .under-welcome{
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 450px){
+  .imgContainer{
+    padding-left: 0 ;
+    padding-right: 0 ;
+  }
+  .texto-home{
+    padding-left: 2rem ;
+    padding-right: 2rem ;
+  }
+}
+
+
+@media (max-width: 330px){
+  .under-welcome{
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 320px){
+  .barrioCiudadela{
+    font-size: 28px;
+  }
+  .owners-photo{
+    height: 33rem !important;
+  }
 }
 

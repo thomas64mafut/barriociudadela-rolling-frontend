@@ -6,7 +6,7 @@ import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
 import { useNavigate } from 'react-router-dom';
-import Cart from '../../../assets/icons/dark/Cart';
+import Cart from '../../../assets/icons/Cart';
 
 const Menus = () => {
     let navigate = useNavigate();
@@ -61,7 +61,7 @@ const Menus = () => {
                 </button>
             </div>
             <Burgers
-                category={'Burgers'}
+                category={'burger'}
                 defaultItem={"1 Patty"}
                 item2={"2 Patties"}
                 setError={setError}
@@ -69,7 +69,7 @@ const Menus = () => {
                 setMessageToShow={setMessageToShow}
             />
             <Burgers
-                category={'Sandwichs'}
+                category={'sandwich'}
                 defaultItem={"1 steak"}
                 item2={"Extra meet"}
                 setError={setError}
@@ -82,17 +82,9 @@ const Menus = () => {
                 setMessageToShow={setMessageToShow}
             />
             <Drinks
-                category={"Drink"}
+                category={"drink"}
                 defaultItem={"1 lt"}
                 item2={"500 cc"}
-                setError={setError}
-                setMessageModalShow={setMessageModalShow}
-                setMessageToShow={setMessageToShow}
-            />
-            <Drinks
-                category={"Beer"}
-                defaultItem={"Pinta"}
-                item2={"1/2 Pinta"}
                 setError={setError}
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}

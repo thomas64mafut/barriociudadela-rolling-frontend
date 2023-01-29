@@ -1,9 +1,9 @@
 import React from 'react'
 import './footer.css'
 import logo from '../../assets/img/logo-red.png'
-import Facebook from '../../assets/icons/light/Facebook'
-import Twitter from '../../assets/icons/light/Twitter'
-import Instagram from '../../assets/icons/light/Instagram'
+import Facebook from '../../assets/icons/Facebook'
+import Twitter from '../../assets/icons/Twitter'
+import Instagram from '../../assets/icons/Instagram'
 import American from '../../assets/img/american-express.webp'
 import Mastercard from '../../assets/img/mastercard.webp'
 import Naranja from '../../assets/img/naranja-x.webp'
@@ -11,7 +11,7 @@ import Visa from '../../assets/img/visa.webp'
 
 const Footer = () => {
   return (
-    <div className='bg-dark d-flex justify-content-center align-items-center row homeFooter'>
+    <div className='bg-dark d-flex justify-content-center align-items-center row homeFooter g-0 w-100'>
       <div className='text-white col-12 col-md-4 d-flex flex-column align-items-center'>
         <div className='fw-bold'>FOLLOW US</div>
         <div>
