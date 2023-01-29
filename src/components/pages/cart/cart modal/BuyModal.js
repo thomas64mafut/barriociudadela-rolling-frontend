@@ -14,7 +14,8 @@ const BuyModal = ({ show , setShow, cart}) => {
 
     const handleBuy = async() => {
         try {
-            const { data } = await axios.patch('/cart/buy/'+cart._id)
+            const { data } = await axios.put('/cart/buy/'+cart._id)
+            console.log(data)
             navigate('/menus')
         } catch (error) {
             console.log(error)

@@ -21,6 +21,7 @@ const Carts = () => {
         try {
             const { data } = await axios('/cart');
             const activeCart = data.ownCarts.find(cart => cart.cartStatus === 'active')
+            console.log(activeCart)
             const cartstoShow = data.ownCarts.filter(cart => cart.cartStatus === 'bought' || cart.cartStatus === 'cancelled' || cart.cartStatus === 'delivered' || cart.cartStatus === 'preparing' )
             setActiveCart(activeCart)
             setCarts(cartstoShow.reverse())
@@ -57,6 +58,9 @@ const Carts = () => {
                                             <>
                                                 <div>Cart_id: {cart?._id}</div>
                                                 <div>Status: {cart?.cartStatus}</div>
+                                                {
+                                                    cart?.cartStatus === 'bought'? (<div>Bought on {new Date(cart?.boughtAt).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}</div>):(<></>)
+                                                }
                                                 <Cart
                                                 cart = {cart}
                                                 />
