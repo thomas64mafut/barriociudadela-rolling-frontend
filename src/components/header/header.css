@@ -17,7 +17,6 @@
 } 
 
 .primerNav{
-  overflow-y: hidden;
   display: flex;
   margin-left: -1rem;
 }
@@ -26,25 +25,9 @@
   display: flex;
 }
 
-@media (max-width:991px){
-  .segundoNav{
-    display: block;
-  }
-  .navContainer{
-    height: auto;
-  }
-  .logoa{
-    height: 3rem;
-    margin-left: -2.2rem;
-  }
-  .primerNav{
-    margin-left: 0rem;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .boton1{
-    width: 20%;
-  }
+.follow{
+  text-decoration: none;
+  color: inherit;
 }
 
 .navOptions{
@@ -97,4 +80,31 @@
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   transition-duration: 400ms;
   transition-property: width, left;
+}
+
+@media (max-width:991.5px){
+  .segundoNav{
+    display: block;
+  }
+  .navContainer{
+    height: auto;
+  }
+  .logoa{
+    height: 3rem;
+    margin-left: -2.2rem;
+  }
+  .primerNav{
+    margin-left: 0rem;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .boton1:hover:after{
+    width: 0%;
+  }
+  .fourOne{
+    width: 100vw;
+  }
+  .primerNav{
+    overflow-y: hidden;
+  }
 }
