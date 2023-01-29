@@ -1,0 +1,43 @@
+.ingredients-modal-list li{
+    margin-bottom: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ingredient-delete-button {
+    min-width: 2rem;
+    width: 2rem;
+    height: 2rem;
+    padding: .2rem;
+}
+
+.ingredient-delete-button svg {
+    stroke: white;
+    height: 100%;
+    width: 100%;
+}
+
+.btn-dropdown {
+    height: 2rem;
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-dropdown svg {
+    stroke: white;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.accordion-button {
+    padding-inline: .3rem;
+    padding-block: 1rem;
+
+}
+
+.modal-title {
+    font-family: 'Leonardo-Rounded';
+}

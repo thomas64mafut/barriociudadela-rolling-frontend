@@ -2,8 +2,7 @@ import "../admin.css";
 import React, { useEffect, useState } from "react";
 import { Table, Button, Alert, Dropdown } from "react-bootstrap";
 import axios from "../../../../api/axios";
-import UserPlus from '../../../../assets/icons/light/UserPlus';
-import UserX from '../../../../assets/icons/light/UserX';
+import UserX from '../../../../assets/icons/UserX'
 
 const Users = () => {
     const [usersToShow, setUsersToShow] = useState([]);

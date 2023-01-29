@@ -1,14 +1,19 @@
 .product-image-container {
     display: flex;
     flex-direction: column;
-    width: 12rem;
+    max-width: 12rem;
     justify-content: center;
     align-items: center;
     border: 2px solid var(--fire-opal);
 }
 
+.product-image-div {
+    width: 100%;
+}
+
 .product-image {
-    width: 9rem;
+    width: 100%;
+    background-size: cover;
 }
 
 .product-size-container {
@@ -20,4 +25,7 @@
 
 .table-container svg {
     stroke: var(--fire-opal);
+}
+.product-icons svg {
+    stroke: white;
 }

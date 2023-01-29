@@ -6,7 +6,7 @@ import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
 import { useNavigate } from 'react-router-dom';
-import Cart from '../../../assets/icons/dark/Cart';
+import Cart from '../../../assets/icons/Cart';
 
 const Menus = () => {
     let navigate = useNavigate();
