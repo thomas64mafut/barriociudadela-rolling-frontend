@@ -1,8 +1,7 @@
 .main-container {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
     width: 100vw;
-    height: min-content;
-    display: flex;
-    justify-content: space-evenly;
     background-color: rgb(237, 227, 199);
 }
 
@@ -16,8 +15,7 @@
 }
 
 .img404-container > img{
-    width: 100%;
-    height: 100%;
+    width: 25rem;
     padding-bottom: 1rem;
 }
 
@@ -26,8 +24,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 40vw;
-    height: 10%;
 }
 
 .stats-container {
@@ -39,11 +35,16 @@
     margin-bottom: 1rem;
 }
 
+.turno{
+    width: 6rem;
+}
+
 .turns-container {
     margin-top: 2rem;
 }
 
 .btn-custom {
+    margin-top: 1.5rem;
     --button_radius: 0.75em;
     --button_color: #e8e8e8;
     --button_outline_color: #000000;
@@ -79,4 +80,89 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
+    width: 30rem;
+}
+
+@media (max-width: 991.5px){
+    .card-grid{
+        margin-right: 0;
+    }
+    .main-container{
+        height: 100% !important ;
+    }
+}
+
+@media (min-width: 991px){
+    .card-grid{
+        width: 20rem !important;
+    }
+    .img404-container > img{
+        width: 20rem !important;
+    }
+}
+
+@media (min-width: 1246px){
+    .card-grid{
+        width: 30rem !important;
+    }
+    .img404-container > img{
+        width: 25rem !important;
+    }
+}
+
+@media (min-width: 279px){
+    .img404-container > img{
+        width: 10rem;
+    }
+    .card-grid{
+        width: 12rem;
+    }
+    .stats-container{
+        width: 10rem;
+    }
+    .memoria{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 380px){
+    .img404-container > img{
+        width: 14rem;
+    }
+    .card-grid{
+        width: 16rem;
+    }
+    .stats-container{
+        width: 10rem;
+    }
+    .memoria{
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 550px){
+    .img404-container > img{
+        width: 20rem;
+    }
+    .card-grid{
+        width: 20rem;
+    }
+    .stats-container{
+        width: 10rem;
+    }
+    .memoria{
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 750px){
+    .img404-container > img{
+        width: 25rem;
+    }
+    .card-grid{
+        width: 25rem;
+    }
+    .stats-container{
+        width: 10rem;
+    }
 }

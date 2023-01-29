@@ -78,7 +78,7 @@ function Missing() {
   }, [])
 
   return (
-    <div className="main-container row">
+    <div className="main-container row g-0 w-100">
       <div className="message-container col-lg-6">
         <h1>Oops!</h1>
         <h4>Page Not Found</h4>
@@ -91,7 +91,7 @@ function Missing() {
       </div>
       <div className="game-container col-lg-6">
         <h1>Wanna play?</h1>
-        <h4>Memory game, find all matches.</h4>
+        <h4 className='memoria'>Memory game, find all matches.</h4>
         <div className="card-grid">
           {cards.map(card => (
             <Card 
@@ -103,9 +103,9 @@ function Missing() {
             />
           ))}
         </div>
-        <div className='stats-container'>
+        <div className='stats-container '>
           <div className='turns-container'>
-              <h4>Turns: {turns}</h4>
+              <h4 className='turno'>Turns: {turns}</h4>
           </div>
           <div>
             <button className='btn-custom' onClick={shuffleCards}>
