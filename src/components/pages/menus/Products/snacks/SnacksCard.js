@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap';
 import Counter from '../../../../counter/Counter';
 import axios from '../../../../../api/axios';
+import Leaf from '../../../../../assets/icons/Leaf';
 
 const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
@@ -64,7 +65,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                     </h5>
                 </Card.Title>
                 <b className='product-price'>
-                    ${snack.price}
+                    ${snack.price} { snack?.isVegan && <Leaf />}
                 </b>
             </Card.Header>
             <Card.Body className='p-0'>

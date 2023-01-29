@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Form } from 'react-bootstrap'
 
 import Counter from '../../../../counter/Counter'
+import Beer from '../../../../../assets/icons/Beer';
 
 const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
@@ -65,7 +66,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
                             {drink.name.toString().toLowerCase()}
                         </h5>
                         <b className='product-price'>
-                            ${drink.price}
+                            ${drink.price} { drink?.hasAlcohol && <Beer />}
                         </b>
                     </Card.Title>
                 </Card.Header>

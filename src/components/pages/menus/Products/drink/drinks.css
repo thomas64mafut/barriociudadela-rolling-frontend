@@ -18,3 +18,12 @@
 .drinks-title {
     color: var(--gold-metalic)!important;
 }
+
+.drink-card:hover svg {
+    transition: .4s;
+    stroke: rgb(193, 147, 31)!important;
+}
+
+.drink-card svg {
+    transition: .4s;
+}

@@ -60,6 +60,7 @@ const Menus = () => {
                     <span>$ {cartTotalPrice}</span>
                 </button>
             </div>
+            <h2 className='titleSection burgers-title'>Burgers</h2>
             <Burgers
                 category={'burger'}
                 defaultItem={"1 Patty"}
@@ -68,6 +69,7 @@ const Menus = () => {
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}
             />
+            <h2 className='titleSection sandwiches-title'>Sandwiches</h2>
             <Burgers
                 category={'sandwich'}
                 defaultItem={"1 steak"}
@@ -76,11 +78,13 @@ const Menus = () => {
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}
             />
+            <h2 className='titleSection snacks-title'>Snacks</h2>
             <Snacks
                 setError={setError}
                 setMessageModalShow={setMessageModalShow}
                 setMessageToShow={setMessageToShow}
             />
+            <h2 className='titleSection drinks-title'>Drinks</h2>
             <Drinks
                 category={"drink"}
                 defaultItem={"1 lt"}

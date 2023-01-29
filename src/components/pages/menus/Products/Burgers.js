@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap'
 import ProductModal from '../modal/ProductModal';
 import './burgers.css'
+import Leaf from '../../../../assets/icons/Leaf';
 
 const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [productModalShow, setProductModalShow] = useState(false)
@@ -85,7 +86,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                                                 </h5>
                                             </Card.Title>
                                             <b className="product-price">
-                                                $ {product.price}
+                                                $ {product.price} { product?.isVegan && <Leaf />}
                                             </b>
                                         </Card.Header>
                                         <Card.Body>
