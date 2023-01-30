@@ -3,7 +3,7 @@ import { Alert, Table } from "react-bootstrap";
 import axios from '../../../api/axios';
 import "./userProfile.css";
 
-const USER_URL = '/api/user';
+const USER_URL = '/user';
 
 const UserProfile = () => {
   const [userToShow, setUserToShow] = useState([]);
@@ -77,7 +77,7 @@ const UserProfile = () => {
 
 
   return (
-    <div className='main-container row'>
+    <div className='main-container'>
       <div className="users-header">
         <h1>User's Profile</h1>
       </div>
@@ -88,7 +88,7 @@ const UserProfile = () => {
       )}
 
       <div className="profile-container row">
-        <div className='col-lg-6'>
+        <div className='col-md-6'>
           <div className='flex-grow-1 w-100 d-flex justify-content-around align-items-center'>
             <div className='profile-imgContainer'>
               <img src={profileImg} alt='' />
@@ -112,37 +112,13 @@ const UserProfile = () => {
         >
         </input>
         
-        <div className='col-lg-6'>
-          <Table className="table-container">
-            <thead>
-              <tr>
-                <th></th>
-                <th>User's Info</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>role:</td>
-                <tr>{userToShow.role?.name}</tr>
-              </tr>
-              <tr>
-                <td>username:</td>
-                <td>{userToShow.username}</td>
-              </tr>
-              <tr>
-                <td>email:</td>
-                <td>{userToShow.email}</td>
-              </tr>
-              <tr>
-                <td>password:</td>
-                <td>{userToShow.password}</td>
-              </tr>
-              <tr>
-                <td>member since:</td>
-                <td>{dateFormatter(userToShow.createdAt)}</td>
-              </tr>
-            </tbody>
-          </Table>
+        <div className='data-container col-md-6'>
+          <ul>
+              <li><h5><b><u>Role:</u></b>   {userToShow.role?.name}</h5></li>
+              <li><h5><b><u>Username:</u></b>   {userToShow?.username}</h5></li>
+              <li><h5><b><u>Email:</u></b>   {userToShow?.email}</h5></li>
+              <li><h5><b><u>Member since:</u></b>   {dateFormatter(userToShow?.createdAt)}</h5></li>
+          </ul>
         </div>
         <div className='button-container'>
           <button className='btn-custom my-3'onClick={handleEditUser}>
