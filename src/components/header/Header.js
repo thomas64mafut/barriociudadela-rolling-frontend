@@ -139,7 +139,7 @@ const Header = () => {
                                     </div>
                                 )
                                 : (
-                                    <div>
+                                    <div className='d-flex flex-lg-row flex-column nav-options-container me-3'>
                                         <Link to={'/login'} className='navOptions boton1'>
                                             LOGIN
                                         </Link>
