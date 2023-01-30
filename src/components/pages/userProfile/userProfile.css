@@ -1,23 +1,26 @@
 .main-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     background-image: url(../../../assets/img/papelTexture.webp);
-    width: 100vw;
-    height: calc(100vh - 4rem);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 .users-header {
     display: flex;
     flex-direction: row;
-    width: 95%;
-    margin-left: 2rem;
-    margin-bottom: 0;
+    width: 100%;
+    margin: 1rem;
 }
 
-.profile-container {
+.profile-container, .data-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
+}
+
+.data-container li {
+    font-family: 'VictorMono';
 }
 
 .profile-imgContainer {
@@ -46,6 +49,8 @@
     transition: 0.7s;
 }
 
+
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -73,6 +78,7 @@
     color: var(--button_outline_color);
     transform: translateY(-0.2em);
     transition: transform 0.1s ease;
+    font-family: 'Leonardo-Rounded';
 }
 
 .btn-custom:hover .btn-custom_top {
@@ -81,23 +87,4 @@
 
 .btn-custom:active .btn-custom_top {
     transform: translateY(0);
-}
-
-.table-container {
-    width: 100%;
-    border-collapse: collapse;
-    overflow: auto;
-}
-
-.table-container td,
-.table-container th {
-    text-align: left;
-    border: 2px solid var(--fire-opal);
-    padding: 0.5rem;
-}
-
-.table-container th {
-    font-family: "Leonardo-Rounded";
-    font-weight: 100;
-    border-top: 5px solid var(--fire-opal);
 }
