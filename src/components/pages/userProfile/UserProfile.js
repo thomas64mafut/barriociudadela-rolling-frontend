@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Alert, Table } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
+import { useOutletContext } from 'react-router-dom';
 import axios from '../../../api/axios';
 import "./userProfile.css";
 
 const USER_URL = '/user';
 
-const UserProfile = () => {
+const UserProfile = ( props ) => {
+  const { auth, setAuth } = useOutletContext();
   const [userToShow, setUserToShow] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,7 +19,6 @@ const UserProfile = () => {
     try {
       const token = localStorage.getItem('jwt');
       const { data } = await axios.get(USER_URL, { headers: { Authorization: token } }) ;
-      console.log(data);
       setUserToShow(data?.userFound);
       setProfileImg(data?.userFound?.profilePicture)
     } catch (error) {
@@ -43,7 +44,6 @@ const UserProfile = () => {
     e.target.value = '';
     beforeUpload(fileUploaded);
     const base64 = await getBase64(fileUploaded);
-    console.log(base64);
     setProfileImg(base64);
   };
 
@@ -69,7 +69,6 @@ const UserProfile = () => {
       const { data } = await axios.patch(
         USER_URL, { profilePicture: profileImg } , { headers: { Authorization: token } } 
       );
-      console.log(data);
     } catch (error) {
       console.log("mori");
     }
@@ -88,8 +87,8 @@ const UserProfile = () => {
       )}
 
       <div className="profile-container row">
-        <div className='col-md-6'>
-          <div className='flex-grow-1 w-100 d-flex justify-content-around align-items-center'>
+        <div className='col-md-6 p-0'>
+          <div className='flex-grow-1 w-100 d-flex justify-content-center align-items-center'>
             <div className='profile-imgContainer'>
               <img src={profileImg} alt='' />
             </div>
@@ -97,7 +96,7 @@ const UserProfile = () => {
           <div className='button-container'>
             <button className='btn-custom my-3'onClick={handleClick}>
               <span className='btn-custom_top'>
-                Select Profile Picture
+                select profile picture
               </span>
             </button>
           </div>
@@ -114,7 +113,7 @@ const UserProfile = () => {
         
         <div className='data-container col-md-6'>
           <ul>
-              <li><h5><b><u>Role:</u></b>   {userToShow.role?.name}</h5></li>
+              <li><h5><b><u>Role:</u></b>   { auth?.role }</h5></li>
               <li><h5><b><u>Username:</u></b>   {userToShow?.username}</h5></li>
               <li><h5><b><u>Email:</u></b>   {userToShow?.email}</h5></li>
               <li><h5><b><u>Member since:</u></b>   {dateFormatter(userToShow?.createdAt)}</h5></li>
@@ -123,7 +122,7 @@ const UserProfile = () => {
         <div className='button-container'>
           <button className='btn-custom my-3'onClick={handleEditUser}>
             <span className='btn-custom_top'>
-              Save Changes
+              save changes
             </span>
           </button>
         </div>

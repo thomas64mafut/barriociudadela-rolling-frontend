@@ -19,6 +19,10 @@
     width: 100%;
 }
 
+.data-container li {
+    font-family: 'VictorMono';
+}
+
 .profile-imgContainer {
     display: flex;
     flex-direction: column;
@@ -74,6 +78,7 @@
     color: var(--button_outline_color);
     transform: translateY(-0.2em);
     transition: transform 0.1s ease;
+    font-family: 'Leonardo-Rounded';
 }
 
 .btn-custom:hover .btn-custom_top {
