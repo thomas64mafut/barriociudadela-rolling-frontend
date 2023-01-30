@@ -14,7 +14,6 @@ export const Cart = ({cart}) => {
     let totalPrice=0;
 
     useEffect(() => {
-        console.log('cart en cart'+ cart)
         totalPrice=0;
         for (const product of cart?.products) {
             totalPrice = totalPrice+(product?.price*product?.quantity)
@@ -55,6 +54,7 @@ export const Cart = ({cart}) => {
                                                     <td>size: {product.size} 
                                                         {product.removed.length > 0 && <tr>to remove: {product.removed.map((i) => {return `-${i.name}`})}</tr>}
                                                         {product.toppings.length > 0 && <tr>to topping: {product.toppings.map((i) => {return `-${i.name}`})}</tr>}
+                                                        {product.preferences && <tr>preferences: {product.preferences}</tr>}
                                                     </td>
                                                     <td>{product.quantity}</td>
                                                     <td>{product.quantity*product.price}</td>

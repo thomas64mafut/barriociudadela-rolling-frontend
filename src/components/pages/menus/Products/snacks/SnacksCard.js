@@ -48,6 +48,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
         preferences.quantity = count;
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
+        preferences.category = snack.category;
         setCount(1)
         e.target[0].checked = true;
         setCart(preferences)

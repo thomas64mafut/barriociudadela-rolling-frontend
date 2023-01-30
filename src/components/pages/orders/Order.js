@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap';
 import axios from '../../../api/axios';
 import './order.css'
 
-const Order = ({cart}) => {
+const Order = ({productsShow ,stat, id, role}) => {
     let idkey=0
-    const [status, setStatus] = useState(cart.cartStatus)
-    
+    const [status, setStatus] = useState(stat)
+    const [price, setPrice] = useState([])
+    let totalPrice
+    useEffect(() => {
+        totalPrice=0;
+        for (const product of productsShow) {
+            totalPrice = totalPrice+(product?.price*product?.quantity)
+        }
+        setPrice(totalPrice)
+    }, [])
+
     const handleCancelCart = async(id) => {
         try {
             const { data } = await axios.patch('/cart/cancel/'+id)
@@ -38,17 +47,19 @@ const Order = ({cart}) => {
         if (status === 'bought') {
             return (
                 <div>
-                    <Button variant='secondary' onClick={()=>handlePreparingCart(cart._id)}>Preparing</Button>
-                    <Button variant='secondary'  onClick={()=>handleCancelCart(cart._id)}>Cancel</Button>
+                    <Button variant='secondary' onClick={()=>handlePreparingCart(id)}>Preparing</Button>
+                    <Button variant='secondary'  onClick={()=>handleCancelCart(id)}>Cancel</Button>
                 </div>)
         }
         if (status === 'preparing') {
-            return(
-                <div>
-                    <Button variant='secondary' onClick={()=>handledeliveredCart(cart._id)}>Delivered</Button>
-                    <Button variant='secondary'  onClick={()=>handleCancelCart(cart._id)}>Cancel</Button>
-                </div>
-            )
+            if (role=== 'admin' ) {
+                return(
+                    <div>
+                        <Button variant='secondary' onClick={()=>handledeliveredCart(id)}>Delivered</Button>
+                        <Button variant='secondary'  onClick={()=>handleCancelCart(id)}>Cancel</Button>
+                    </div>
+                )
+            }
         }
         if (status === 'cancelled') {
             return(
@@ -59,46 +70,56 @@ const Order = ({cart}) => {
             <p>This order was delivered</p>
             
         }
-        
-
     }
-
-  return (
-    <div className={status}>
-        <div>Status: {status}</div>
-        <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                    <th>#</th>
-                                    <th>Product Name</th>
-                                    <th>Preferences</th>
-                                    <th>Quantity</th>
+    
+    return (
+        <div className={status}>
+            <div>Status: {status}</div>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Preferences</th>
+                        <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {     
+                            productsShow?.map(product => {
+                                idkey= idkey+1;
+                                return(
+                                    <tr key={idkey}>
+                                        <td>{idkey}</td>
+                                        <td>{product.name}</td>
+                                        <td>size: {product.size} 
+                                            {product.removed.length > 0 && <tr>to remove: {product.removed.map((i) => {return `-${i.name}`})}</tr>}
+                                            {product.toppings.length > 0 && <tr>to topping: {product.toppings.map((i) => {return `-${i.name}`})}</tr>}
+                                            {product.preferences && <tr>preferences: {product.preferences}</tr>}
+                                        </td>
+                                        <td>{product.quantity}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-
-                                    {    
-                                        cart?.products?.map(product => {
-                                            idkey= idkey+1;
-                                            return(
-                                                <tr key={idkey}>
-                                                    <td>{idkey}</td>
-                                                    <td>{product.name}</td>
-                                                    <td>size: {product.size} 
-                                                        {product.removed.length > 0 && <tr>to remove: {product.removed.map((i) => {return `-${i.name}`})}</tr>}
-                                                        {product.toppings.length > 0 && <tr>to topping: {product.toppings.map((i) => {return `-${i.name}`})}</tr>}
-                                                    </td>
-                                                    <td>{product.quantity}</td>
-                                                </tr>
-                                                
-                                                )
-                                            })
-                                    }
-                                </tbody>
-                            </Table>
-                                {
-                                        buttonsForStatus()
-                                }
+                                    )
+                                })
+                            }
+                            {
+                                role==='admin'? (
+                                <>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td> $ {price}</td>
+                                </>):(
+                                <>
+                                </>)
+                            }
+                            
+                            
+                    </tbody>
+                </Table>
+                    {
+                        buttonsForStatus()
+                    }
     </div>
   )
 }

@@ -49,6 +49,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
         preferences.quantity = count;
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
+        preferences.category = drink.category;
         setCount(1)
         e.target[0].checked = true;
         setCart(preferences)
