@@ -80,7 +80,7 @@ const Header = () => {
 
     const cartPriceTooltip = (
         <Tooltip id="cart-price">
-            <span>total: ${cartTotalPrice}</span>
+            <span className='cart-price'>total: ${cartTotalPrice}</span>
         </Tooltip>
     );
 
@@ -109,7 +109,7 @@ const Header = () => {
                         {
                             token
                                 ? (
-                                    <div className='d-flex flex-lg-row flex-column nav-options-container me-2'>
+                                    <div className='d-flex flex-lg-row flex-column nav-options-container me-lg-1'>
                                         {
                                             userRole === 'admin' &&
                                             <Link to={'/admin'} className='navOptions boton1'>
@@ -126,11 +126,13 @@ const Header = () => {
                                                     <Cart />
                                                 </Button>
                                             </OverlayTrigger>
-                                            <InputGroup.Text className='d-flex flex-column align-items-end '>
-                                                <span>
-                                                    Welcome {userToShow?.username}!
-                                                </span>
-                                                <button onClick={handleLogOut} className='border-0'>log out</button>
+                                            <InputGroup.Text className=''>
+                                                <div className='h-100 d-flex flex-column align-items-end'>
+                                                    <span>
+                                                        Welcome {userToShow?.username}!
+                                                    </span>
+                                                    <button onClick={handleLogOut} className='border-0'>log out</button>
+                                                </div>
                                             </InputGroup.Text>
                                             <InputGroup.Text className='img-profile-container' onClick={showUserProfile}>
                                                 <img src={profileImg} alt="" />
