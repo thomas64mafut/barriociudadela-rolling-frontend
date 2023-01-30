@@ -109,14 +109,14 @@ const Header = () => {
                         {
                             token
                                 ? (
-                                    <div className='d-flex flex-lg-row flex-column nav-options-container'>
+                                    <div className='d-flex flex-lg-row flex-column nav-options-container me-2'>
                                         {
                                             userRole === 'admin' &&
                                             <Link to={'/admin'} className='navOptions boton1'>
                                                 control panel
                                             </Link>
                                         }
-                                        <InputGroup className='profile-panel'>
+                                        <InputGroup className='profile-panel w-100'>
                                             <OverlayTrigger
                                                 placement="bottom"
                                                 delay={{ show: 250, hide: 400 }}
@@ -128,7 +128,7 @@ const Header = () => {
                                             </OverlayTrigger>
                                             <InputGroup.Text className='d-flex flex-column align-items-end '>
                                                 <span>
-                                                    welcome {userToShow?.username}!
+                                                    Welcome {userToShow?.username}!
                                                 </span>
                                                 <button onClick={handleLogOut} className='border-0'>log out</button>
                                             </InputGroup.Text>

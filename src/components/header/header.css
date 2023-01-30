@@ -87,6 +87,7 @@
     .nav-options-container {
         gap: .1rem;
         margin-bottom: .1rem;
+        margin-inline-end: 0;
     }
 
     .logoa {
@@ -97,6 +98,10 @@
     .navbar-complete {
         margin-top: 1rem;
     }
+}
+
+.profile-panel {
+    font-family: 'VictorMono';
 }
 
 .profile-panel span {
