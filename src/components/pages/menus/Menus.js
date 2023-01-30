@@ -16,49 +16,19 @@ const Menus = () => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
 
     useEffect(() => {
-        handleGetCart();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
         if (messageModalShow) {
             setTimeout(() => {
                 setError('')
                 setMessageToShow('')
                 setMessageModalShow(false)
-                handleGetCart();
             }, 1000);
         }
     }, [messageModalShow])
-
-    const handleGetCart = async () => {
-        try {
-            const { data } = await axios('/cart');
-            let totalPrice = 0;
-            const activeCart = data?.ownCarts?.find(cart => cart.cartStatus === 'active')
-            for (const product of activeCart.products) {
-                totalPrice = totalPrice + (product?.price * product?.quantity)
-            }
-            setCartTotalPrice(totalPrice)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const showCart = () => {
-        navigate('/myCarts')
-    }
 
     return (
         <div className='orders_container'>
             <div className='orders_header'>
                 <h2>what do you want to eat today?</h2>
-                <button className="btn-cart" onClick={showCart}>
-                    <div className="icon-cart ">
-                        <Cart />
-                    </div>
-                    <span>$ {cartTotalPrice}</span>
-                </button>
             </div>
             <h2 className='titleSection burgers-title'>Burgers</h2>
             <Burgers
