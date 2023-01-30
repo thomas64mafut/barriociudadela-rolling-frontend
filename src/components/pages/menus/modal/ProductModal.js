@@ -30,7 +30,6 @@ const ProductModal = ({
 
     const postCart = async () => {
         try {
-            console.log(cart);
             const { data } = await axios.post('/cart', cart);
             setMessageToShow(data.message)
         } catch (error) {
@@ -70,6 +69,7 @@ const ProductModal = ({
         preferences.quantity = count;
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
+        preferences.category = product.category;
         setCart(preferences)
         setMessageModalShow(true)
         resetModal()
