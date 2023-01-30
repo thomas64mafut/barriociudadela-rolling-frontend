@@ -6,9 +6,15 @@ import './order.css'
 const Order = ({productsShow ,stat, id, role}) => {
     let idkey=0
     const [status, setStatus] = useState(stat)
-    const [productstoShow, setProductstoShow] = useState([])
-
-
+    const [price, setPrice] = useState([])
+    let totalPrice
+    useEffect(() => {
+        totalPrice=0;
+        for (const product of productsShow) {
+            totalPrice = totalPrice+(product?.price*product?.quantity)
+        }
+        setPrice(totalPrice)
+    }, [])
 
     const handleCancelCart = async(id) => {
         try {
@@ -53,14 +59,7 @@ const Order = ({productsShow ,stat, id, role}) => {
                         <Button variant='secondary'  onClick={()=>handleCancelCart(id)}>Cancel</Button>
                     </div>
                 )
-            } /* else {
-                return(
-                    <div>
-                        <Button variant='secondary' >to Deliver</Button>
-                        <Button variant='secondary' >Cancel</Button>
-                    </div>
-                )
-            } */
+            }
         }
         if (status === 'cancelled') {
             return(
@@ -100,14 +99,26 @@ const Order = ({productsShow ,stat, id, role}) => {
                                         </td>
                                         <td>{product.quantity}</td>
                                     </tr>
-                                    
                                     )
                                 })
                             }
+                            {
+                                role==='admin'? (
+                                <>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td> $ {price}</td>
+                                </>):(
+                                <>
+                                </>)
+                            }
+                            
+                            
                     </tbody>
                 </Table>
                     {
-                                    buttonsForStatus()
+                        buttonsForStatus()
                     }
     </div>
   )
