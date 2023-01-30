@@ -1,14 +1,10 @@
 import './login.css'
 import axios from '../../../api/axios';
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-
     const emailRef = useRef();
     const errorRef = useRef();
 
@@ -31,7 +27,7 @@ const Login = () => {
             sessionStorage.setItem('jwt', response?.data?.token);
             setEmail('');
             setPassword('');
-            navigate(from, { replace: true });
+            window.location.replace('/')
         } catch (error) {
             setErrorMsg(error?.response?.data?.message)
             errorRef.current.focus();
@@ -55,7 +51,7 @@ const Login = () => {
                             <Form.Group >
                                 <Form.Label htmlFor="email">email:</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="email"
                                     placeholder="user@mail.com"
                                     id="email"
                                     ref={emailRef}

@@ -1,110 +1,134 @@
-.logoa{
-  height: calc(4rem - 12px);
-  position: absolute;
-  margin-left: -3rem;
-  top: 0;
-  left: 50%;
-  padding: 0.4rem;
+.logoa {
+    height: calc(4rem - 12px);
+    position: absolute;
+    margin-left: -3rem;
+    top: 0;
+    left: 51%;
+    padding: 0.4rem;
 }
 
-.navContainer{
-  height: calc(4rem - 12px);
-  z-index: 6;
-  background-color: rgba(238, 238, 238, 0.94) !important;
-  position: fixed !important;
-  width: 100%;
-  top: 0;
-} 
-
-.primerNav{
-  display: flex;
-  margin-left: -1rem;
+.navContainer {
+    height: calc(4rem - 12px);
+    z-index: 6;
+    background-color: rgba(238, 238, 238, 0.94) !important;
+    position: fixed !important;
+    width: 100%;
+    top: 0;
 }
 
-.segundoNav{
-  display: flex;
+.nav-options-container {
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
 }
 
-.follow{
-  text-decoration: none;
-  color: inherit;
+.profile-panel {
+    display: flex;
+    justify-content: center;
 }
 
-.navOptions{
-  font-family: 'Blogh';
-  font-weight: 100;
-  font-size: 20px;
-  margin-left: 20px ;
-  margin-right: 20px ;
-  text-decoration: none;
-  color: #333;
+.navOptions {
+    width: fit-content;
+    font-family: 'Blogh';
+    font-weight: 100;
+    font-size: 20px;
+    text-decoration: none;
+    color: #333;
+    white-space: nowrap;
 }
 
-.navOptions:hover{
-  cursor: pointer;
-  color: #E25447 ;
-  transition: 0.2s;
+.navOptions:hover {
+    cursor: pointer;
+    color: #E25447;
+    transition: 0.2s;
 }
 
 .boton1 {
-  cursor: pointer;
-  position: relative;
-  border: none;
-  background: none;
-  text-transform: uppercase;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-duration: 400ms;
-  transition-property: color;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
 }
 
 .boton1:focus,
 .boton1:hover {
-  color: #E25447;
+    color: #E25447;
 }
 
 .boton1:focus:after,
 .boton1:hover:after {
-  width: 100%;
-  left: 0%;
+    width: fit-content;
+    left: 0%;
 }
 
 .boton1:after {
-  content: "";
-  pointer-events: none;
-  bottom: -2px;
-  left: 50%;
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background-color: #E25447;
-  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition-duration: 400ms;
-  transition-property: width, left;
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #E25447;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
 }
 
-@media (max-width:991.5px){
-  .segundoNav{
-    display: block;
-  }
-  .navContainer{
-    height: auto;
-  }
-  .logoa{
-    height: 3rem;
-    margin-left: -2.2rem;
-  }
-  .primerNav{
-    margin-left: 0rem;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .boton1:hover:after{
-    width: 0%;
-  }
-  .fourOne{
-    width: 100vw;
-  }
-  .primerNav{
-    overflow-y: hidden;
-  }
+@media (max-width:992px) {
+    .navContainer {
+        height: auto;
+    }
+
+    .nav-options-container {
+        gap: .1rem;
+        margin-bottom: .1rem;
+    }
+
+    .logoa {
+        height: 3rem;
+        margin-left: -2.2rem;
+    }
+
+    .navbar-complete {
+        margin-top: 1rem;
+    }
+}
+
+.profile-panel span {
+    font-size: 12px;
+}
+
+.profile-panel button {
+    font-size: x-small;
+}
+
+.cart-button svg {
+    height: 1rem;
+    stroke: white;
+}
+
+.img-profile-container {
+    padding-inline: .2rem !important;
+    padding-block: 0 !important;
+    cursor: pointer;
+}
+
+.img-profile-container img {
+    height: 1.9rem;
+    width: 1.9rem;
+    border-radius: 1rem;
+}
+
+.cart-button {
+    background-color: var(--fire-opal) !important;
+    border: 0 !important;
+}
+
+.cart-button:active {
+    border: 0;
 }
