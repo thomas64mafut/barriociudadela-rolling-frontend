@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logo-red.png'
 import axios from '../../api/axios'
 import Cart from '../../assets/icons/Cart'
+import Config from '../../assets/icons/Config';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -60,6 +61,10 @@ const Header = () => {
         navigate('/myCarts')
     }
 
+    const showAdminPage = () => {
+        navigate('/admin')
+    }
+
     const showUserProfile = () => {
         navigate('/profile')
     }
@@ -112,22 +117,34 @@ const Header = () => {
                                     <div className='d-flex flex-lg-row flex-column nav-options-container me-lg-1'>
                                         {
                                             userRole === 'admin' &&
-                                            <Link to={'/admin'} className='navOptions boton1'>
-                                                control panel
-                                            </Link>
+                                            <>
+                                                <Link to={'/orders'} className='navOptions boton1'>
+                                                    orders
+                                                </Link>
+                                            </>
                                         }
-                                        <InputGroup className='profile-panel w-100'>
-                                            <OverlayTrigger
-                                                placement="bottom"
-                                                delay={{ show: 250, hide: 400 }}
-                                                overlay={cartPriceTooltip}
-                                            >
-                                                <Button onClick={showCart} className='p-0 cart-button'>
-                                                    <Cart />
-                                                </Button>
-                                            </OverlayTrigger>
+                                        <InputGroup className='profile-panel'>
+                                            {
+                                                userRole !== 'admin'
+                                                    ? (
+                                                        <OverlayTrigger
+                                                            placement="bottom"
+                                                            delay={{ show: 250, hide: 400 }}
+                                                            overlay={cartPriceTooltip}
+                                                        >
+                                                            <Button onClick={showCart} className='p-0 cart-button'>
+                                                                <Cart />
+                                                            </Button>
+                                                        </OverlayTrigger>
+                                                    )
+                                                    : (
+                                                        <Button className='p-0 cart-button' onClick={showAdminPage}>
+                                                            <Config />
+                                                        </Button>
+                                                    )
+                                            }
                                             <InputGroup.Text className=''>
-                                                <div className='h-100 d-flex flex-column align-items-end'>
+                                                <div className='d-flex flex-column align-items-end'>
                                                     <span>
                                                         Welcome {userToShow?.username}!
                                                     </span>
