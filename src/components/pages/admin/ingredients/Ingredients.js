@@ -130,14 +130,14 @@ const Ingredients = () => {
     );
 
     const ingredientCategoryTooltip = (ingredient) => (
-        <Tooltip id='ingredient-category'>
-            <ul>
+        <Tooltip id='ingredient-category' className='ingredient-class'>
+            <div className='p-0 me-4 d-flex flex-column align-items-start'>
                 {
                     ingredient?.category.map((categoryName) => (
-                        <li>{categoryName}</li>
+                        <span > - {categoryName}</span>
                     ))
                 }
-            </ul>
+            </div>
         </Tooltip>
     );
 
