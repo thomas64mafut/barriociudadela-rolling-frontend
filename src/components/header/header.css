@@ -1,9 +1,9 @@
 .logoa {
-    height: 4rem;
+    height: 3rem;
     position: absolute;
     margin-left: -3rem;
     top: 0;
-    left: 50%;
+    left: 51%;
     padding: 0.4rem;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .navbar {
-    --bs-navbar-padding-y: 1rem !important;
+    height: 63.25px;
 }
 
 .nav-options-container {
@@ -106,6 +106,9 @@
         justify-content: center;
     }
 
+    .navbar {
+        height: auto;
+    }
 }
 
 .profile-panel {
