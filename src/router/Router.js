@@ -7,7 +7,7 @@ import Register from '../components/pages/register/Register'
 import Admin from '../components/pages/admin/Admin';
 import Missing from '../components/pages/404/Missing';
 import RequireAuth from './../components/requireAuthorization/RequireAuth';
-import Unauthorized from '../components/pages/Unauthorized'
+import Unauthorized from '../components/pages/unauthorized/Unauthorized'
 import Carts from '../components/pages/cart/Carts'
 import Cart from '../components/pages/cart/Cart'
 import UserProfile from '../components/pages/userProfile/UserProfile'

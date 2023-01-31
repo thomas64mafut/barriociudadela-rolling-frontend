@@ -1,0 +1,26 @@
+.main-container {
+    margin-top: 3.3rem;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../assets/img/papelTexture.webp);
+}
+
+.title-container {
+    margin-top: 4rem;
+    margin-left: 1rem;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'VictorMono';
+    margin-left: 1rem;
+}
