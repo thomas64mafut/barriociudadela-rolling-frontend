@@ -70,9 +70,10 @@ const ProductModal = ({
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
         preferences.category = product.category;
-        setCart(preferences)
-        setMessageModalShow(true)
-        resetModal()
+        setCart(preferences);
+        setMessageModalShow(true);
+        resetModal();
+        window.location.replace('/menus');
     }
 
     const additionToppings = (e) => {

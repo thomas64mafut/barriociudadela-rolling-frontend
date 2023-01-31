@@ -25,7 +25,6 @@ const RequireAuth = ({ authProvider }) => {
             if (!data?.isLogged) setLoggedStatus({ isLogged: false });
             else setLoggedStatus({ isLogged: true, role: data.role }); 
         } catch (error) {
-            alert(error.response?.data?.message); 
             setIsLoading(false)
         }
     }
@@ -34,7 +33,7 @@ const RequireAuth = ({ authProvider }) => {
         !isLoading 
             ? loggedStatus?.isLogged
                 ? <Outlet context={ authProvider }/>
-            : <Navigate to="/login"  state={{ from: location }} replace />
+            : <Navigate to="/unauthorized"  state={{ from: location }} replace />
         : <p>loading</p>
     );
 }

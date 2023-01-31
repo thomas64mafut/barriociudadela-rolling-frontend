@@ -6,27 +6,27 @@ import Minus from '../../assets/icons/Minus'
 
 const Counter = ({ count, setCount }) => {
 
-  return (
-    <div>
-      <Button
-        variant="success"
-        onClick={() => setCount(count - 1)}
-        disabled={count === 1}
-        className='btn-counter'
-      >
-        <Minus />
-      </Button>
-      <div className='count-shower'>{count}</div>
-      <Button
-        variant='success'
-        onClick={() => setCount(count + 1)}
-        disabled={count === 10}
-        className='btn-counter'
-      >
-        <Plus />
-      </Button>
-    </div>
-  )
+    return (
+        <div>
+            <Button
+                variant="success"
+                onClick={() => setCount(count - 1)}
+                disabled={count === 1}
+                className='btn-counter'
+            >
+                <Minus />
+            </Button>
+            <div className='count-shower'>{count}</div>
+            <Button
+                variant='success'
+                onClick={() => setCount(count + 1)}
+                disabled={count === 10}
+                className='btn-counter'
+            >
+                <Plus />
+            </Button>
+        </div>
+    )
 }
 
 export default Counter

@@ -16,7 +16,7 @@ const BuyModal = ({ show , setShow, cart}) => {
         try {
             const { data } = await axios.put('/cart/buy/'+cart._id)
             console.log(data)
-            navigate('/menus')
+            navigate.replace('/menus')
         } catch (error) {
             console.log(error)
         }

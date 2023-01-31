@@ -2,7 +2,7 @@ import './products.css'
 import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../../api/axios';
-import { Table, Button, Alert, Accordion, Dropdown, Row, Col } from "react-bootstrap";
+import { Table, Button, Alert, Accordion, Dropdown, Row, Col } from 'react-bootstrap';
 import Beer from '../../../../assets/icons/Beer'
 import Leaf from '../../../../assets/icons/Leaf'
 import AddEditProductModal from './modal/AddEditProductModal';
@@ -93,10 +93,10 @@ const Products = () => {
     return (
         <>
             <div className='abm-container'>
-                <div className="table-header">
+                <div className='table-header'>
                     <h1>Products Control Panel</h1>
-                    <Dropdown className="m-1">
-                        <Dropdown.Toggle variant='danger' className="btn-dropdown">
+                    <Dropdown className='m-1'>
+                        <Dropdown.Toggle variant='danger' className='btn-dropdown'>
                             Add
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -114,9 +114,9 @@ const Products = () => {
                     </Dropdown>
                 </div>
                 {errorMessage ? (
-                    <Alert variant="danger">{errorMessage}</Alert>
+                    <Alert variant='danger'>{errorMessage}</Alert>
                 ) : (
-                    ""
+                    ''
                 )}
                 <Accordion>
                     {
@@ -183,7 +183,7 @@ const Products = () => {
                                                 <div className='product-image-container p-3 my-3'>
                                                     <span className='mb-2'>Image: </span>
                                                     <div className='product-image-div'>
-                                                        <img src={product?.image} alt="" className='product-image' />
+                                                        <img src={product?.image} alt='' className='product-image' />
                                                     </div>
                                                 </div>
                                             </Col>

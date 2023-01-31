@@ -69,6 +69,7 @@ const UserProfile = ( props ) => {
       const { data } = await axios.patch(
         USER_URL, { profilePicture: profileImg } , { headers: { Authorization: token } } 
       );
+      window.location.replace('/profile') 
     } catch (error) {
       console.log("mori");
     }

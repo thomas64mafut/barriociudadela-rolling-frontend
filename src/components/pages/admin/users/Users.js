@@ -68,11 +68,10 @@ const Users = () => {
                 <div className="table-header">
                     <h1>User Control Panel</h1>
                 </div>
-                {errorMessage ? (
+                {
+                    errorMessage &&
                     <Alert variant="danger">{errorMessage}</Alert>
-                ) : (
-                    ""
-                )}
+                }
                 <div className="overflow-table-container">
                     <Table className="table-container" size="sm">
                         <thead>
