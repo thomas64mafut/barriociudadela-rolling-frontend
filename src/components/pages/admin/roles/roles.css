@@ -1,0 +1,8 @@
+.btn-delete-role svg, .btn-add-role svg {
+    stroke: white;
+    height: 1rem;
+}
+
+.btn-add-role {
+    max-height: 2rem;
+}
