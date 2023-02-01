@@ -1,16 +1,16 @@
+import './orders.css'
 import React, { useEffect, useState } from 'react'
 import { Spinner, Button } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom'
 import axios from '../../../api/axios';
+
 import Order from './Order';
-import './orders.css'
 
 const Orders = (props) => {
     const authProvider = useOutletContext();
     const [carts, setCarts] = useState([]);
     const [cartStatus, setCartStatus] = useState('');
     const [role, setRole] = useState('')
-    const [productShow, setProductShow] = useState([])
 
     useEffect(() => {
         const { auth } = authProvider;
@@ -79,11 +79,11 @@ const Orders = (props) => {
             <h2 className='text-center orders-title my-2'>all orders</h2>
             {
                 carts?.length ? (
-                    carts?.map((cart) => {
+                    carts?.map((cart, index) => {
                         let productsShow = productsSelector(cart)
                         if (productsShow.length !== 0) {
                             return (
-                                <div className={'order-container py-3 m-2 ' + cart.cartStatus}>
+                                <div className={'order-container py-3 m-2 ' + cart.cartStatus} key={index}>
                                     <div className='overflow-table-container'>
                                         <div className='d-flex flex-column ps-2 mb-2'>
                                             <span>Owner: {cart?.owner?.username}</span>

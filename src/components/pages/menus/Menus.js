@@ -1,19 +1,15 @@
 import './menus.css'
 import React, { useEffect, useState } from 'react'
-import axios from '../../../api/axios';
+
 import Burgers from './Products/Burgers';
 import Drinks from './Products/drink/Drinks';
 import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
-import { useNavigate } from 'react-router-dom';
-import Cart from '../../../assets/icons/Cart';
 
 const Menus = () => {
-    let navigate = useNavigate();
     const [error, setError] = useState('')
     const [messageModalShow, setMessageModalShow] = useState(false)
     const [messageToShow, setMessageToShow] = useState('')
-    const [cartTotalPrice, setCartTotalPrice] = useState(0)
 
     useEffect(() => {
         if (messageModalShow) {

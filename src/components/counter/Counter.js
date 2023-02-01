@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
 import './counter.css'
+
+import { Button } from 'react-bootstrap'
+
 import Plus from '../../assets/icons/Plus'
 import Minus from '../../assets/icons/Minus'
 
 const Counter = ({ count, setCount }) => {
-
     return (
         <div>
             <Button

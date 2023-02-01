@@ -1,18 +1,18 @@
-.count-shower{
+.count-shower {
     display: inline;
     margin: 0 1rem;
     color: black;
 }
 
 .btn-counter {
-    border-radius: 1rem!important;
-    background: rgb(220, 202, 147)!important;
-    border: 0!important;
+    border-radius: 1rem !important;
+    background: rgb(220, 202, 147) !important;
+    border: 0 !important;
     padding: 0;
 }
 
 .btn-counter:hover {
-    background: rgb(205, 179, 101)!important;
+    background: rgb(205, 179, 101) !important;
 }
 
 .btn-counter svg {

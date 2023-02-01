@@ -1,8 +1,9 @@
-import axios from '../../../../api/axios';
+import './productmodal.css'
 import React, { useEffect, useState } from 'react'
 import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap'
+import axios from '../../../../api/axios';
+
 import Counter from '../../../counter/Counter';
-import './productmodal.css'
 
 const ProductModal = ({
     show,

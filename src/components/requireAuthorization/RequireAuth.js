@@ -25,7 +25,7 @@ const RequireAuth = ({ authProvider }) => {
             if (!data?.isLogged) setLoggedStatus({ isLogged: false });
             else setLoggedStatus({ isLogged: true, role: data.role }); 
         } catch (error) {
-            setIsLoading(false)
+            setIsLoading(false);
         }
     }
 
@@ -37,4 +37,5 @@ const RequireAuth = ({ authProvider }) => {
         : <p>loading</p>
     );
 }
+
 export default RequireAuth;

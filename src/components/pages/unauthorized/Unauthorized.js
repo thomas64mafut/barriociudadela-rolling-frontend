@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import logo from '../../../assets/img/401-unauthorized.png';
 import "./unauthorized.css";
+import { useNavigate } from "react-router-dom";
+
+import logo from '../../../assets/img/401-unauthorized.png';
 
 const Unauthorized = () => {
     const navigate = useNavigate();

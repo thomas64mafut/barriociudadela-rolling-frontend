@@ -1,7 +1,7 @@
-import axios from '../../../../api/axios';
 import React from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
+import axios from '../../../../api/axios';
 
 const BuyModal = ({ show , setShow, cart}) => {
     const navigate = useNavigate()
@@ -15,8 +15,7 @@ const BuyModal = ({ show , setShow, cart}) => {
     const handleBuy = async() => {
         try {
             const { data } = await axios.put('/cart/buy/'+cart._id)
-            console.log(data)
-            navigate.replace('/menus')
+            window.location.replace('/menus')
         } catch (error) {
             console.log(error)
         }

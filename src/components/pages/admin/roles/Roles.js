@@ -3,6 +3,7 @@ import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import { Alert, OverlayTrigger, Popover, Button, Form } from 'react-bootstrap'
 import axios from '../../../../api/axios'
+
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
@@ -22,7 +23,6 @@ const Roles = () => {
             setAllRoles(data?.roles);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
-            console.log('mori', error);
         }
     }
 
@@ -35,14 +35,12 @@ const Roles = () => {
             handleGetRoles();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
-            console.log('mori', error);
         }
     }
 
     const handleDeleteRole = async (id) => {
         try {
             const { data } = await axios.patch(`/role/${id}`, {});
-            console.log(data);
             handleGetRoles();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
@@ -102,8 +100,8 @@ const Roles = () => {
             <div>
                 <ul>
                     {
-                        allRoles?.map((role) => (
-                            <div className='d-flex flex-row justify-content-between'>
+                        allRoles?.map((role, index) => (
+                            <div className='d-flex flex-row justify-content-between' key={index}>
                                 <li>{role?.name}</li>
                                 <Button
                                     variant='danger'

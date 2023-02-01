@@ -1,13 +1,8 @@
+import './cart.css'
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-
-import './cart.css'
-
 
 export const Cart = ({ cart }) => {
-    let navigate = useNavigate();
-
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
     let idkey = 0;
     let totalPrice = 0;
@@ -79,11 +74,13 @@ export const Cart = ({ cart }) => {
                             )
                         })
                     }
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className='total-price'>total</td>
-                    <td className='total-price'> $ {cartTotalPrice}</td>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td className='total-price'>total</td>
+                        <td className='total-price'> $ {cartTotalPrice}</td>
+                    </tr>
                 </tbody>
             </Table>
 

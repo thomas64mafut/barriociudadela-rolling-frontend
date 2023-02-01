@@ -1,5 +1,6 @@
-import React from 'react'
 import './footer.css'
+import React from 'react'
+
 import logo from '../../assets/img/logo-red.png'
 import Facebook from '../../assets/icons/Facebook'
 import Twitter from '../../assets/icons/Twitter'
@@ -15,9 +16,9 @@ const Footer = () => {
             <div className='text-white col-12 col-md-4 d-flex flex-column align-items-center my-4'>
                 <div className='fw-bold' id='followUs'>FOLLOW US</div>
                 <div>
-                    <a className='d-flex socialAs'>
+                    <a className='d-flex socialAs' href='https://instagram.com'>
                         <Instagram />
-                        <a className='text-white boton instagram' href='https://instagram.com/'>Instagram</a>
+                        Instagram
                     </a>
                 </div>
                 <div>
@@ -34,16 +35,16 @@ const Footer = () => {
                 </div>
             </div>
             <div className='col-12 col-md-4 d-flex flex-column align-items-center p-3'>
-                <img className='logo mb-3' src={logo} />
+                <img className='logo mb-3' src={logo} alt='page logo'/>
                 <div className='text-white'>© 2023 Barrio Ciudadela — All rights reserved</div>
             </div>
             <div className='col-12 col-md-4 d-flex flex-column align-items-center my-4'>
                 <div className='text-white fw-bold'>PAYMENT METHODS</div>
                 <div className='d-flex flex-column'>
-                    <img className='tarjetas' src={American} />
-                    <img className='tarjetas' src={Mastercard} />
-                    <img className='tarjetas' src={Naranja} />
-                    <img className='tarjetas' src={Visa} />
+                    <img className='tarjetas' src={American} alt='card payment'/>
+                    <img className='tarjetas' src={Mastercard} alt='card payment'/>
+                    <img className='tarjetas' src={Naranja} alt='card payment'/>
+                    <img className='tarjetas' src={Visa} alt='card payment'/>
                 </div>
             </div>
         </div>

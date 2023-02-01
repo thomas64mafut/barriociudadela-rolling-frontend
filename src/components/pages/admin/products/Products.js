@@ -3,9 +3,11 @@ import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import axios from '../../../../api/axios';
 import { Table, Button, Alert, Accordion, Dropdown, Row, Col } from 'react-bootstrap';
+
+import AddEditProductModal from './modal/AddEditProductModal';
+
 import Beer from '../../../../assets/icons/Beer'
 import Leaf from '../../../../assets/icons/Leaf'
-import AddEditProductModal from './modal/AddEditProductModal';
 import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
 
@@ -49,10 +51,8 @@ const Products = () => {
     }
 
     const handleDeleteProduct = async (categoryId, productId) => {
-        console.log(categoryId, productId);
         try {
             const { data } = await axios.patch(`/product/${categoryId.name}/delete/${productId}`, {});
-            console.log(data);
             handleGetProducts();
         } catch (error) {
             console.log(error);
@@ -101,10 +101,11 @@ const Products = () => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {
-                                allCategories?.map((category) => (
+                                allCategories?.map((category, index) => (
                                     <Dropdown.Item
                                         onClick={() => handleOpenAddModal({}, category)}
                                         className='w-100'
+                                        key={index}
                                     >
                                         {category?.name}
                                     </Dropdown.Item>
@@ -121,7 +122,7 @@ const Products = () => {
                 <Accordion>
                     {
                         productsToShow?.map((product, index) => (
-                            <Accordion.Item eventKey={index}>
+                            <Accordion.Item eventKey={index} key={index}>
                                 <Accordion.Header>
                                     {product?.name}
                                 </Accordion.Header>
@@ -152,10 +153,12 @@ const Products = () => {
                                             </tbody>
                                         </Table>
                                         <Table className='table-container'>
-                                            <tr>
-                                                <th>detail</th>
-                                                <td>{product?.detail}</td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <th>detail</th>
+                                                    <td>{product?.detail}</td>
+                                                </tr>
+                                            </tbody>
                                         </Table>
                                     </div>
                                     {
@@ -168,8 +171,8 @@ const Products = () => {
                                                 <Accordion.Body>
                                                     <ul className='d-flex flex-wrap p-0'>
                                                         {
-                                                            product?.ingredients.map((ingredient) => (
-                                                                <li className='mx-4'>{ingredient?.name}</li>
+                                                            product?.ingredients.map((ingredient, index) => (
+                                                                <li className='mx-4' key={index}>{ingredient?.name}</li>
                                                             ))
                                                         }
                                                     </ul>
@@ -194,16 +197,16 @@ const Products = () => {
                                                         product?.category?.name === 'drink' ?
                                                             <ul>
                                                                 {
-                                                                    drinkSizes.map((size) => (
-                                                                        <li>{size}</li>
+                                                                    drinkSizes.map((size, index) => (
+                                                                        <li key={index}>{size}</li>
                                                                     ))
                                                                 }
                                                             </ul>
                                                             :
                                                             <ul>
                                                                 {
-                                                                    foodSizes.map((size) => (
-                                                                        <li>{size}</li>
+                                                                    foodSizes.map((size, index) => (
+                                                                        <li key={index}>{size}</li>
                                                                     ))
                                                                 }
                                                             </ul>

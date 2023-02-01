@@ -1,7 +1,6 @@
 import './card.css'
 
 export default function Card({ card, handleChoice, flipped, disabled }) {
-
   const handleClick = () => {
     if (!disabled) {
       handleChoice(card)
