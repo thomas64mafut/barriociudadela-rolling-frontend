@@ -61,6 +61,7 @@ const Products = () => {
 
     const handleOpenEditModal = (product) => {
         setProductToEdit(product);
+        setCategoryToAdd(product?.category)
         setIsEditing(true);
         setAddEditModalShow(true);
     }

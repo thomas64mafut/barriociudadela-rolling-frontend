@@ -105,7 +105,7 @@ const AddEditProductModal = (props) => {
             const item1Str = JSON.stringify(item1);
             return !ingredientsList.find(item2 => item1Str === JSON.stringify(item2))
         });
-
+        
         let secondFilteredIngredients = [];
         filteredIngredients.forEach((ingredient) => {
             ingredient.category.forEach((category) => {
