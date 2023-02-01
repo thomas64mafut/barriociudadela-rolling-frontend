@@ -1,9 +1,10 @@
-import axios from '../../../../../api/axios';
+import './drinks.css'
 import React, { useEffect, useState } from 'react'
 import { Spinner } from 'react-bootstrap'
-import './drinks.css'
-import DrinksCard from './DrinksCard';
+import axios from '../../../../../api/axios';
 import { Row, Col } from 'react-bootstrap'
+
+import DrinksCard from './DrinksCard';
 
 
 const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
@@ -29,9 +30,9 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
                 <Row className='p-3'>
                     {
                         drinks?.length ? (
-                            drinks?.map((drink) => {
+                            drinks?.map((drink, index) => {
                                 return (
-                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-4'>
+                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-4' key={index}>
                                         <DrinksCard
                                             key={drink._id}
                                             drink={drink}

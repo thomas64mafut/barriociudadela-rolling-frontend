@@ -3,6 +3,7 @@ import '../admin.css'
 import React, { useState, useEffect } from 'react'
 import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip } from 'react-bootstrap'
 import axios from '../../../../api/axios'
+
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
@@ -23,11 +24,9 @@ const Ingredients = () => {
     const handleGetIngredients = async () => {
         try {
             const { data } = await axios.get('/ingredient/');
-            console.log(data?.ingredients);
             setAllIngredients(data?.ingredients);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
-            console.log('mori', error);
         }
     }
 
@@ -45,7 +44,6 @@ const Ingredients = () => {
             handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
-            console.log('mori', error);
         }
     }
 
@@ -58,7 +56,6 @@ const Ingredients = () => {
                 const newCategoryToAdd = categoryToAdd
                 newCategoryToAdd.splice(index, 1);
                 setCategoryToAdd(newCategoryToAdd);
-                console.log('hola');
             }
         }
     }
@@ -77,7 +74,7 @@ const Ingredients = () => {
             const { data } = await axios.get('/category');
             setAllCategories(data?.categories);
         } catch (error) {
-            console.log('mori');
+            setErrorMessage(error?.response?.data?.message)
         }
     }
 
@@ -104,8 +101,8 @@ const Ingredients = () => {
                     </Form.Group>
                     <ul className='m-0'>
                         {
-                            allCategories?.map((category) => (
-                                <div>
+                            allCategories?.map((category, index) => (
+                                <div key={index}>
                                     {
                                         category?.name !== 'drink' &&
                                         <Form.Check
@@ -135,8 +132,8 @@ const Ingredients = () => {
         <Tooltip id='ingredient-category' className='ingredient-class'>
             <div className='p-0 me-4 d-flex flex-column align-items-start'>
                 {
-                    ingredient?.category.map((categoryName) => (
-                        <span > - {categoryName}</span>
+                    ingredient?.category.map((categoryName, index) => (
+                        <span key={index}> - {categoryName}</span>
                     ))
                 }
             </div>
@@ -170,8 +167,8 @@ const Ingredients = () => {
             <div>
                 <ul>
                     {
-                        allIngredients?.map((ingredient) => (
-                            <div className='d-flex flex-row justify-content-between'>
+                        allIngredients?.map((ingredient, index) => (
+                            <div className='d-flex flex-row justify-content-between' key={index}>
                                 <OverlayTrigger
                                     placement='bottom'
                                     delay={{ show: 250, hide: 400 }}

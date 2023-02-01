@@ -37,28 +37,3 @@
   transform: rotateY(90deg);
   transition-delay: 0s;
 }
-
-
-/*SHAKE
-
-.card.shake {
-  animation: shake 0.35s ease-in-out
-}
-
-@keyframes shake {
-  0%, 100%{
-    trasform: translateX(0);
-  }
-  20%{
-    trasform: translateX(-13px);
-  }
-  40%{
-    trasform: translateX(13px);
-  }
-  60%{
-    trasform: translateX(-8px);
-  }
-  80%{
-    trasform: translateX(8px);
-  }
-}*/

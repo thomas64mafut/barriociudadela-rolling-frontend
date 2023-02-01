@@ -1,9 +1,10 @@
-import axios from '../../../api/axios';
+import './cart.css';
 import React, { useEffect, useState } from 'react'
 import { Accordion, Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../../api/axios';
+
 import { Cart } from './Cart';
-import './cart.css';
 import BuyModal from './cart modal/BuyModal';
 
 const Carts = () => {
@@ -85,9 +86,9 @@ const Carts = () => {
                 <Accordion.Body>
                     {
                         carts?.length ? (
-                            carts?.map((cart) => {
+                            carts?.map((cart, index) => {
                                 return (
-                                    <div className={'order-container ' + cart?.cartStatus}>
+                                    <div className={'order-container ' + cart?.cartStatus} key={index}>
                                         <div className='w-100 py-2'>
                                             <div className='w-100 overflow-table-container'>
                                                 <div className='ps-3'>

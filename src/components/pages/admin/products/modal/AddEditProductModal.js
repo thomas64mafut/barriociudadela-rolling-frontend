@@ -1,8 +1,8 @@
-import React from 'react'
 import './modal.css'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from '../../../../../api/axios'
 import { Modal, Button, Form, Dropdown, Accordion } from 'react-bootstrap';
-import { useState, useEffect, useRef } from 'react';
+
 import X from '../../../../../assets/icons/X'
 import Plus from '../../../../../assets/icons/Plus';
 
@@ -155,7 +155,6 @@ const AddEditProductModal = (props) => {
                 ingredients: ingredientsList,
             }
             const { data } = await axios.post(`/product/${category?.name}`, payload);
-            console.log(data);
             setShow(false);
         } catch (error) {
             console.log('mori', error);
@@ -176,7 +175,6 @@ const AddEditProductModal = (props) => {
                 ingredients: ingredientsList,
             }
             const { data } = await axios.put(`/product/${productCategory}/${productId}`, payload);
-            console.log(data);
             setShow(false);
         } catch (error) {
             console.log('mori', error);

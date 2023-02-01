@@ -2,6 +2,7 @@ import "../admin.css";
 import React, { useEffect, useState } from "react";
 import { Table, Button, Alert, Dropdown } from "react-bootstrap";
 import axios from "../../../../api/axios";
+
 import UserX from '../../../../assets/icons/UserX'
 
 const Users = () => {
@@ -31,7 +32,6 @@ const Users = () => {
     const handleDeleteUser = async (id) => {
         try {
             const { data } = await axios.patch(`/user/delete/${id}`);
-            console.log(data);
             handleGetUsers();
             setIsLoading(true);
         } catch (error) {
@@ -84,8 +84,8 @@ const Users = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {usersToShow?.map((user) => (
-                                <tr>
+                            {usersToShow?.map((user, index) => (
+                                <tr key={index}>
                                     <td>
                                         <Dropdown className="m-1">
                                             <Dropdown.Toggle variant='danger' className="btn-dropdown">
@@ -94,9 +94,10 @@ const Users = () => {
                                             <Dropdown.Menu>
                                                 {
                                                     rolesToShow ?
-                                                        rolesToShow.map((role) => (
+                                                        rolesToShow.map((role, index) => (
                                                             <Dropdown.Item
                                                                 onClick={() => editRole(user?._id, role?._id)}
+                                                                key={index}
                                                             >
                                                                 {role?.name}
                                                             </Dropdown.Item>

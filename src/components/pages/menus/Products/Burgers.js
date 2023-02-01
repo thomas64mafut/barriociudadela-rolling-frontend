@@ -44,7 +44,6 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     }
 
     const openModal = (product, allIngredients) => {
-        console.log(allIngredients);
         let toppingsToShow = [];
         allIngredients.forEach(ingredient => (
             ingredient.category.forEach((categoryToFilter) => {
@@ -71,9 +70,9 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
             <Row md='3' xl='4' className='p-3'>
                 {
                     products.length ? (
-                        products?.map((product) => {
+                        products?.map((product, index) => {
                             return (
-                                <Col className='mb-5'>
+                                <Col className='mb-5' key={index}>
                                     <Card className='h-100 w-100 card burger-card'>
                                         <div className='card-image-container' style={{
                                             backgroundImage: `url(${product.image})`
@@ -97,14 +96,14 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                                                 {
                                                     product.ingredients.map((ingredient, index) => (
                                                         index === (product.ingredients.length - 1)
-                                                            ? <span>{ingredient.name + '.'}</span>
-                                                            : <span>{ingredient.name + ', '}</span>
+                                                            ? <span key={index}>{ingredient.name + '.'}</span>
+                                                            : <span key={index}>{ingredient.name + ', '}</span>
 
                                                     ))
                                                 }
                                             </div>
                                         </Card.Body>
-                                        <button class="card-button" onClick={() => openModal(product, allIngredients)}>Options</button>
+                                        <button className="card-button" onClick={() => openModal(product, allIngredients)}>Options</button>
                                     </Card>
                                 </Col>
                             )

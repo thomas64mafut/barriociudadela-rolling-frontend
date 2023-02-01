@@ -1,7 +1,9 @@
 import './header.css'
 import React, { useState, useEffect } from 'react'
+
 import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+
 import logo from '../../assets/img/logo-red.png'
 import axios from '../../api/axios'
 import Cart from '../../assets/icons/Cart'
@@ -19,17 +21,25 @@ const Header = () => {
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
         if (token) {
+            getAuthStatus();
             setToken(token)
-            handleGetUser();
-            handleGetCart();
         } else setToken('')
-    }, []);
+    }, [])
 
     useEffect(() => {
         if (token) {
-            getAuthStatus();
+            handleGetUser();
+        }
+    }, [userRole]);
+
+    useEffect(() => {
+        if (token) {
+            if (userRole !== 'admin') {
+                handleGetCart();
+            }
         }
     }, [userToShow])
+
 
 
     const handleGetUser = async () => {
@@ -91,10 +101,8 @@ const Header = () => {
 
     return (
         <Navbar className='navContainer m-0' expand="lg">
-            <Navbar.Brand href="#">
-                <Link to={'/'}>
-                    <img className='logoa' src={logo} alt='' />
-                </Link>
+            <Navbar.Brand href="/">
+                <img className='logoa' src={logo} alt='' />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" className='me-2 p-0 border-0 ' />
             <Navbar.Collapse id="navbarScroll">

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'react-bootstrap';
-import axios from '../../../api/axios';
-import './order.css'
+import { Table } from 'react-bootstrap';
 
-const Order = ({ productsShow, cartStatus, setCartStatus, id, role }) => {
+const Order = ({ productsShow, cartStatus, role }) => {
     const [price, setPrice] = useState([])
     let totalPrice
 
@@ -14,8 +12,6 @@ const Order = ({ productsShow, cartStatus, setCartStatus, id, role }) => {
         }
         setPrice(totalPrice)
     }, [])
-
-   
 
     return (
         <div className={cartStatus}>
@@ -73,14 +69,14 @@ const Order = ({ productsShow, cartStatus, setCartStatus, id, role }) => {
                     }
                     {
                         role === 'admin' ? (
-                            <>
+                            <tr>
                                 <td></td>
                                 <td></td>
                                 <td className='total-price'>
                                     total
                                 </td>
                                 <td className='total-price'> $ {price}</td>
-                            </>) : (
+                            </tr>) : (
                             <>
                             </>)
                     }
