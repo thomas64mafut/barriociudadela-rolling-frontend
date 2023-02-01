@@ -13,10 +13,10 @@ const AddEditProductModal = (props) => {
         product,
         categoryToAdd,
         isEditing,
+        handleGetProducts,
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([])
-    const [setAllCategories] = useState([])
     const [allIngredients, setAllIngredients] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -32,7 +32,6 @@ const AddEditProductModal = (props) => {
 
     useEffect(() => {
         getAllIngredients();
-        getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -130,11 +129,6 @@ const AddEditProductModal = (props) => {
         setIngredientsList(newIngredientList);
     }
 
-    const getCategories = async () => {
-        const { data } = await axios.get('/category');
-        setAllCategories(data?.categories);
-    }
-
     const handleAddModal = async () => {
         const payload = {
             category: category?._id,
@@ -148,6 +142,7 @@ const AddEditProductModal = (props) => {
             ingredients: ingredientsList,
         }
         await axios.post(`/product/${category?.name}`, payload);
+        handleGetProducts();
         setShow(false);
     };
 
@@ -164,6 +159,7 @@ const AddEditProductModal = (props) => {
             ingredients: ingredientsList,
         }
         await axios.put(`/product/${productCategory}/${productId}`, payload);
+        handleGetProducts();
         setShow(false);
     };
 
