@@ -1,20 +1,14 @@
-.cancelled {
-    background-color: var(--fire-opal);
-    color: white;
+.cart-table-container th, .total-price {
+    font-family: 'Leonardo-Rounded';
 }
 
-.sold {
-    background-color: var(--blue-gray);
+.active-cart-container {
+    font-family: 'VictorMono';
 }
 
-.preparing{
-    background-color: var(--gold-metalic);
-}
-
-.delivered{
-    background-color: rgb(97, 179, 97);
-}
-
-.bought{
-    background-color: rgb(72, 72, 249);
+.button-buy-cart-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-family: 'VictorMono';
 }

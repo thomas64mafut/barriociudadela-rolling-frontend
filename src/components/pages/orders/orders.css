@@ -1,0 +1,42 @@
+.order-container {
+    color: white;
+    font-family: 'VictorMono';
+}
+
+.orders-title {
+    font-family: 'Leonardo-Rounded';
+}
+
+.button-cart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.order-container th, .order-container td {
+    color: white;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.cancelled {
+    background-color: var(--fire-opal);
+    color: white;
+}
+
+.sold {
+    background-color: var(--blue-gray);
+}
+
+.preparing{
+    background-color: var(--gold-metalic);
+}
+
+.delivered{
+    background-color: rgb(97, 179, 97);
+}
+
+.bought{
+    background-color: rgb(72, 72, 249);
+}

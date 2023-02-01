@@ -10,44 +10,44 @@ import Naranja from '../../assets/img/naranja-x.webp'
 import Visa from '../../assets/img/visa.webp'
 
 const Footer = () => {
-  return (
-    <div className='bg-dark d-flex justify-content-center align-items-center row homeFooter g-0 w-100'>
-      <div className='text-white col-12 col-md-4 d-flex flex-column align-items-center'>
-        <div className='fw-bold' id='followUs'>FOLLOW US</div>
-        <div>
-          <a className='d-flex socialAs'>
-            <Instagram/>
-            <a className='text-white boton instagram' href='https://instagram.com/'>Instagram</a>
-          </a>
+    return (
+        <div className='bg-dark d-flex justify-content-center align-items-center row homeFooter g-0 w-100'>
+            <div className='text-white col-12 col-md-4 d-flex flex-column align-items-center my-4'>
+                <div className='fw-bold' id='followUs'>FOLLOW US</div>
+                <div>
+                    <a className='d-flex socialAs'>
+                        <Instagram />
+                        <a className='text-white boton instagram' href='https://instagram.com/'>Instagram</a>
+                    </a>
+                </div>
+                <div>
+                    <a className='d-flex socialAs me-3' href='https://twitter.com/'>
+                        <Twitter />
+                        <div className='text-white boton'>Twitter</div>
+                    </a>
+                </div>
+                <div>
+                    <a className='d-flex socialAs me-2' href='https://www.facebook.com/'>
+                        <Facebook />
+                        <div className='text-white boton'>Facebook</div>
+                    </a>
+                </div>
+            </div>
+            <div className='col-12 col-md-4 d-flex flex-column align-items-center p-3'>
+                <img className='logo mb-3' src={logo} />
+                <div className='text-white'>© 2023 Barrio Ciudadela — All rights reserved</div>
+            </div>
+            <div className='col-12 col-md-4 d-flex flex-column align-items-center my-4'>
+                <div className='text-white fw-bold'>PAYMENT METHODS</div>
+                <div className='d-flex flex-column'>
+                    <img className='tarjetas' src={American} />
+                    <img className='tarjetas' src={Mastercard} />
+                    <img className='tarjetas' src={Naranja} />
+                    <img className='tarjetas' src={Visa} />
+                </div>
+            </div>
         </div>
-        <div>
-          <a className='d-flex socialAs me-3' href='https://twitter.com/'>
-            <Twitter/>
-            <div className='text-white boton'>Twitter</div>
-          </a>
-        </div>
-        <div>
-          <a className='d-flex socialAs me-2' href='https://www.facebook.com/'>
-            <Facebook/>
-            <div className='text-white boton'>Facebook</div>
-          </a>
-        </div>
-      </div>
-      <div className='col-12 col-md-4 d-flex flex-column align-items-center '>
-        <img className='logo' src={logo}/>
-        <div className='text-white'>© 2023 Barrio Ciudadela — All rights reserved</div>
-      </div>
-      <div className='col-12 col-md-4 d-flex flex-column align-items-center'>
-        <div className='text-white fw-bold'>PAYMENT METHODS</div>
-        <div className='d-flex flex-column'>
-          <img className='tarjetas' src={American}/>
-          <img className='tarjetas' src={Mastercard}/>
-          <img className='tarjetas' src={Naranja}/>
-          <img className='tarjetas' src={Visa}/>
-        </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default Footer

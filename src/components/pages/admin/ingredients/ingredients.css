@@ -4,3 +4,11 @@
     align-items: center;
     padding: 0;
 }
+
+.add-ingredient-popover, .form-control {
+    font-family: 'VictorMono' !important;
+}
+
+.btn-delete-role {
+    height: 2rem;
+}
