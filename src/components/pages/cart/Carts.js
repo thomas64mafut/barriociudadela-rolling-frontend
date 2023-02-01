@@ -31,7 +31,7 @@ const Carts = () => {
 
     const handleDeleteCart = async () => {
         try {
-            const { data } = await axios.patch('/cart/' + activeCart._id)
+            await axios.patch('/cart/' + activeCart._id)
             navigate('/menus')
         } catch (error) {
             console.log(error)

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const RequireAuth = ({ authProvider }) => {
     const location = useLocation();
-    const { auth, setAuth } = authProvider;
+    const { setAuth } = authProvider;
     const [loggedStatus, setLoggedStatus] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -17,24 +17,25 @@ const RequireAuth = ({ authProvider }) => {
             setAuth(loggedStatus);
             setIsLoading(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedStatus]);
 
     const getAuthStatus = async () => {
         try {
             const { data } = await axios.get('/user/status');
             if (!data?.isLogged) setLoggedStatus({ isLogged: false });
-            else setLoggedStatus({ isLogged: true, role: data.role }); 
+            else setLoggedStatus({ isLogged: true, role: data.role });
         } catch (error) {
             setIsLoading(false);
         }
     }
 
     return (
-        !isLoading 
+        !isLoading
             ? loggedStatus?.isLogged
-                ? <Outlet context={ authProvider }/>
-            : <Navigate to="/unauthorized"  state={{ from: location }} replace />
-        : <p>loading</p>
+                ? <Outlet context={authProvider} />
+                : <Navigate to="/unauthorized" state={{ from: location }} replace />
+            : <p>loading</p>
     );
 }
 

@@ -1,6 +1,6 @@
 import './cart.css'
 import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 export const Cart = ({ cart }) => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0)

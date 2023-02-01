@@ -11,13 +11,12 @@ const AddEditProductModal = (props) => {
         show,
         setShow,
         product,
-        setProduct,
         categoryToAdd,
         isEditing,
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([])
-    const [allCategories, setAllCategories] = useState([])
+    const [setAllCategories] = useState([])
     const [allIngredients, setAllIngredients] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -34,15 +33,18 @@ const AddEditProductModal = (props) => {
     useEffect(() => {
         getAllIngredients();
         getCategories();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         handleSetProductToEdit();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [show]);
 
     useEffect(() => {
         getFilteredIngredients();
         setIsLoading(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ingredientsList]);
 
     const handleSetProductToEdit = () => {
@@ -117,12 +119,8 @@ const AddEditProductModal = (props) => {
     }
 
     const getAllIngredients = async () => {
-        try {
-            const { data } = await axios.get('/ingredient');
-            setAllIngredients(data?.ingredients);
-        } catch (error) {
-            console.log(error);
-        }
+        const { data } = await axios.get('/ingredient');
+        setAllIngredients(data?.ingredients);
     }
 
     const removeIngredientFromList = (ingredientToRemove) => {
@@ -133,52 +131,40 @@ const AddEditProductModal = (props) => {
     }
 
     const getCategories = async () => {
-        try {
-            const { data } = await axios.get('/category');
-            setAllCategories(data?.categories);
-        } catch (error) {
-            console.log('mori');
-        }
+        const { data } = await axios.get('/category');
+        setAllCategories(data?.categories);
     }
 
     const handleAddModal = async () => {
-        try {
-            const payload = {
-                category: category?._id,
-                name: name,
-                detail: detail,
-                price: price,
-                brand: brand,
-                isVegan: isVegan,
-                hasAlcohol: hasAlcohol,
-                image: image,
-                ingredients: ingredientsList,
-            }
-            const { data } = await axios.post(`/product/${category?.name}`, payload);
-            setShow(false);
-        } catch (error) {
-            console.log('mori', error);
+        const payload = {
+            category: category?._id,
+            name: name,
+            detail: detail,
+            price: price,
+            brand: brand,
+            isVegan: isVegan,
+            hasAlcohol: hasAlcohol,
+            image: image,
+            ingredients: ingredientsList,
         }
+        await axios.post(`/product/${category?.name}`, payload);
+        setShow(false);
     };
 
     const handleEditModal = async (productCategory, productId) => {
-        try {
-            const payload = {
-                category: category?._id,
-                name: name,
-                detail: detail,
-                price: price,
-                brand: brand,
-                isVegan: isVegan,
-                hasAlcohol: hasAlcohol,
-                image: image,
-                ingredients: ingredientsList,
-            }
-            const { data } = await axios.put(`/product/${productCategory}/${productId}`, payload);
-            setShow(false);
-        } catch (error) {
-            console.log('mori', error);
+        const payload = {
+            category: category?._id,
+            name: name,
+            detail: detail,
+            price: price,
+            brand: brand,
+            isVegan: isVegan,
+            hasAlcohol: hasAlcohol,
+            image: image,
+            ingredients: ingredientsList,
         }
+        await axios.put(`/product/${productCategory}/${productId}`, payload);
+        setShow(false);
     };
 
     return (

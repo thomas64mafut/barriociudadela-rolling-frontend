@@ -38,7 +38,7 @@ const Ingredients = () => {
                 price: newPrice,
                 category: categoryToAdd,
             };
-            const { data } = await axios.post('/ingredient/add', payload);
+            await axios.post('/ingredient/add', payload);
             setShow(false);
             setNewIngredient('');
             handleGetIngredients();
@@ -62,7 +62,7 @@ const Ingredients = () => {
 
     const handleDeleteIngredient = async (id) => {
         try {
-            const { data } = await axios.patch(`/ingredient/${id}`, {});
+            await axios.patch(`/ingredient/${id}`, {});
             handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)

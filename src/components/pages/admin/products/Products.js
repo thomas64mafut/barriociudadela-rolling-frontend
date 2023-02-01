@@ -12,7 +12,7 @@ import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
 
 const Products = () => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [setIsLoading] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
@@ -29,6 +29,7 @@ const Products = () => {
         getCategories();
         handleGetProducts();
         setIsLoading(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [addEditModalShow])
 
     const handleGetProducts = async () => {
@@ -42,21 +43,13 @@ const Products = () => {
     };
 
     const getCategories = async () => {
-        try {
-            const { data } = await axios.get('/category/');
-            setAllCategories(data?.categories);
-        } catch (error) {
-            console.log('mori');
-        }
+        const { data } = await axios.get('/category/');
+        setAllCategories(data?.categories);
     }
 
     const handleDeleteProduct = async (categoryId, productId) => {
-        try {
-            const { data } = await axios.patch(`/product/${categoryId.name}/delete/${productId}`, {});
-            handleGetProducts();
-        } catch (error) {
-            console.log(error);
-        }
+        await axios.patch(`/product/${categoryId.name}/delete/${productId}`, {});
+        handleGetProducts();
     }
 
     const handleOpenEditModal = (product) => {

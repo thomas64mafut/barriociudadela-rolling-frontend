@@ -16,10 +16,12 @@ const Orders = (props) => {
     useEffect(() => {
         const { auth } = authProvider;
         setRole(auth.role)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         handleGetCart();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [role, cartStatus])
 
     const productsSelector = (cart) => {
@@ -50,7 +52,7 @@ const Orders = (props) => {
 
     const handleCancelCart = async (id) => {
         try {
-            const { data } = await axios.patch('/cart/cancel/' + id)
+            await axios.patch('/cart/cancel/' + id)
             setCartStatus('cancelled')
         } catch (error) {
             console.log(error)
@@ -59,7 +61,7 @@ const Orders = (props) => {
 
     const handlePreparingCart = async (id) => {
         try {
-            const { data } = await axios.patch('/cart/preparing/' + id)
+            await axios.patch('/cart/preparing/' + id)
             setCartStatus('preparing')
         } catch (error) {
             console.log(error)
@@ -68,7 +70,7 @@ const Orders = (props) => {
 
     const handledeliveredCart = async (id) => {
         try {
-            const { data } = await axios.patch('/cart/delivered/' + id)
+            await axios.patch('/cart/delivered/' + id)
             setCartStatus('delivered')
         } catch (error) {
             console.log(error)

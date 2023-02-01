@@ -16,7 +16,7 @@ const Header = () => {
     const [userRole, setUserRole] = useState('');
     const [cartTotalPrice, setCartTotalPrice] = useState('');
     const [profileImg, setProfileImg] = useState('')
-    const [errorMessage, setErrorMessage] = useState('');
+    const [setErrorMessage] = useState('');
 
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
@@ -30,6 +30,7 @@ const Header = () => {
         if (token) {
             handleGetUser();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userRole]);
 
     useEffect(() => {
@@ -38,9 +39,8 @@ const Header = () => {
                 handleGetCart();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userToShow])
-
-
 
     const handleGetUser = async () => {
         try {

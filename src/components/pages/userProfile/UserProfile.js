@@ -7,7 +7,7 @@ import axios from '../../../api/axios';
 const USER_URL = '/user';
 
 const UserProfile = (props) => {
-    const { auth, setAuth } = useOutletContext();
+    const { auth } = useOutletContext();
     const [userToShow, setUserToShow] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -65,7 +65,7 @@ const UserProfile = (props) => {
 
     const handleEditUser = async () => {
         try {
-            const { data } = await axios.patch('/user', { profilePicture: profileImg });
+            await axios.patch('/user', { profilePicture: profileImg });
             window.location.replace('/profile');
         } catch (error) {
             console.log("mori");

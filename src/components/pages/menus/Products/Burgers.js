@@ -15,9 +15,6 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
     const [errorBurgers, setErrorBurgers] = useState(false)
 
-    const burgerDefaultIngredients = ['homemade bun', 'steak-burger patty'];
-    const sandwichDefaultIngredients = ['homemade sandwich bread', 'grilled steak'];
-
     useEffect(() => {
         handleGetProducts();
         handleGetIngredients();

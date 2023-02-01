@@ -31,7 +31,7 @@ const Users = () => {
 
     const handleDeleteUser = async (id) => {
         try {
-            const { data } = await axios.patch(`/user/delete/${id}`);
+            await axios.patch(`/user/delete/${id}`);
             handleGetUsers();
             setIsLoading(true);
         } catch (error) {
@@ -55,7 +55,7 @@ const Users = () => {
 
     const editRole = async (id, roleId) => {
         try {
-            const { data } = await axios.patch(`/user/${id}`, { role: roleId });
+            await axios.patch(`/user/${id}`, { role: roleId });
             setIsLoading(true);
         } catch (error) {
             console.log('mori');

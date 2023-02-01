@@ -27,14 +27,14 @@ const Home = () => {
                 </div>
                 <div className='ps-5 pe-5 pb-4'>
                     <div className='row mb-3 imgContainer'>
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambuno} />
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambdos} />
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambtres} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambuno} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambdos} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambtres} />
                     </div>
                     <div className='row imgContainer'>
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambcuatro} />
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambcinco} />
-                        <img className='col-12 col-md-4 img-burguer' alt='burguer image' src={Hambseis} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambcuatro} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambcinco} />
+                        <img className='col-12 col-md-4 img-burguer' alt='burguer' src={Hambseis} />
                     </div>
                 </div>
                 <div>
@@ -45,7 +45,7 @@ const Home = () => {
                         <div className='owners-photo row'>
                             <div className='owner-pic-zone col-12 col-md-3 d-flex justify-content-center align-items-center'>
                                 <div className='radius-owner d-flex justify-content-center align-items-center'>
-                                    <img className='picture-radius' alt='image of a member of the group' src={Mafut} />
+                                    <img className='picture-radius' alt='a member of the group' src={Mafut} />
                                 </div>
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9'>
@@ -56,7 +56,7 @@ const Home = () => {
                         <div className='owners-photo row'>
                             <div className='owner-pic-zone col-12 col-md-3 d-flex justify-content-center align-items-center'>
                                 <div className='radius-owner d-flex justify-content-center align-items-center'>
-                                    <img className='picture-radius' alt='image of a member of the group' src={Mauri} />
+                                    <img className='picture-radius' alt='a member of the group' src={Mauri} />
                                 </div>
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9'>
@@ -67,7 +67,7 @@ const Home = () => {
                         <div className='owners-photo row'>
                             <div className='owner-pic-zone col-12 col-md-3 d-flex justify-content-center align-items-center'>
                                 <div className='radius-owner d-flex justify-content-center align-items-center'>
-                                    <img className='picture-radius' alt='image of a member of the group' src={Adriano} />
+                                    <img className='picture-radius' alt='a member of the group' src={Adriano} />
                                 </div>
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9 '>
@@ -78,7 +78,7 @@ const Home = () => {
                         <div className='owners-photo row mb-4'>
                             <div className='owner-pic-zone col-12 col-md-3 d-flex justify-content-center align-items-center'>
                                 <div className='radius-owner d-flex justify-content-center align-items-center'>
-                                    <img className='picture-radius' alt='image of a member of the group' src={Tomi} />
+                                    <img className='picture-radius' alt='a member of the group' src={Tomi} />
                                 </div>
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9 '>

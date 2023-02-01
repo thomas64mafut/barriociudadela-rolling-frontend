@@ -29,7 +29,7 @@ const Roles = () => {
     const handleCreateNewRole = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('/role/add', { name: newRole });
+            await axios.post('/role/add', { name: newRole });
             setShow(false);
             setNewRole('');
             handleGetRoles();
@@ -40,7 +40,7 @@ const Roles = () => {
 
     const handleDeleteRole = async (id) => {
         try {
-            const { data } = await axios.patch(`/role/${id}`, {});
+            await axios.patch(`/role/${id}`, {});
             handleGetRoles();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)

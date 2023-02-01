@@ -68,8 +68,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('/user/register', { username, email, password });
-
+            await axios.post('/user/register', { username, email, password });
             setSuccess(true);
             setUsername('');
             setPassword('');
