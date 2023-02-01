@@ -5,6 +5,7 @@ import { useOutletContext } from 'react-router-dom'
 import axios from '../../../api/axios';
 
 import Order from './Order';
+import './orders.css'
 
 const Orders = (props) => {
     const authProvider = useOutletContext();
