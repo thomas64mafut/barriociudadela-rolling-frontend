@@ -44,11 +44,11 @@ const Carts = () => {
                     <div>
                         <h3>Your active Cart</h3>
                         <div className='p-3 active-cart-container'>
-                            <div className='ps-2'>
-                                <div>Cart_id: {activeCart._id}</div>
-                                <div className='mb-3'>Status: {activeCart.cartStatus}</div>
-                            </div>
                             <div className='overflow-table-container'>
+                                <div className='ps-2'>
+                                    <div>Cart_id: {activeCart._id}</div>
+                                    <div className='mb-3'>Status: {activeCart.cartStatus}</div>
+                                </div>
                                 <Cart
                                     cart={activeCart}
                                 />
@@ -75,7 +75,9 @@ const Carts = () => {
                         </div>
                     </div>
                 ) : (
-                    <h2>You don't have active Cart</h2>
+                    <div className='w-100 text-center my-5 active-cart-container'>
+                        <h2>You don't have active Cart</h2>
+                    </div>
                 )
             }
             <Accordion defaultActiveKey="0" >
@@ -87,7 +89,7 @@ const Carts = () => {
                                 return (
                                     <div className={'order-container ' + cart?.cartStatus}>
                                         <div className='w-100 py-2'>
-                                            <div className='w-100'>
+                                            <div className='w-100 overflow-table-container'>
                                                 <div className='ps-3'>
                                                     <div>Cart id: {cart?._id}</div>
                                                     <div className='mb-2'>Status: {cart?.cartStatus}</div>
@@ -105,12 +107,10 @@ const Carts = () => {
                                                         </div>
                                                     }
                                                 </div>
-                                                <div className='overflow-table-container'>
-                                                    <Cart
-                                                        cart={cart}
-                                                        className='w-100'
-                                                    />
-                                                </div>
+                                                <Cart
+                                                    cart={cart}
+                                                    className='w-100'
+                                                />
                                             </div>
                                         </div>
                                     </div>

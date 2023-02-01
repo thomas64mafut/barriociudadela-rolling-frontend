@@ -83,8 +83,8 @@ const Ingredients = () => {
 
     const addIngredientPopover = (
         <Popover id='popover-basic'>
-            <Popover.Header as='h3'>add ingredient</Popover.Header>
-            <Popover.Body>
+            <Popover.Header as='h3' className='add-ingredient-popover'>add ingredient</Popover.Header>
+            <Popover.Body className='add-ingredient-popover'>
                 <Form onSubmit={handleCreateNewIngredient}>
                     <Form.Group>
                         <Form.Control
@@ -92,15 +92,17 @@ const Ingredients = () => {
                             required
                             placeholder='ingredient name'
                             onChange={(e) => setNewIngredient(e.target.value)}
+                            className='mb-1'
                         />
                         <Form.Control
                             type='number'
                             required
                             placeholder={newPrice}
                             onChange={(e) => setNewPrice(e.target.value)}
+                            className='mb-2'
                         />
                     </Form.Group>
-                    <ul>
+                    <ul className='m-0'>
                         {
                             allCategories?.map((category) => (
                                 <div>
@@ -120,7 +122,7 @@ const Ingredients = () => {
                     <Button
                         variant='success'
                         type='submit'
-                        className='mt-3'
+                        className='mt-3 w-100'
                     >
                         add ingredient
                     </Button>
@@ -149,7 +151,8 @@ const Ingredients = () => {
                     trigger='click'
                     placement='bottom'
                     overlay={addIngredientPopover}
-                    show={show}
+                    rootCloseEvent="mousedown"
+                    rootClose={true}
                 >
                     <Button
                         variant='success'

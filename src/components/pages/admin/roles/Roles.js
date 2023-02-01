@@ -83,6 +83,8 @@ const Roles = () => {
                     placement="bottom"
                     overlay={addRolePopover}
                     show={show}
+                    rootCloseEvent="mousedown"
+                    rootClose={true}
                 >
                     <Button
                         variant="success"

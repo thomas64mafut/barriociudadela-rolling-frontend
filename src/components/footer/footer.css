@@ -1,5 +1,6 @@
 .homeFooter{
   height: 15rem;
+  font-family: 'VictorMono';
 }
 
 @media (max-width: 769px){
@@ -23,6 +24,11 @@
 .socialAs{
   text-decoration: none;
   margin-top: 1rem;
+}
+
+.socialAs svg {
+  stroke: white;
+  margin-right: .5rem;
 }
 
 .socialAs > div{

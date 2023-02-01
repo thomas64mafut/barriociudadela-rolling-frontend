@@ -84,18 +84,20 @@ const Orders = (props) => {
                         if (productsShow.length !== 0) {
                             return (
                                 <div className={'order-container py-3 m-2 ' + cart.cartStatus}>
-                                    <div className='d-flex flex-column ps-2 mb-2'>
-                                        <span>Owner: {cart?.owner?.username}</span>
-                                        <span>Status: {cart?.cartStatus}</span>
-                                    </div>
-                                    <div className='overflow-table-container cart-table-container'>
-                                        <Order
-                                            productsShow={productsShow}
-                                            id={cart._id}
-                                            role={role}
-                                            cartStatus={cart.cartStatus}
-                                            setCartStatus={setCartStatus}
-                                        />
+                                    <div className='overflow-table-container'>
+                                        <div className='d-flex flex-column ps-2 mb-2'>
+                                            <span>Owner: {cart?.owner?.username}</span>
+                                            <span>Status: {cart?.cartStatus}</span>
+                                        </div>
+                                        <div className='cart-table-container'>
+                                            <Order
+                                                productsShow={productsShow}
+                                                id={cart._id}
+                                                role={role}
+                                                cartStatus={cart.cartStatus}
+                                                setCartStatus={setCartStatus}
+                                            />
+                                        </div>
                                     </div>
                                     <div className='mt-3'>
                                         {
@@ -108,14 +110,14 @@ const Orders = (props) => {
                                         {
                                             cart?.cartStatus === 'preparing' && role === 'admin' &&
                                             <div className='button-cart-container button-buy-cart-container flex-column flex-sm-row'>
-                                                <Button 
-                                                    variant='success' 
+                                                <Button
+                                                    variant='success'
                                                     onClick={() => handledeliveredCart(cart._id)}
                                                 >
                                                     Delivered
                                                 </Button>
-                                                <Button 
-                                                    variant='danger' 
+                                                <Button
+                                                    variant='danger'
                                                     onClick={() => handleCancelCart(cart._id)}
                                                 >
                                                     Cancel
