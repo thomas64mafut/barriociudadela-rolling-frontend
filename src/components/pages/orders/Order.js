@@ -3,15 +3,19 @@ import { Table } from 'react-bootstrap';
 
 const Order = ({ productsShow, cartStatus, role }) => {
     const [price, setPrice] = useState([])
-    let totalPrice
+    let totalPrice = 0;
 
     useEffect(() => {
-        totalPrice = 0;
+        handleSetTotalPrice();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleSetTotalPrice = () => {
         for (const product of productsShow) {
             totalPrice = totalPrice + (product?.price * product?.quantity)
         }
         setPrice(totalPrice)
-    }, [])
+    }
 
     return (
         <div className={cartStatus}>

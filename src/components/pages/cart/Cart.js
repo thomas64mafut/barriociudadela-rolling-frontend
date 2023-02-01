@@ -8,12 +8,16 @@ export const Cart = ({ cart }) => {
     let totalPrice = 0;
 
     useEffect(() => {
-        totalPrice = 0;
+        handleSetTotalPrice();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleSetTotalPrice = () => {
         for (const product of cart?.products) {
             totalPrice = totalPrice + (product?.price * product?.quantity)
         }
         setCartTotalPrice(totalPrice)
-    }, [])
+    }
 
     return (
         <div className={cart.cartStatus + ' w-100'}>
