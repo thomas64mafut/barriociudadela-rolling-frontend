@@ -12,7 +12,6 @@ import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
 
 const Products = () => {
-    const [isLoading, setIsLoading] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
@@ -32,14 +31,11 @@ const Products = () => {
 
     const handleGetProducts = async () => {
         try {
-            setIsLoading(true);
             const { data } = await axios.get('/product/');
             setProductsToShow(data?.products);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
             setProductsToShow([]);
-        } finally {
-            setIsLoading(false);
         }
     };
 
@@ -50,8 +46,6 @@ const Products = () => {
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
             setProductsToShow([]);
-        } finally {
-            setIsLoading(false);
         }
     }
 
@@ -62,8 +56,6 @@ const Products = () => {
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
             setProductsToShow([]);
-        } finally {
-            setIsLoading(false);
         }
     }
 
