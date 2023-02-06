@@ -95,7 +95,6 @@ const Products = () => {
         <>
             <div className='abm-container'>
                 <div className='table-header'>
-                    <h1>Products Control Panel</h1>
                     <Dropdown className='m-1'>
                         <Dropdown.Toggle variant='danger' className='btn-dropdown'>
                             Add
