@@ -65,9 +65,6 @@ const Users = () => {
     return (
         <>
             <div className="abm-container">
-                <div className="table-header">
-                    <h1>User Control Panel</h1>
-                </div>
                 {
                     errorMessage &&
                     <Alert variant="danger">{errorMessage}</Alert>

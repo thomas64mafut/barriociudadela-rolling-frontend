@@ -143,7 +143,6 @@ const Ingredients = () => {
     return (
         <div className='abm-container'>
             <div className='table-header'>
-                <h1>Ingredient Control Panel</h1>
                 <OverlayTrigger
                     trigger='click'
                     placement='bottom'

@@ -65,3 +65,26 @@ button {
     height: 100%;
     stroke: white !important;
 }
+
+.nav-item {
+    width: 100%;
+    font-family: 'Leonardo-Rounded';
+}
+
+.nav-link {
+    width: 100%;
+    border: 0 !important;
+    padding: .2rem;
+    text-align: center;
+    color: black !important;
+}
+
+.active {
+    color: var(--fire-opal) !important;
+}
+
+@media (min-width:576px) {
+    .nav-item {
+        width: 25%;
+    }
+}

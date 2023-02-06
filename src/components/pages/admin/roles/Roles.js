@@ -75,7 +75,6 @@ const Roles = () => {
     return (
         <div className='abm-container'>
             <div className="table-header">
-                <h1>Role Control Panel</h1>
                 <OverlayTrigger
                     trigger="click"
                     placement="bottom"
