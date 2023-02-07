@@ -168,7 +168,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="email"
                                             type="email"
                                             id="email"
                                             autoComplete="off"
@@ -211,7 +211,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="password"
                                             type="password"
                                             id="password"
                                             onChange={(e) => setPassword(e.target.value)}
@@ -285,7 +285,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="confirm password"
                                             type="password"
                                             id="confirm_pwd"
                                             onChange={(e) => setMatchPwd(e.target.value)}
