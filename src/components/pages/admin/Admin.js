@@ -12,6 +12,8 @@ const Admin = () => {
     const [ingredients, setIngredients] = useState([]);
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
+    const [products, setProducts] = useState([]);
+
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleGetIngredients = async () => {
@@ -42,6 +44,16 @@ const Admin = () => {
         }
     }
 
+    const handleGetProducts = async () => {
+        try {
+            const { data } = await axios.get('/product/');
+            setProducts(data?.products);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+            setProducts([]);
+        }
+    };
+
     return (
         <>
             <h1 className="abm-container">Admin Control Panel</h1>
@@ -60,8 +72,8 @@ const Admin = () => {
                     title="users"
                 >
                     <Users
-                        handleGetUsers={handleGetUsers}
                         usersToShow={users}
+                        handleGetUsers={handleGetUsers}
                         rolesToShow={roles}
                         handleGetRoles={handleGetRoles}
                     />
@@ -82,6 +94,8 @@ const Admin = () => {
                     title="products"
                 >
                     <Products
+                        productsToShow={products}
+                        handleGetProducts={handleGetProducts}
                         ingredients={ingredients}
                         handleGetIngredients={handleGetIngredients}
                     />
@@ -93,6 +107,8 @@ const Admin = () => {
                     <Ingredients
                         allIngredients={ingredients}
                         handleGetIngredients={handleGetIngredients}
+                        products={products}
+                        handleGetProducts={handleGetProducts}
                     />
                 </Tab>
             </Tabs>
