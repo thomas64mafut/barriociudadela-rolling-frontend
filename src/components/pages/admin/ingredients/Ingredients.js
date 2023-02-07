@@ -11,6 +11,8 @@ const Ingredients = (props) => {
     const {
         allIngredients,
         handleGetIngredients,
+        products,
+        handleGetProducts,
     } = props;
 
     const [show, setShow] = useState(false);
@@ -24,6 +26,7 @@ const Ingredients = (props) => {
     useEffect(() => {
         handleGetIngredients();
         handleGetCategories();
+        handleGetProducts();
     }, [])
 
     const handleCreateNewIngredient = async (e) => {
@@ -58,10 +61,18 @@ const Ingredients = (props) => {
 
     const handleDeleteIngredient = async (id) => {
         try {
+            const productsWithIngredient = products?.filter(product => {
+                const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
+                if (ingredientInProduct.length !== 0) return product;
+                return false;
+            })
+            if (productsWithIngredient.length !== 0) {
+                throw new Error('There is an existing product with this ingredient, please either modify it or delete it before trying this modification again.')
+            }
             await axios.patch(`/ingredient/${id}`, {});
             handleGetIngredients();
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message || error.message);
         }
     }
 
@@ -138,6 +149,10 @@ const Ingredients = (props) => {
 
     return (
         <div className='abm-container'>
+            {
+                errorMessage &&
+                <Alert variant='danger'>{errorMessage}</Alert>
+            }
             <div className='table-header'>
                 <OverlayTrigger
                     trigger='click'
@@ -155,10 +170,6 @@ const Ingredients = (props) => {
                     </Button>
                 </OverlayTrigger>
             </div>
-            {
-                errorMessage &&
-                <Alert variant='danger'>{errorMessage}</Alert>
-            }
             <div>
                 <ul>
                     {

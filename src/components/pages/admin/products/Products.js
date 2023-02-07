@@ -13,13 +13,14 @@ import X from '../../../../assets/icons/X';
 
 const Products = (props) => {
     const {
+        productsToShow,
+        handleGetProducts,
         ingredients,
         handleGetIngredients,
     } = props;
 
     const [isEditing, setIsEditing] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [productsToShow, setProductsToShow] = useState([]);
     const [categoryToAdd, setCategoryToAdd] = useState('');
     const [allCategories, setAllCategories] = useState([]);
 
@@ -34,15 +35,7 @@ const Products = (props) => {
         handleGetProducts();
     }, [])
 
-    const handleGetProducts = async () => {
-        try {
-            const { data } = await axios.get('/product/');
-            setProductsToShow(data?.products);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message);
-            setProductsToShow([]);
-        }
-    };
+
 
     const getCategories = async () => {
         try {
@@ -50,7 +43,6 @@ const Products = (props) => {
             setAllCategories(data?.categories);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
-            setProductsToShow([]);
         }
     }
 
@@ -60,7 +52,6 @@ const Products = (props) => {
             handleGetProducts();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
-            setProductsToShow([]);
         }
     }
 
