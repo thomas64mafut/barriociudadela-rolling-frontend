@@ -11,12 +11,17 @@ import Leaf from '../../../../assets/icons/Leaf';
 import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
 
-const Products = () => {
-    const [isEditing, setIsEditing] = useState(false)
+const Products = (props) => {
+    const {
+        ingredients,
+        handleGetIngredients,
+    } = props;
+
+    const [isEditing, setIsEditing] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [productsToShow, setProductsToShow] = useState([]);
-    const [categoryToAdd, setCategoryToAdd] = useState('')
-    const [allCategories, setAllCategories] = useState([])
+    const [categoryToAdd, setCategoryToAdd] = useState('');
+    const [allCategories, setAllCategories] = useState([]);
 
     const [addEditModalShow, setAddEditModalShow] = useState(false);
     const [productToEdit, setProductToEdit] = useState({});
@@ -61,7 +66,7 @@ const Products = () => {
 
     const handleOpenEditModal = (product) => {
         setProductToEdit(product);
-        setCategoryToAdd(product?.category)
+        setCategoryToAdd(product?.category);
         setIsEditing(true);
         setAddEditModalShow(true);
     }
@@ -79,10 +84,10 @@ const Products = () => {
             ingredients: [],
         }
         if (newProductCategory?.name === 'burger') {
-            const burgerPayload = { ...payload, ingredients: ['63d5e91070dd61cda330900a', '63d5e97270dd61cda330900c'] }
+            const burgerPayload = { ...payload, ingredients: ['63d5e91070dd61cda330900a', '63d5e97270dd61cda330900c'] };
             setProductToEdit(burgerPayload);
         } else if (newProductCategory?.name === 'sandwich') {
-            const sandwichPayload = { ...payload, ingredients: ['63d5e9b170dd61cda3309010', '63d5e99770dd61cda330900e'] }
+            const sandwichPayload = { ...payload, ingredients: ['63d5e9b170dd61cda3309010', '63d5e99770dd61cda330900e'] };
             setProductToEdit(sandwichPayload);
         } else setProductToEdit(payload);
 
@@ -95,7 +100,6 @@ const Products = () => {
         <>
             <div className='abm-container'>
                 <div className='table-header'>
-                    <h1>Products Control Panel</h1>
                     <Dropdown className='m-1'>
                         <Dropdown.Toggle variant='danger' className='btn-dropdown'>
                             Add
@@ -252,6 +256,8 @@ const Products = () => {
                 categoryToAdd={categoryToAdd}
                 isEditing={isEditing}
                 handleGetProducts={handleGetProducts}
+                allIngredients={ingredients}
+                getAllIngredients={handleGetIngredients}
             />
         </>
     )

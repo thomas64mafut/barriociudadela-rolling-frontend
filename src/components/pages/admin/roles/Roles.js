@@ -7,24 +7,23 @@ import axios from '../../../../api/axios'
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
-const Roles = () => {
+const Roles = (props) => {
+    const {
+        allRoles,
+        handleGetRoles,
+        users,
+        handleGetUsers,
+    } = props;
+
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [allRoles, setAllRoles] = useState([]);
     const [newRole, setNewRole] = useState('');
 
     useEffect(() => {
         handleGetRoles();
+        handleGetUsers();
     }, [])
 
-    const handleGetRoles = async () => {
-        try {
-            const { data } = await axios.get('/role/');
-            setAllRoles(data?.roles);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
-        }
-    }
 
     const handleCreateNewRole = async (e) => {
         e.preventDefault();
@@ -40,10 +39,14 @@ const Roles = () => {
 
     const handleDeleteRole = async (id) => {
         try {
+            const usersWithRole = users?.filter((user) => user?.role?._id === id);
+            if (usersWithRole.length !== 0) {
+                throw new Error('There are existing users with this role, please modify them or delete them before trying this modification again.')
+            }
             await axios.patch(`/role/${id}`, {});
             handleGetRoles();
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message || error.message)
         }
     }
 
@@ -74,13 +77,15 @@ const Roles = () => {
 
     return (
         <div className='abm-container'>
+            {
+                errorMessage &&
+                <Alert variant="danger" className='m-0'>{errorMessage}</Alert>
+            }
             <div className="table-header">
-                <h1>Role Control Panel</h1>
                 <OverlayTrigger
                     trigger="click"
                     placement="bottom"
                     overlay={addRolePopover}
-                    show={show}
                     rootCloseEvent="mousedown"
                     rootClose={true}
                 >
@@ -93,10 +98,6 @@ const Roles = () => {
                     </Button>
                 </OverlayTrigger>
             </div>
-            {
-                errorMessage &&
-                <Alert variant="danger">{errorMessage}</Alert>
-            }
             <div>
                 <ul>
                     {
@@ -107,6 +108,11 @@ const Roles = () => {
                                     variant='danger'
                                     onClick={() => handleDeleteRole(role?._id)}
                                     className='p-0 mb-1 btn-delete-role'
+                                    disabled={
+                                        role?.name === 'user' || role?.name === 'admin'
+                                            ? true
+                                            : false
+                                    }
                                 >
                                     <X />
                                 </Button>
