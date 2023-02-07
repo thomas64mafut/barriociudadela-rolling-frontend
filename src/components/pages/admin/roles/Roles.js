@@ -11,6 +11,8 @@ const Roles = (props) => {
     const {
         allRoles,
         handleGetRoles,
+        users,
+        handleGetUsers,
     } = props;
 
     const [show, setShow] = useState(false);
@@ -19,6 +21,7 @@ const Roles = (props) => {
 
     useEffect(() => {
         handleGetRoles();
+        handleGetUsers();
     }, [])
 
 
@@ -36,10 +39,14 @@ const Roles = (props) => {
 
     const handleDeleteRole = async (id) => {
         try {
+            const usersWithRole = users?.filter((user) => user?.role?._id === id);
+            if (usersWithRole.length !== 0) {
+                throw new Error('There are existing users with this role, please modify them or delete them before trying this modification again.')
+            }
             await axios.patch(`/role/${id}`, {});
             handleGetRoles();
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message || error.message)
         }
     }
 
@@ -70,6 +77,10 @@ const Roles = (props) => {
 
     return (
         <div className='abm-container'>
+            {
+                errorMessage &&
+                <Alert variant="danger" className='m-0'>{errorMessage}</Alert>
+            }
             <div className="table-header">
                 <OverlayTrigger
                     trigger="click"
@@ -87,10 +98,6 @@ const Roles = (props) => {
                     </Button>
                 </OverlayTrigger>
             </div>
-            {
-                errorMessage &&
-                <Alert variant="danger">{errorMessage}</Alert>
-            }
             <div>
                 <ul>
                     {
