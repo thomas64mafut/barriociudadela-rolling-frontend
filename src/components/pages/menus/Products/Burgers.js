@@ -64,7 +64,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
         <div>
             {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
 
-            <Row md='3' xl='4' className='p-3'>
+            <Row md='3' xl='4' className='p-3 burguer-section'>
                 {
                     products.length ? (
                         products?.map((product, index) => {
