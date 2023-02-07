@@ -1,33 +1,25 @@
 import "../admin.css";
 import React, { useEffect, useState } from "react";
-import { Table, Button, Alert, Dropdown } from "react-bootstrap";
+import { Table, Button, Dropdown } from "react-bootstrap";
 import axios from "../../../../api/axios";
 
 import UserX from '../../../../assets/icons/UserX'
 
-const Users = () => {
-    const [usersToShow, setUsersToShow] = useState([]);
-    const [rolesToShow, setRolesToShow] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
+const Users = (props) => {
+    const {
+        usersToShow,
+        handleGetUsers,
+        rolesToShow,
+    } = props;
+
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (isLoading) {
             handleGetUsers();
-            getRoles();
             setIsLoading(false);
         }
     }, [isLoading]);
-
-    const handleGetUsers = async () => {
-        try {
-            const { data } = await axios.get('/user/all');
-            setUsersToShow(data?.users);
-        } catch (error) {
-            setErrorMessage(error.response.data.message);
-            setUsersToShow([]);
-        }
-    };
 
     const handleDeleteUser = async (id) => {
         try {
@@ -44,15 +36,6 @@ const Users = () => {
         return formattedDate.toDateString();
     };
 
-    const getRoles = async () => {
-        try {
-            const { data } = await axios.get('/role');
-            setRolesToShow(data.roles);
-        } catch (error) {
-            console.log('mori');
-        }
-    }
-
     const editRole = async (id, roleId) => {
         try {
             await axios.patch(`/user/${id}`, { role: roleId });
@@ -65,10 +48,6 @@ const Users = () => {
     return (
         <>
             <div className="abm-container">
-                {
-                    errorMessage &&
-                    <Alert variant="danger">{errorMessage}</Alert>
-                }
                 <div className="overflow-table-container">
                     <Table className="table-container" size="sm">
                         <thead>
