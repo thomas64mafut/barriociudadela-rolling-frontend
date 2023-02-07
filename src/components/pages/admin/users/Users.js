@@ -10,6 +10,7 @@ const Users = (props) => {
         usersToShow,
         handleGetUsers,
         rolesToShow,
+        handleGetRoles,
     } = props;
 
     const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +18,7 @@ const Users = (props) => {
     useEffect(() => {
         if (isLoading) {
             handleGetUsers();
+            handleGetRoles();
             setIsLoading(false);
         }
     }, [isLoading]);

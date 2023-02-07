@@ -63,6 +63,7 @@ const Admin = () => {
                         handleGetUsers={handleGetUsers}
                         usersToShow={users}
                         rolesToShow={roles}
+                        handleGetRoles={handleGetRoles}
                     />
                 </Tab>
                 <Tab
