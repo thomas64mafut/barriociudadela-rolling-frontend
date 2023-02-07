@@ -72,6 +72,8 @@ const Admin = () => {
                     <Roles
                         allRoles={roles}
                         handleGetRoles={handleGetRoles}
+                        users={users}
+                        handleGetUsers={handleGetUsers}
                     />
                 </Tab>
                 <Tab
