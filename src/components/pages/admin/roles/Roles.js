@@ -102,6 +102,11 @@ const Roles = (props) => {
                                     variant='danger'
                                     onClick={() => handleDeleteRole(role?._id)}
                                     className='p-0 mb-1 btn-delete-role'
+                                    disabled={
+                                        role?.name === 'user' || role?.name === 'admin'
+                                            ? true
+                                            : false
+                                    }
                                 >
                                     <X />
                                 </Button>
