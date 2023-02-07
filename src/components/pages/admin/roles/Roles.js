@@ -7,24 +7,20 @@ import axios from '../../../../api/axios'
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
-const Roles = () => {
+const Roles = (props) => {
+    const {
+        allRoles,
+        handleGetRoles,
+    } = props;
+
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [allRoles, setAllRoles] = useState([]);
     const [newRole, setNewRole] = useState('');
 
     useEffect(() => {
         handleGetRoles();
     }, [])
 
-    const handleGetRoles = async () => {
-        try {
-            const { data } = await axios.get('/role/');
-            setAllRoles(data?.roles);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
-        }
-    }
 
     const handleCreateNewRole = async (e) => {
         e.preventDefault();
