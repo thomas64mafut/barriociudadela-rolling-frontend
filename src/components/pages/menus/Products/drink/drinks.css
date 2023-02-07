@@ -4,6 +4,10 @@
     margin-top: 1rem;
 }
 
+.drink-container{
+    width: 100vw;
+}
+
 .drink-card:hover {
     border-color: var(--gold-metalic)!important;
     color: rgb(193, 147, 31);
