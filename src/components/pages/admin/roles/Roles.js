@@ -75,7 +75,6 @@ const Roles = (props) => {
                     trigger="click"
                     placement="bottom"
                     overlay={addRolePopover}
-                    show={show}
                     rootCloseEvent="mousedown"
                     rootClose={true}
                 >
