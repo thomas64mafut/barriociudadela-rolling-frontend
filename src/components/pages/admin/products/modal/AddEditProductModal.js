@@ -1,9 +1,9 @@
-import './modal.css'
-import React, { useState, useEffect, useRef } from 'react'
-import axios from '../../../../../api/axios'
+import './modal.css';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from '../../../../../api/axios';
 import { Modal, Button, Form, Dropdown, Accordion } from 'react-bootstrap';
 
-import X from '../../../../../assets/icons/X'
+import X from '../../../../../assets/icons/X';
 import Plus from '../../../../../assets/icons/Plus';
 
 const AddEditProductModal = (props) => {
@@ -14,19 +14,20 @@ const AddEditProductModal = (props) => {
         categoryToAdd,
         isEditing,
         handleGetProducts,
+        allIngredients,
+        getAllIngredients,
     } = props;
 
-    const [ingredientsToAdd, setIngredientsToAdd] = useState([])
-    const [allIngredients, setAllIngredients] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [ingredientsToAdd, setIngredientsToAdd] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [detail, setDetail] = useState('');
     const [price, setPrice] = useState(0);
     const [brand, setBrand] = useState('');
-    const [isVegan, setIsVegan] = useState(false)
-    const [hasAlcohol, setHasAlcohol] = useState(false)
+    const [isVegan, setIsVegan] = useState(false);
+    const [hasAlcohol, setHasAlcohol] = useState(false);
     const [image, setImage] = useState('');
     const [ingredientsList, setIngredientsList] = useState([]);
 
@@ -65,7 +66,7 @@ const AddEditProductModal = (props) => {
                         }
                     })
                 ))
-                setIngredientsList(ingredientsFound)
+                setIngredientsList(ingredientsFound);
             } else setIngredientsList(product?.ingredients);
         }
     }
@@ -117,10 +118,6 @@ const AddEditProductModal = (props) => {
         setIngredientsToAdd(secondFilteredIngredients);
     }
 
-    const getAllIngredients = async () => {
-        const { data } = await axios.get('/ingredient');
-        setAllIngredients(data?.ingredients);
-    }
 
     const removeIngredientFromList = (ingredientToRemove) => {
         const newIngredientList = ingredientsList.filter((ingredient) => {
@@ -357,4 +354,4 @@ const AddEditProductModal = (props) => {
     )
 }
 
-export default AddEditProductModal
+export default AddEditProductModal;
