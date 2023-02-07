@@ -1,34 +1,30 @@
-import './ingredients.css'
-import '../admin.css'
-import React, { useState, useEffect } from 'react'
-import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip } from 'react-bootstrap'
-import axios from '../../../../api/axios'
+import '../admin.css';
+import './ingredients.css';
+import React, { useState, useEffect } from 'react';
+import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip } from 'react-bootstrap';
+import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
-const Ingredients = () => {
+const Ingredients = (props) => {
+    const {
+        allIngredients,
+        handleGetIngredients,
+    } = props;
+
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [allIngredients, setAllIngredients] = useState([]);
+
     const [allCategories, setAllCategories] = useState([]);
     const [newIngredient, setNewIngredient] = useState('');
     const [newPrice, setNewPrice] = useState(0);
-    const [categoryToAdd, setCategoryToAdd] = useState([])
+    const [categoryToAdd, setCategoryToAdd] = useState([]);
 
     useEffect(() => {
         handleGetIngredients();
         handleGetCategories();
     }, [])
-
-    const handleGetIngredients = async () => {
-        try {
-            const { data } = await axios.get('/ingredient/');
-            setAllIngredients(data?.ingredients);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
-        }
-    }
 
     const handleCreateNewIngredient = async (e) => {
         e.preventDefault();
@@ -53,7 +49,7 @@ const Ingredients = () => {
         } else {
             let index = categoryToAdd.indexOf(category);
             if (index > -1) {
-                const newCategoryToAdd = categoryToAdd
+                const newCategoryToAdd = categoryToAdd;
                 newCategoryToAdd.splice(index, 1);
                 setCategoryToAdd(newCategoryToAdd);
             }
@@ -65,7 +61,7 @@ const Ingredients = () => {
             await axios.patch(`/ingredient/${id}`, {});
             handleGetIngredients();
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message);
         }
     }
 
@@ -74,7 +70,7 @@ const Ingredients = () => {
             const { data } = await axios.get('/category');
             setAllCategories(data?.categories);
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message);
         }
     }
 

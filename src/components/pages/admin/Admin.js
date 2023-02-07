@@ -9,9 +9,19 @@ import Roles from './roles/Roles';
 import Ingredients from './ingredients/Ingredients';
 
 const Admin = () => {
+    const [ingredients, setIngredients] = useState([]);
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const handleGetIngredients = async () => {
+        try {
+            const { data } = await axios.get('/ingredient');
+            setIngredients(data?.ingredients);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
 
     const handleGetUsers = async () => {
         try {
@@ -56,12 +66,6 @@ const Admin = () => {
                     />
                 </Tab>
                 <Tab
-                    eventKey="products"
-                    title="products"
-                >
-                    <Products />
-                </Tab>
-                <Tab
                     eventKey="roles"
                     title="roles"
                 >
@@ -71,10 +75,22 @@ const Admin = () => {
                     />
                 </Tab>
                 <Tab
+                    eventKey="products"
+                    title="products"
+                >
+                    <Products
+                        ingredients={ingredients}
+                        handleGetIngredients={handleGetIngredients}
+                    />
+                </Tab>
+                <Tab
                     eventKey="ingredients"
                     title="ingredients"
                 >
-                    <Ingredients />
+                    <Ingredients
+                        allIngredients={ingredients}
+                        handleGetIngredients={handleGetIngredients}
+                    />
                 </Tab>
             </Tabs>
         </>
