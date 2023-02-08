@@ -14,43 +14,56 @@ const Admin = () => {
     const [roles, setRoles] = useState([]);
     const [products, setProducts] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleGetIngredients = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/ingredient');
             setIngredients(data?.ingredients);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
+        } finally {
+            setIsLoading(false)
         }
     }
 
     const handleGetUsers = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/user/all');
             setUsers(data?.users);
         } catch (error) {
             setErrorMessage(error.response.data.message);
             setUsers([]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleGetRoles = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/role/');
             setRoles(data?.roles);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
+        } finally {
+            setIsLoading(false);
         }
     }
 
     const handleGetProducts = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/product/');
             setProducts(data?.products);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
             setProducts([]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -76,6 +89,8 @@ const Admin = () => {
                         handleGetUsers={handleGetUsers}
                         rolesToShow={roles}
                         handleGetRoles={handleGetRoles}
+                        isLoading={isLoading}
+                        setIsLoading={isLoading}
                     />
                 </Tab>
                 <Tab
@@ -87,6 +102,8 @@ const Admin = () => {
                         handleGetRoles={handleGetRoles}
                         users={users}
                         handleGetUsers={handleGetUsers}
+                        isLoading={isLoading}
+                        setIsLoading={isLoading}
                     />
                 </Tab>
                 <Tab
@@ -98,6 +115,8 @@ const Admin = () => {
                         handleGetProducts={handleGetProducts}
                         ingredients={ingredients}
                         handleGetIngredients={handleGetIngredients}
+                        isLoading={isLoading}
+                        setIsLoading={isLoading}
                     />
                 </Tab>
                 <Tab
@@ -109,6 +128,8 @@ const Admin = () => {
                         handleGetIngredients={handleGetIngredients}
                         products={products}
                         handleGetProducts={handleGetProducts}
+                        isLoading={isLoading}
+                        setIsLoading={isLoading}
                     />
                 </Tab>
             </Tabs>

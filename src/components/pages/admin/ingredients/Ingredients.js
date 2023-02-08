@@ -1,7 +1,7 @@
 import '../admin.css';
 import './ingredients.css';
 import React, { useState, useEffect } from 'react';
-import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip } from 'react-bootstrap';
+import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip, Spinner } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
@@ -13,6 +13,8 @@ const Ingredients = (props) => {
         handleGetIngredients,
         products,
         handleGetProducts,
+        isLoading,
+        setIsLoading,
     } = props;
 
     const [show, setShow] = useState(false);
@@ -32,6 +34,7 @@ const Ingredients = (props) => {
     const handleCreateNewIngredient = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const payload = {
                 name: newIngredient,
                 price: newPrice,
@@ -43,6 +46,8 @@ const Ingredients = (props) => {
             handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -61,6 +66,7 @@ const Ingredients = (props) => {
 
     const handleDeleteIngredient = async (id) => {
         try {
+            setIsLoading(true);
             const productsWithIngredient = products?.filter(product => {
                 const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
                 if (ingredientInProduct.length !== 0) return product;
@@ -73,15 +79,20 @@ const Ingredients = (props) => {
             handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message || error.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
     const handleGetCategories = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/category');
             setAllCategories(data?.categories);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -150,50 +161,61 @@ const Ingredients = (props) => {
     return (
         <div className='abm-container'>
             {
-                errorMessage &&
-                <Alert variant='danger'>{errorMessage}</Alert>
-            }
-            <div className='table-header'>
-                <OverlayTrigger
-                    trigger='click'
-                    placement='bottom'
-                    overlay={addIngredientPopover}
-                    rootCloseEvent="mousedown"
-                    rootClose={true}
-                >
-                    <Button
-                        variant='success'
-                        onClick={() => setShow(!show)}
-                        className='mt-3 p-0 btn-add-role'
-                    >
-                        <Plus />
-                    </Button>
-                </OverlayTrigger>
-            </div>
-            <div>
-                <ul>
-                    {
-                        allIngredients?.map((ingredient, index) => (
-                            <div className='d-flex flex-row justify-content-between' key={index}>
+                isLoading
+                    ? (
+                        <Spinner />
+                    )
+                    : (
+                        <div>
+
+                            {
+                                errorMessage &&
+                                <Alert variant='danger'>{errorMessage}</Alert>
+                            }
+                            <div className='table-header'>
                                 <OverlayTrigger
+                                    trigger='click'
                                     placement='bottom'
-                                    delay={{ show: 250, hide: 400 }}
-                                    overlay={ingredientCategoryTooltip(ingredient)}
+                                    overlay={addIngredientPopover}
+                                    rootCloseEvent="mousedown"
+                                    rootClose={true}
                                 >
-                                    <li>{ingredient?.name} - $ {ingredient?.price}</li>
+                                    <Button
+                                        variant='success'
+                                        onClick={() => setShow(!show)}
+                                        className='mt-3 p-0 btn-add-role'
+                                    >
+                                        <Plus />
+                                    </Button>
                                 </OverlayTrigger>
-                                <Button
-                                    variant='danger'
-                                    onClick={() => handleDeleteIngredient(ingredient?._id)}
-                                    className='p-0 mb-1 btn-delete-role'
-                                >
-                                    <X />
-                                </Button>
                             </div>
-                        ))
-                    }
-                </ul>
-            </div>
+                            <div>
+                                <ul>
+                                    {
+                                        allIngredients?.map((ingredient, index) => (
+                                            <div className='d-flex flex-row justify-content-between' key={index}>
+                                                <OverlayTrigger
+                                                    placement='bottom'
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={ingredientCategoryTooltip(ingredient)}
+                                                >
+                                                    <li>{ingredient?.name} - $ {ingredient?.price}</li>
+                                                </OverlayTrigger>
+                                                <Button
+                                                    variant='danger'
+                                                    onClick={() => handleDeleteIngredient(ingredient?._id)}
+                                                    className='p-0 mb-1 btn-delete-role'
+                                                >
+                                                    <X />
+                                                </Button>
+                                            </div>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    )
+            }
         </div>
     )
 }
