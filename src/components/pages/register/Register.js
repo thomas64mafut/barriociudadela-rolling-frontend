@@ -78,24 +78,17 @@ const Register = () => {
         const specialUser = new RegExp('(?=.*[A-z0-9-_])');
         const lengthUser = new RegExp('(?=.{5,16})');
 
-        if(letterInit.test(value)){
-            setLetterInitValidated(true);
-        }
-        else{
-            setLetterInitValidated(false);
-        }
-        if(specialUser.test(value)){
-            setSpecialUserValidated(true);
-        }
-        else{
-            setSpecialUserValidated(false);
-        }
-        if(lengthUser.test(value)){
-            setLengthUserValidated(true);
-        }
-        else{
-            setLengthUserValidated(false);
-        }
+        letterInit.test(value)
+            ? setLetterInitValidated(true)
+            : setLetterInitValidated(false)
+        
+        specialUser.test(value)
+            ? setSpecialUserValidated(true)
+            : setSpecialUserValidated(false)
+
+        lengthUser.test(value)
+            ? setLengthUserValidated(true)
+            : setLengthUserValidated(false)
     }
     
     const handlePwdChange=(value)=>{
@@ -106,36 +99,25 @@ const Register = () => {
         const special = new RegExp('(?=.*[!@#$%])');
         const length = new RegExp('(?=.{6,16})')
 
-        if(lower.test(value)){
-            setLowerValidated(true);
-        }
-        else{
-            setLowerValidated(false);
-        }
-        if(upper.test(value)){
-            setUpperValidated(true);
-        }
-        else{
-            setUpperValidated(false);
-        }
-        if(number.test(value)){
-            setNumberValidated(true);
-        }
-        else{
-            setNumberValidated(false);
-        }
-        if(special.test(value)){
-            setSpecialValidated(true);
-        }
-        else{
-            setSpecialValidated(false);
-        }
-        if(length.test(value)){
-            setLengthValidated(true);
-        }
-        else{
-            setLengthValidated(false);
-        }
+        lower.test(value)
+            ? setLowerValidated(true)
+            : setLowerValidated(false)
+
+        upper.test(value)
+            ? setUpperValidated(true)
+            : setUpperValidated(false)
+
+        number.test(value)
+            ? setNumberValidated(true)
+            : setNumberValidated(false)
+        
+        special.test(value)
+            ? setSpecialValidated(true)
+            : setSpecialValidated(false)
+        
+        length.test(value)
+            ? setLengthValidated(true)
+            : setLengthValidated(false)
     }
 
     const handleSubmit = async (e) => {
@@ -278,7 +260,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="email"
                                             type="email"
                                             id="email"
                                             autoComplete="off"
@@ -324,7 +306,7 @@ const Register = () => {
                                         <div className='input-with-icon-div form-control'>
                                             <input
                                                 className='custom-input'
-                                                placeholder="Placeholder text"
+                                                placeholder="password"
                                                 type= {type}
                                                 id="password"
                                                 onChange={(e)=>handlePwdChange(e.target.value)}
@@ -451,7 +433,7 @@ const Register = () => {
                                         <div className='input-with-icon-div form-control'>
                                             <input
                                                 className='custom-input'
-                                                placeholder="Placeholder text"
+                                                placeholder="confirm password"
                                                 type= {type}
                                                 id="confirm_pwd"
                                                 onChange={(e) => setMatchPwd(e.target.value)}
