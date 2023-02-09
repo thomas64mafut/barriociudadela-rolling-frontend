@@ -24,3 +24,23 @@ p {
     font-family: 'VictorMono';
     margin-left: 1rem;
 }
+
+.main-container-dark {
+    margin-top: 3.3rem;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}
+
+.title-container-dark {
+    margin-top: 4rem;
+    margin-left: 1rem;
+}
+
+.img-container-dark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

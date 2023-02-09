@@ -1,10 +1,13 @@
 import './login.css'
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import axios from '../../../api/axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 const Login = () => {
+    const { darkMode } = useContext(ThemeContext);
+
     const emailRef = useRef();
     const errorRef = useRef();
 
@@ -36,9 +39,9 @@ const Login = () => {
 
     return (
         <>
-            <div className='main-login-container'>
-                <div className='login-container'>
-                    <div className='border-container'>
+            <div className={ darkMode ? "main-login-container-dark" : "main-login-container" }>
+                <div className={ darkMode ? "login-container-dark" : "login-container" }>
+                    <div className={ darkMode ? "border-container-dark" : "border-container" }>
                         <h1>Login </h1>
                         <p
                             ref={errorRef}
@@ -72,8 +75,8 @@ const Login = () => {
                                     required
                                 />
                             </Form.Group>
-                            <button className='btn-custom my-4' type='submit'>
-                                <span className='btn-custom_top'> sign in
+                            <button className={ darkMode ? 'btn-custom-dark my-4' : 'btn-custom my-4' } type='submit'>
+                                <span className={ darkMode ? 'btn-custom_top-dark' : 'btn-custom_top' }> sign in
                                 </span>
                             </button>
                         </Form>

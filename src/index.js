@@ -9,12 +9,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/fonts/Blogh.otf'
 import './assets/fonts/Leonardo-Rounded.otf'
 import './assets/fonts/VictorMono.ttf'
+import { ThemeProvider } from './context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <AuthProvider>
-            <App />
+            <ThemeProvider>
+                <App />
+            </ThemeProvider>
         </AuthProvider>
     </React.StrictMode>
 );

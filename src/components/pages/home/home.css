@@ -193,3 +193,14 @@
         height: 33rem !important;
     }
 }
+
+/*.dark {
+    background-image: url(../../../assets/img/papelTexture.webp);
+    background-color: rgb(10,10,10);
+    background-blend-mode: soft-light;
+}*/
+
+.homeBack-dark {
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}

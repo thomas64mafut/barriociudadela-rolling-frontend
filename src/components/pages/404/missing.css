@@ -166,3 +166,12 @@
         width: 10rem;
     }
 }
+
+.main-container-dark {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
+    width: 100vw;
+    background-color: rgb(237, 227, 199);
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}

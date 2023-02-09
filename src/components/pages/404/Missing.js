@@ -1,6 +1,7 @@
 import './missing.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 import Card from './Card';
 
@@ -16,6 +17,9 @@ const cardImages = [
 ]
 
 function Missing() {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
     const [choiceOne, setChoiceOne] = useState(null)
@@ -72,7 +76,7 @@ function Missing() {
     }, [])
 
     return (
-        <div className="main-container row g-0 w-100">
+        <div className={ darkMode ? "main-container-dark row g-0 w-100" : "main-container row g-0 w-100"}>
             <div className="message-container col-lg-6">
                 <h1>Oops!</h1>
                 <h4>Page Not Found</h4>

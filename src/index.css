@@ -4,6 +4,11 @@
     --gold-metalic: rgb(224, 178, 62);
     --blue-gray: rgb(85, 150, 204);
     --fire-opal: rgb(226, 84, 71);
+    --inverted-silver-sand: rgb(59, 56, 57);
+    --inverted-dutch-white: rgb(18, 28, 56);
+    --inverted-gold-metalic: rgb(31, 77, 193);
+    --inverted-blue-gray: rgb(170, 105, 51);
+    --inverted-fire-opal: rgb(29, 171, 184);
 }
 
 @font-face {

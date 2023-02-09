@@ -1,9 +1,10 @@
 import '../login/login.css';
 import './register.css';
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import axios from '../../../api/axios';
 import { Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 import Check from '../../../assets/icons/Check';
 import Info from '../../../assets/icons/Info';
@@ -14,6 +15,8 @@ const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,16}$/;
 
 const Register = () => {
+    const { darkMode } = useContext(ThemeContext);
+
     const userRef = useRef();
     const errorRef = useRef();
 
@@ -168,7 +171,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="email"
                                             type="email"
                                             id="email"
                                             autoComplete="off"
@@ -211,7 +214,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="password"
                                             type="password"
                                             id="password"
                                             onChange={(e) => setPassword(e.target.value)}
@@ -285,7 +288,7 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="confirm password"
                                             type="password"
                                             id="confirm_pwd"
                                             onChange={(e) => setMatchPwd(e.target.value)}

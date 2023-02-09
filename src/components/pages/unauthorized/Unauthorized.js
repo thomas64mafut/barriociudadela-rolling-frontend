@@ -1,5 +1,7 @@
 import "./unauthorized.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 import logo from '../../../assets/img/401-unauthorized.png';
 
@@ -8,13 +10,15 @@ const Unauthorized = () => {
 
     const goBack = () => navigate(-1);
 
+    const { darkMode } = useContext(ThemeContext);
+
     return (
-        <div className="main-container">
-            <div className="title-container">
+        <div className={darkMode ? "main-container-dark": "main-container"}>
+            <div className={ darkMode ? "title-container-dark" : "title-container" }>
                 <h1>Unauthorized</h1>
             </div>
             
-            <div className="img-container">
+            <div className={ darkMode ? "img-container-dark" : "img-container" }>
                 <img src={logo} alt="error 401" className="img-fluid"/>
                 
             </div>
