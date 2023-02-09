@@ -48,7 +48,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                     toppingsToShow.push(ingredient);
             })
         ));
-
+        console.log(toppingsToShow)
         const filteredIngredients = toppingsToShow.filter(item1 => {
             const item1Str = JSON.stringify(item1);
             return !product?.ingredients.find(item2 => item1Str === JSON.stringify(item2))
