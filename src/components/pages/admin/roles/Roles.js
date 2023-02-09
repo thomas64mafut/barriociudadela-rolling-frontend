@@ -7,25 +7,51 @@ import axios from '../../../../api/axios'
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
-const Roles = (props) => {
-    const {
-        allRoles,
-        handleGetRoles,
-        users,
-        handleGetUsers,
-        isLoading,
-        setIsLoading,
-    } = props;
-
+const Roles = () => {
     const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
+
+    const [rolesToShow, setRolesToShow] = useState([]);
+    const [users, setUsers] = useState([]);
     const [newRole, setNewRole] = useState('');
 
     useEffect(() => {
-        handleGetRoles();
-        handleGetUsers();
+        handleGetData();
     }, [])
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setErrorMessage('')
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [errorMessage])
+
+
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetRoles();
+        await handleGetUsers();
+        setIsLoading(false);
+    };
+
+    const handleGetRoles = async () => {
+        try {
+            const { data } = await axios.get('/role/');
+            setRolesToShow(data?.roles);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message)
+        }
+    }
+
+    const handleGetUsers = async () => {
+        try {
+            const { data } = await axios.get('/user/all');
+            setUsers(data?.users);
+        } catch (error) {
+            setErrorMessage(error.response.data.message);
+        }
+    };
 
     const handleCreateNewRole = async (e) => {
         e.preventDefault();
@@ -34,7 +60,7 @@ const Roles = (props) => {
             await axios.post('/role/add', { name: newRole });
             setShow(false);
             setNewRole('');
-            handleGetRoles();
+            await handleGetRoles();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
         } finally {
@@ -50,7 +76,7 @@ const Roles = (props) => {
                 throw new Error('There are existing users with this role, please modify them or delete them before trying this modification again.')
             }
             await axios.patch(`/role/${id}`, {});
-            handleGetRoles();
+            await handleGetRoles();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message || error.message)
         } finally {
@@ -118,7 +144,7 @@ const Roles = (props) => {
                             <div>
                                 <ul>
                                     {
-                                        allRoles?.map((role, index) => (
+                                        rolesToShow?.map((role, index) => (
                                             <div className='d-flex flex-row justify-content-between' key={index}>
                                                 <li>{role?.name}</li>
                                                 <Button

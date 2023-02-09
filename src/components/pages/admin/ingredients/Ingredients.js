@@ -7,29 +7,64 @@ import axios from '../../../../api/axios';
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 
-const Ingredients = (props) => {
-    const {
-        allIngredients,
-        handleGetIngredients,
-        products,
-        handleGetProducts,
-        isLoading,
-        setIsLoading,
-    } = props;
-
+const Ingredients = () => {
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const [allCategories, setAllCategories] = useState([]);
-    const [newIngredient, setNewIngredient] = useState('');
+    const [allProducts, setAllProducts] = useState([]);
+    const [allIngredients, setAllIngredients] = useState([]);
+
     const [newPrice, setNewPrice] = useState(0);
     const [categoryToAdd, setCategoryToAdd] = useState([]);
+    const [newIngredient, setNewIngredient] = useState('');
 
     useEffect(() => {
-        handleGetIngredients();
-        handleGetCategories();
-        handleGetProducts();
+        handleGetData();
     }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setErrorMessage('')
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [errorMessage])
+
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetCategories();
+        await handleGetIngredients();
+        await handleGetProducts();
+        setIsLoading(false);
+    };
+
+    const handleGetProducts = async () => {
+        try {
+            const { data } = await axios.get('/product/');
+            setAllProducts(data?.products);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    };
+
+    const handleGetIngredients = async () => {
+        try {
+            const { data } = await axios.get('/ingredient');
+            setAllIngredients(data?.ingredients);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
+
+    const handleGetCategories = async () => {
+        try {
+            const { data } = await axios.get('/category/');
+            setAllCategories(data?.categories);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
 
     const handleCreateNewIngredient = async (e) => {
         e.preventDefault();
@@ -43,7 +78,7 @@ const Ingredients = (props) => {
             await axios.post('/ingredient/add', payload);
             setShow(false);
             setNewIngredient('');
-            handleGetIngredients();
+            await handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
         } finally {
@@ -67,30 +102,18 @@ const Ingredients = (props) => {
     const handleDeleteIngredient = async (id) => {
         try {
             setIsLoading(true);
-            const productsWithIngredient = products?.filter(product => {
+            const productsWithIngredient = allProducts?.filter(product => {
                 const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
                 if (ingredientInProduct.length !== 0) return product;
                 return false;
             })
             if (productsWithIngredient.length !== 0) {
-                throw new Error('There is an existing product with this ingredient, please either modify it or delete it before trying this modification again.')
+                throw new Error('There is an existing product with this ingredient, please either modify it or delete it before trying this modification again.');
             }
             await axios.patch(`/ingredient/${id}`, {});
-            handleGetIngredients();
+            await handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message || error.message);
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    const handleGetCategories = async () => {
-        try {
-            setIsLoading(true);
-            const { data } = await axios.get('/category');
-            setAllCategories(data?.categories);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message);
         } finally {
             setIsLoading(false);
         }

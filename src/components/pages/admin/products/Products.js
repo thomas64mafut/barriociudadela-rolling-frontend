@@ -11,20 +11,15 @@ import Leaf from '../../../../assets/icons/Leaf';
 import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
 
-const Products = (props) => {
-    const {
-        productsToShow,
-        handleGetProducts,
-        ingredients,
-        handleGetIngredients,
-        isLoading,
-        setIsLoading,
-    } = props;
-
-    const [isEditing, setIsEditing] = useState(false);
+const Products = () => {
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
     const [categoryToAdd, setCategoryToAdd] = useState('');
     const [allCategories, setAllCategories] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+    const [allIngredients, setAllIngredients] = useState([]);
 
     const [addEditModalShow, setAddEditModalShow] = useState(false);
     const [productToEdit, setProductToEdit] = useState({});
@@ -33,21 +28,48 @@ const Products = (props) => {
     const drinkSizes = ['750ml', '1,5lts'];
 
     useEffect(() => {
-        getCategories();
-        handleGetProducts();
+        handleGetData();
     }, [])
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setErrorMessage('')
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [errorMessage])
 
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetCategories();
+        await handleGetIngredients();
+        await handleGetProducts();
+        setIsLoading(false);
+    };
 
-    const getCategories = async () => {
+    const handleGetProducts = async () => {
         try {
-            setIsLoading(true);
+            const { data } = await axios.get('/product/');
+            setAllProducts(data?.products);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    };
+
+    const handleGetIngredients = async () => {
+        try {
+            const { data } = await axios.get('/ingredient');
+            setAllIngredients(data?.ingredients);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
+
+    const handleGetCategories = async () => {
+        try {
             const { data } = await axios.get('/category/');
             setAllCategories(data?.categories);
         } catch (error) {
             setErrorMessage(error?.response?.data?.message);
-        } finally {
-            setIsLoading(false);
         }
     }
 
@@ -133,7 +155,7 @@ const Products = (props) => {
                                 )}
                                 <Accordion>
                                     {
-                                        productsToShow?.map((product, index) => (
+                                        allProducts?.map((product, index) => (
                                             <Accordion.Item eventKey={index} key={index}>
                                                 <Accordion.Header>
                                                     {product?.name}
@@ -266,7 +288,7 @@ const Products = (props) => {
                 categoryToAdd={categoryToAdd}
                 isEditing={isEditing}
                 handleGetProducts={handleGetProducts}
-                allIngredients={ingredients}
+                allIngredients={allIngredients}
                 getAllIngredients={handleGetIngredients}
             />
         </>
