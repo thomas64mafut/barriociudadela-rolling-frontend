@@ -45,8 +45,8 @@
     border: 3px solid rgb(202, 195, 97)!important;
 }
 
-.cart:hover {
-    transform: scale(1.02);
+.card:hover {
+    transform: scale(1.015);
 }
 
 .col {
