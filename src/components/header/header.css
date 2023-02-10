@@ -111,6 +111,15 @@
     }
 }
 
+@media (max-width:324px){
+    .input-group-text {
+        padding: .2rem;
+    }
+    .input-group-text > div {
+        font-size: smaller;
+    }
+}
+
 .profile-panel {
     font-family: 'VictorMono';
 }
