@@ -77,6 +77,7 @@ const Login = () => {
                                     autoComplete="off"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
+                                    maxlength="24"
                                     required
                                     aria-invalid={validEmail ? "false" : "true"}
                                     aria-describedby="emailnote"
