@@ -25,7 +25,7 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
     return (
         <div>
             <div className='cards_container'>
-                <Row className='p-3'>
+                <Row className='p-3 snack-container'>
                     {
                         snacks?.length ? (
                             snacks?.map((snack, index) => {

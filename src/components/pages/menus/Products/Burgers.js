@@ -48,7 +48,6 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                     toppingsToShow.push(ingredient);
             })
         ));
-
         const filteredIngredients = toppingsToShow.filter(item1 => {
             const item1Str = JSON.stringify(item1);
             return !product?.ingredients.find(item2 => item1Str === JSON.stringify(item2))
@@ -64,7 +63,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
         <div>
             {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
 
-            <Row md='3' xl='4' className='p-3'>
+            <Row md='3' xl='4' className='p-3 burguer-section'>
                 {
                     products.length ? (
                         products?.map((product, index) => {

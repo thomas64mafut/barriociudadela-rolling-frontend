@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.burguer-section{
+    width: 100vw;
+}
+
 .toRemove :checked+label {
     color: rgb(133, 133, 133);
     text-decoration: line-through;

@@ -27,7 +27,7 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
     return (
         <div>
             <div className='cards_container'>
-                <Row className='p-3'>
+                <Row className='p-3 drink-container'>
                     {
                         drinks?.length ? (
                             drinks?.map((drink, index) => {
