@@ -1,5 +1,5 @@
 .instructions {
-    font-size: 14px;
+    font-size: 0.5rem;
     border-radius: 0.5rem;
     background: #000;
     color: #fff;
@@ -63,43 +63,4 @@
 
 .form-label {
     width: 100%;
-}
-
-.input-with-icon-div{
-    display: flex;
-}
-
-.custom-input{
-    width: 95%;
-    border: none;
-    outline: none;
-}
-
-.icon-span{
-    cursor: pointer;
-}
-
-.tracker-box{
-    font-size: 14px;
-    color: #fff;
-    letter-spacing: 0.09em;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-
-.tracker-box div{
-    margin: 5px 0;
-}
-
-.tracker-box .validated{
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.list-icon{
-    margin-right: 8px;
-}
-
-.list-icon.green{
-    color: #0f0;
 }
