@@ -1,7 +1,6 @@
 import "./admin.css";
-import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Alert } from 'react-bootstrap';
-import axios from '../../../api/axios'
+import React from "react";
+import { Tabs, Tab } from 'react-bootstrap';
 
 import Users from "./users/Users";
 import Products from "./products/Products"
@@ -15,7 +14,8 @@ const Admin = () => {
             <Tabs
                 defaultActiveKey="users"
                 id="control-panel"
-                className="d-flex flex-column flex-sm-row justify-content-evenly"
+                className="d-flex flex-column flex-sm-row justify-content-evenly h-100"
+                unmountOnExit
             >
                 <Tab
                     eventKey="users"
@@ -24,16 +24,16 @@ const Admin = () => {
                     <Users />
                 </Tab>
                 <Tab
-                    eventKey="products"
-                    title="products"
-                >
-                    <Products />
-                </Tab>
-                <Tab
                     eventKey="roles"
                     title="roles"
                 >
                     <Roles />
+                </Tab>
+                <Tab
+                    eventKey="products"
+                    title="products"
+                >
+                    <Products />
                 </Tab>
                 <Tab
                     eventKey="ingredients"
