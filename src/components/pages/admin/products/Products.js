@@ -10,6 +10,7 @@ import Beer from '../../../../assets/icons/Beer';
 import Leaf from '../../../../assets/icons/Leaf';
 import Edit from '../../../../assets/icons/Edit';
 import X from '../../../../assets/icons/X';
+import Loading from '../../../loading/Loading';
 
 const Products = () => {
     const [errorMessage, setErrorMessage] = useState('');
@@ -123,7 +124,7 @@ const Products = () => {
                 {
                     isLoading
                         ? (
-                            <Spinner />
+                            <Loading />
                         )
                         : (
                             <div>

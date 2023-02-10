@@ -14,7 +14,7 @@ const Admin = () => {
             <Tabs
                 defaultActiveKey="users"
                 id="control-panel"
-                className="d-flex flex-column flex-sm-row justify-content-evenly"
+                className="d-flex flex-column flex-sm-row justify-content-evenly h-100"
                 unmountOnExit
             >
                 <Tab

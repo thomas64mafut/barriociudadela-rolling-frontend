@@ -4,6 +4,7 @@ import { Table, Button, Dropdown, Spinner, Alert } from "react-bootstrap";
 import axios from "../../../../api/axios";
 
 import UserX from '../../../../assets/icons/UserX'
+import Loading from "../../../loading/Loading";
 
 const Users = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -78,14 +79,14 @@ const Users = () => {
     };
 
     return (
-        <>
+        <div className="abm-container">
             {
                 isLoading
                     ? (
-                        <Spinner />
+                        <Loading />
                     )
                     : (
-                        <div className="abm-container">
+                        <div>
                             {
                                 errorMessage &&
                                 <Alert variant="danger">{errorMessage}</Alert>
@@ -150,7 +151,7 @@ const Users = () => {
                         </div>
                     )
             }
-        </>
+        </div>
     )
 }
 

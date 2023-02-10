@@ -6,6 +6,7 @@ import axios from '../../../../api/axios'
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
+import Loading from '../../../loading/Loading';
 
 const Roles = () => {
     const [show, setShow] = useState(false);
@@ -114,7 +115,7 @@ const Roles = () => {
             {
                 isLoading
                     ? (
-                        <Spinner />
+                        <Loading />
                     )
                     : (
                         <div>

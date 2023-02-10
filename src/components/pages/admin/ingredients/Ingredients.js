@@ -6,6 +6,7 @@ import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
+import Loading from '../../../loading/Loading';
 
 const Ingredients = () => {
     const [show, setShow] = useState(false);
@@ -186,7 +187,7 @@ const Ingredients = () => {
             {
                 isLoading
                     ? (
-                        <Spinner />
+                        <Loading />
                     )
                     : (
                         <div>
