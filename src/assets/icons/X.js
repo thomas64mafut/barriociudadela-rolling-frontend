@@ -10,7 +10,7 @@ const X = () => {
                 height="44"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
-                stroke="red"
+                stroke="#000000"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
