@@ -21,6 +21,7 @@ const ProductModal = ({
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+    const [productPrice, setProductPrice] = useState(product.price)
 
     useEffect(() => {
         if (cart.name) {
@@ -88,9 +89,9 @@ const ProductModal = ({
 
     const additionSize = (e) => {
         if (e.target.id === '2' && e.target.checked) {
-            setAddition(addition + principalIngredientPricePrice)
+            setAddition(addition + (product.price*0.3))
         } else if (e.target.id === '1' && e.target.checked) {
-            setAddition(addition - principalIngredientPricePrice)
+            setAddition(addition - (product.price*0.3))
         }
     }
 
