@@ -1,8 +1,9 @@
 import axios from '../../../../api/axios';
-import React, { useEffect, useState } from 'react'
-import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap';
 import ProductModal from '../modal/ProductModal';
-import './burgers.css'
+import './burgers.css';
 import Leaf from '../../../../assets/icons/Leaf';
 
 const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
@@ -14,6 +15,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const [toppings, setToppings] = useState([])
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
     const [errorBurgers, setErrorBurgers] = useState(false)
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetProducts();
@@ -69,12 +71,12 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                         products?.map((product, index) => {
                             return (
                                 <Col className='mb-5' key={index}>
-                                    <Card className='h-100 w-100 card burger-card'>
+                                    <Card className={ darkMode ? "h-100 w-100 card-dark burger-card" : "h-100 w-100 card burger-card"}>
                                         <div className='card-image-container' style={{
                                             backgroundImage: `url(${product.image})`
                                         }}
                                         ></div>
-                                        <Card.Header>
+                                        <Card.Header className={ darkMode ? "card-header-dark" : "card-header"}>
                                             <Card.Title>
                                                 <h5 className='product-card-title'>
                                                     {product.name.toString().toLowerCase()}

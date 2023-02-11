@@ -1,5 +1,4 @@
 import "./themeToggler.css";
-
 import React, { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 
@@ -16,7 +15,6 @@ function ThemeToggler() {
             <span className="slider"></span>
         </label>
     </>
-    
   );
 };
 

@@ -21,7 +21,6 @@ const Header = () => {
     const [setErrorMessage] = useState('');
     const { darkMode } = useContext(ThemeContext);
 
-
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
         if (token) {
@@ -104,7 +103,13 @@ const Header = () => {
     );
 
     return (
-        <Navbar className='navContainer m-0' expand="lg">
+        <Navbar 
+            className={ darkMode 
+                ? "navContainer-dark m-0"
+                : "navContainer m-0"
+            }
+            expand="lg"
+            >
             <Navbar.Brand href="/">
                 <img className='logoa' src={logo} alt='' />
             </Navbar.Brand>
@@ -164,8 +169,14 @@ const Header = () => {
                                                     <button onClick={handleLogOut} className='border-0'>log out</button>
                                                 </div>
                                             </InputGroup.Text>
-                                            <InputGroup.Text className='img-profile-container' onClick={showUserProfile}>
-                                                <img src={profileImg} alt="" />
+                                            <InputGroup.Text 
+                                                className="img-profile-container"
+                                                onClick={showUserProfile}
+                                                >
+                                                <img 
+                                                    className={ darkMode ? "img-profile-pic-dark" : "img-profile-pic"}
+                                                    src={profileImg} alt="" 
+                                                />
                                             </InputGroup.Text>
                                         </InputGroup>
                                     </div>
