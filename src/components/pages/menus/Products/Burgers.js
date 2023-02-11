@@ -1,11 +1,23 @@
-import axios from '../../../../api/axios';
-import React, { useEffect, useState } from 'react'
-import { Alert, Card, Row, Col, Spinner } from 'react-bootstrap'
-import ProductModal from '../modal/ProductModal';
 import './burgers.css'
-import Leaf from '../../../../assets/icons/Leaf';
+import React, { useEffect, useState } from 'react'
+import { Alert, Card, Row, Col } from 'react-bootstrap'
+import axios from '../../../../api/axios';
 
-const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
+import ProductModal from '../modal/ProductModal';
+import Leaf from '../../../../assets/icons/Leaf';
+import Loading from '../../../loading/Loading';
+
+const Burgers = (props) => {
+    const {
+        category,
+        defaultItem,
+        item2,
+        setError,
+        setMessageModalShow,
+        setMessageToShow
+    } = props;
+
+    const [isLoading, setIsLoading] = useState(false)
     const [productModalShow, setProductModalShow] = useState(false)
     const [productToAdd, setProductToAdd] = useState({})
     const [products, setProducts] = useState([])
@@ -13,19 +25,24 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
     const [itemsToRemove, setItemsToRemove] = useState([])
     const [toppings, setToppings] = useState([])
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
-    const [errorBurgers, setErrorBurgers] = useState(false)
+    const [errorBurgers, setErrorBurgers] = useState('')
 
     useEffect(() => {
-        handleGetProducts();
-        handleGetIngredients();
+        handleGetData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetProducts();
+        await handleGetIngredients();
+        setIsLoading(false);
+    }
 
     const handleGetProducts = async () => {
         try {
             const { data } = await axios(`/product/${category}`);
             setProducts(data?.products);
-            setErrorBurgers('');
         } catch (error) {
             setErrorBurgers(error.message || 'Something was wrong')
         }
@@ -36,7 +53,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
             const { data } = await axios('/ingredient');
             setAllIngredients(data.ingredients);
         } catch (error) {
-            Alert('Ingredients not found')
+            setErrorBurgers(error.message || 'Something was wrong')
         }
     }
 
@@ -61,54 +78,68 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
 
     return (
         <div>
-            {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
-
-            <Row l={4} className='px-3 burguer-section'>
-                {
-                    products.length ? (
-                        products?.map((product, index) => {
-                            return (
-                                <Col className='mb-5' key={index}>
-                                    <Card className='h-100 w-100 card burger-card'>
-                                        <div className='card-image-container' style={{
-                                            backgroundImage: `url(${product.image})`
-                                        }}
-                                        ></div>
-                                        <Card.Header>
-                                            <Card.Title>
-                                                <h5 className='product-card-title'>
-                                                    {product.name.toString().toLowerCase()}
-                                                </h5>
-                                            </Card.Title>
-                                            <b className="product-price">
-                                                $ {product.price} {product?.isVegan && <Leaf />}
-                                            </b>
-                                        </Card.Header>
-                                        <Card.Body>
-                                            <div className='ingredients-list'>
-                                                <span>
-                                                    Ingredients: <br />
-                                                </span>
-                                                {
-                                                    product.ingredients.map((ingredient, index) => (
-                                                        index === (product.ingredients.length - 1)
-                                                            ? <span key={index}>{ingredient.name + '.'}</span>
-                                                            : <span key={index}>{ingredient.name + ', '}</span>
-
-                                                    ))
-                                                }
-                                            </div>
-                                        </Card.Body>
-                                        <button className="card-button" onClick={() => openModal(product, allIngredients)}>Options</button>
-                                    </Card>
-                                </Col>
-                            )
-                        })
-                    ) : (
-                        <Spinner className='spinnerLoading' animation="border" variant="success" />
+            {
+                isLoading
+                    ? (
+                        <Loading />
                     )
-                }
-            </Row>
+                    : (
+                        <div>
+                            {
+                                errorBurgers &&
+                                <Alert variant='danger'>
+                                    {errorBurgers}
+                                </Alert>
+                            }
+                            <Row l={4} className='px-3 burguer-section'>
+                                {
+                                    products.length ? (
+                                        products?.map((product, index) => {
+                                            return (
+                                                <Col className='mb-5' key={index}>
+                                                    <Card className='h-100 w-100 card burger-card'>
+                                                        <div className='card-image-container' style={{
+                                                            backgroundImage: `url(${product.image})`
+                                                        }}
+                                                        ></div>
+                                                        <Card.Header>
+                                                            <Card.Title>
+                                                                <h5 className='product-card-title'>
+                                                                    {product.name.toString().toLowerCase()}
+                                                                </h5>
+                                                            </Card.Title>
+                                                            <b className="product-price">
+                                                                $ {product.price} {product?.isVegan && <Leaf />}
+                                                            </b>
+                                                        </Card.Header>
+                                                        <Card.Body>
+                                                            <div className='ingredients-list'>
+                                                                <span>
+                                                                    Ingredients: <br />
+                                                                </span>
+                                                                {
+                                                                    product.ingredients.map((ingredient, index) => (
+                                                                        index === (product.ingredients.length - 1)
+                                                                            ? <span key={index}>{ingredient.name + '.'}</span>
+                                                                            : <span key={index}>{ingredient.name + ', '}</span>
+
+                                                                    ))
+                                                                }
+                                                            </div>
+                                                        </Card.Body>
+                                                        <button className="card-button" onClick={() => openModal(product, allIngredients)}>Options</button>
+                                                    </Card>
+                                                </Col>
+                                            )
+                                        })
+                                    ) : (
+                                        <h4 className='w-100 text-center'>there are no products in this category</h4>
+                                    )
+                                }
+                            </Row>
+                        </div>
+                    )
+            }
 
             <ProductModal
                 show={productModalShow}

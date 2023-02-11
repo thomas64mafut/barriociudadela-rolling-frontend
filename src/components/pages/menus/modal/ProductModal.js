@@ -5,23 +5,22 @@ import axios from '../../../../api/axios';
 
 import Counter from '../../../counter/Counter';
 
-const ProductModal = ({
-    show,
-    setShow,
-    product,
-    itemsToRemove,
-    toppings,
-    principalIngredientPricePrice,
-    defaultItem,
-    item2,
-    setError,
-    setMessageModalShow,
-    setMessageToShow
-}) => {
+const ProductModal = (props) => {
+    const {
+        show,
+        setShow,
+        product,
+        itemsToRemove,
+        toppings,
+        defaultItem,
+        item2,
+        setError,
+        setMessageToShow,
+    } = props; 
+
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
-    const [productPrice, setProductPrice] = useState(product.price)
 
     useEffect(() => {
         if (cart.name) {
@@ -73,7 +72,6 @@ const ProductModal = ({
         preferences.toppings = toppingsToAdd;
         preferences.category = product.category;
         setCart(preferences);
-        setMessageModalShow(true);
         resetModal();
         window.location.replace('/menus');
     }
@@ -89,9 +87,9 @@ const ProductModal = ({
 
     const additionSize = (e) => {
         if (e.target.id === '2' && e.target.checked) {
-            setAddition(addition + (product.price*0.3))
+            setAddition(addition + (product.price * 0.3))
         } else if (e.target.id === '1' && e.target.checked) {
-            setAddition(addition - (product.price*0.3))
+            setAddition(addition - (product.price * 0.3))
         }
     }
 
@@ -126,7 +124,7 @@ const ProductModal = ({
                                                 disabled={
                                                     index === 0 || index === 1 ? (
                                                         true
-                                                    ) : ( 
+                                                    ) : (
                                                         false
                                                     )
                                                 }
