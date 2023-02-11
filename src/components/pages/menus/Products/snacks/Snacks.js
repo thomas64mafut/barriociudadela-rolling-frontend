@@ -1,6 +1,6 @@
 import axios from '../../../../../api/axios';
 import React, { useEffect, useState } from 'react'
-import { Spinner, Row, Col } from 'react-bootstrap'
+import {  Row, Col } from 'react-bootstrap'
 
 import SnacksCard from './SnacksCard';
 import Loading from '../../../../loading/Loading';
@@ -45,7 +45,7 @@ const Snacks = (props) => {
                     <div className='cards_container'>
                         <Row className='p-3 snack-container justify-content-center'>
                             {
-                                snacks.length ? (
+                                snacks?.length ? (
                                     snacks?.map((snack, index) => {
                                         return (
                                             <Col
