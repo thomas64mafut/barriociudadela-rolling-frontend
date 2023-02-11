@@ -27,9 +27,14 @@
     background-image: url(../../../assets/img/papelTexture.webp);
 }
 
+.texto-home-container {
+    width: 90%;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 .texto-home {
-    padding-left: 11rem;
-    padding-right: 11rem;
+    font-family: 'VictorMono';
     font-size: 20px;
 }
 
@@ -107,11 +112,6 @@
         padding-right: 2rem;
     }
 
-    .texto-home {
-        padding-left: 5rem;
-        padding-right: 5rem;
-    }
-
     .picture-radius {
         height: 6rem;
         width: 6rem;
@@ -133,11 +133,6 @@
         margin-top: 2rem !important;
     }
 
-    .texto-home {
-        padding-left: 4.5rem;
-        padding-right: 4.5rem;
-    }
-
     .owners-photo {
         height: 28rem !important;
     }
@@ -153,9 +148,8 @@
         font-size: 60px;
     }
 
-    .texto-home {
-        padding-left: 20px;
-        padding-right: 20px;
+    .texto-home{
+        font-size: 16px;
     }
 
     .owners-photo {
@@ -178,10 +172,6 @@
         padding-right: 0;
     }
 
-    .texto-home {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
     .picture-radius {
         height: 9rem;
         width: 11rem;

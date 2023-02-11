@@ -104,8 +104,10 @@ const Ingredients = () => {
         try {
             setIsLoading(true);
             const productsWithIngredient = allProducts?.filter(product => {
-                const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
-                if (ingredientInProduct.length !== 0) return product;
+                if(product.category.name !== 'drink'){
+                    const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
+                    if (ingredientInProduct.length !== 0) return product;
+                }
                 return false;
             })
             if (productsWithIngredient.length !== 0) {

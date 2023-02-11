@@ -77,15 +77,15 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
                             <span>Size: </span>
                             <Form.Check
                                 inline
-                                label={`${defaultItem} ($${drink.price})`}
+                                label={`${item2} ($${drink.price / 2})`}
                                 name="size"
                                 type='radio'
                                 defaultChecked
                                 id='1'
-                            />
+                                />
                             <Form.Check
                                 inline
-                                label={`${item2} ($${drink.price / 2})`}
+                                label={`${defaultItem} ($${drink.price})`}
                                 name="size"
                                 type='radio'
                                 id='2'
