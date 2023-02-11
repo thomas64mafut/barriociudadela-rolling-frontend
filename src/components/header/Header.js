@@ -1,12 +1,14 @@
-import './header.css'
-import React, { useState, useEffect } from 'react'
+import './header.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../context/ThemeContext';
+import ThemeToggler from '../themeToggler/ThemeToggler';
 
-import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
 
-import logo from '../../assets/img/logo-red.png'
-import axios from '../../api/axios'
-import Cart from '../../assets/icons/Cart'
+import logo from '../../assets/img/logo-red.png';
+import axios from '../../api/axios';
+import Cart from '../../assets/icons/Cart';
 import Config from '../../assets/icons/Config';
 
 const Header = () => {
@@ -16,8 +18,9 @@ const Header = () => {
     const [userToShow, setUserToShow] = useState({});
     const [userRole, setUserRole] = useState('');
     const [cartTotalPrice, setCartTotalPrice] = useState('');
-    const [profileImg, setProfileImg] = useState('')
+    const [profileImg, setProfileImg] = useState('');
     const [setErrorMessage] = useState('');
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
@@ -106,10 +109,16 @@ const Header = () => {
 
     return (
         <Navbar 
-            className='navContainer m-0' 
-            expand="lg" 
+            className={ darkMode 
+                ? "navContainer-dark m-0"
+                : "navContainer m-0"
+            }
+            expand="lg"
             expanded={expanded} 
             onBlur={() => setExpanded(false)}
+            >
+            className='navContainer m-0' 
+            expand="lg" 
         >
             <Navbar.Brand href="/">
                 <img className='logoa' src={logo} alt='' />
@@ -131,6 +140,7 @@ const Header = () => {
                         <Link to={'/menus'} className='navOptions boton1' onClick={() => setExpanded(false)}>
                             MENU
                         </Link>
+                        <ThemeToggler/>
                     </div>
                     <div className='d-flex flex-lg-row flex-column '>
                         {
@@ -173,8 +183,14 @@ const Header = () => {
                                                     <button onClick={handleLogOut} className='border-0'>log out</button>
                                                 </div>
                                             </InputGroup.Text>
-                                            <InputGroup.Text className='img-profile-container' onClick={showUserProfile}>
-                                                <img src={profileImg} alt="" />
+                                            <InputGroup.Text 
+                                                className="img-profile-container"
+                                                onClick={showUserProfile}
+                                                >
+                                                <img 
+                                                    className={ darkMode ? "img-profile-pic-dark" : "img-profile-pic"}
+                                                    src={profileImg} alt="" 
+                                                />
                                             </InputGroup.Text>
                                         </InputGroup>
                                     </div>

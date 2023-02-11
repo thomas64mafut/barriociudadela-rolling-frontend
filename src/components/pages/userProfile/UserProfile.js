@@ -1,6 +1,7 @@
 import "./userProfile.css";
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Alert } from "react-bootstrap";
+import { ThemeContext } from "../../../context/ThemeContext";
 import { useOutletContext } from 'react-router-dom';
 import axios from '../../../api/axios';
 
@@ -10,6 +11,7 @@ const UserProfile = (props) => {
     const { auth } = useOutletContext();
     const [userToShow, setUserToShow] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetUser();
@@ -73,7 +75,7 @@ const UserProfile = (props) => {
     };
 
     return (
-        <div className='main-container'>
+        <div className={ darkMode ? "main-profile-container-dark" : "main-profile-container" }>
             <div className="users-header">
                 <h1>User's Profile</h1>
             </div>
@@ -91,8 +93,11 @@ const UserProfile = (props) => {
                         </div>
                     </div>
                     <div className='button-container'>
-                        <button className='btn-custom my-3' onClick={handleClick}>
-                            <span className='btn-custom_top'>
+                        <button
+                            className={ darkMode ? "btn-custom-dark my-3" : "btn-custom my-3" }
+                            onClick={handleClick}
+                            >
+                            <span className={ darkMode ? "btn-custom_top-dark" : "btn-custom_top" }>
                                 select profile picture
                             </span>
                         </button>
@@ -117,8 +122,11 @@ const UserProfile = (props) => {
                     </ul>
                 </div>
                 <div className='button-container'>
-                    <button className='btn-custom my-3' onClick={handleEditUser}>
-                        <span className='btn-custom_top'>
+                    <button
+                        className={ darkMode ? "btn-custom-dark my-3" : "btn-custom my-3" }
+                        onClick={handleEditUser}
+                        >
+                        <span className={ darkMode ? "btn-custom_top-dark" : "btn-custom_top" }>
                             save changes
                         </span>
                     </button>

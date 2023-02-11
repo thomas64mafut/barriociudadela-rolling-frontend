@@ -1,5 +1,6 @@
-import './menus.css'
-import React, { useEffect, useState } from 'react'
+import './menus.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 import Burgers from './Products/Burgers';
 import Drinks from './Products/drink/Drinks';
@@ -7,9 +8,10 @@ import Snacks from './Products/snacks/Snacks';
 import MessageModal from './modal/MessageModal';
 
 const Menus = () => {
-    const [error, setError] = useState('')
-    const [messageModalShow, setMessageModalShow] = useState(false)
-    const [messageToShow, setMessageToShow] = useState('')
+    const [error, setError] = useState('');
+    const [messageModalShow, setMessageModalShow] = useState(false);
+    const [messageToShow, setMessageToShow] = useState('');
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         if (messageModalShow) {
@@ -22,7 +24,7 @@ const Menus = () => {
     }, [messageModalShow])
 
     return (
-        <div className='orders_container'>
+        <div className={ darkMode ? "orders_container-dark" : "orders_container" }>
             <div className='orders_header'>
                 <h2>what do you want to eat today?</h2>
             </div>

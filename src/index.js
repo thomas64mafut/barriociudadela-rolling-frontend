@@ -3,18 +3,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { AuthProvider } from './context/AuthProvider';
+import { ThemeProvider } from './context/ThemeContext';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './assets/fonts/Blogh.otf'
-import './assets/fonts/Leonardo-Rounded.otf'
-import './assets/fonts/VictorMono.ttf'
+import './assets/fonts/Blogh.otf';
+import './assets/fonts/Leonardo-Rounded.otf';
+import './assets/fonts/VictorMono.ttf';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <AuthProvider>
-            <App />
+            <ThemeProvider>
+                <App />
+            </ThemeProvider>
         </AuthProvider>
     </React.StrictMode>
 );

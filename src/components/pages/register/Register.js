@@ -1,6 +1,7 @@
 import '../login/login.css';
 import './register.css';
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import { ThemeContext } from '../../../context/ThemeContext';
 import axios from '../../../api/axios';
 import { Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
@@ -15,11 +16,15 @@ import Check from '../../../assets/icons/Check';
 import Info from '../../../assets/icons/Info';
 import X from '../../../assets/icons/X';
 
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{4,16}$/;
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,16}$/;
 
 const Register = () => {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const userRef = useRef();
     const errorRef = useRef();
 
@@ -153,9 +158,9 @@ const Register = () => {
 
     return (
         <>
-            <div className='main-login-container'>
-                <div className="login-container">
-                    <div className="border-container">
+            <div className={ darkMode ? "main-login-container-dark" : "main-login-container" }>
+                <div className={ darkMode ? "login-container-dark" : "login-container" }>
+                    <div className={ darkMode ? "border-container-dark" : "border-container" }>
                         {success ? (
                             <div>
                                 <h1>Success!</h1>
@@ -188,8 +193,8 @@ const Register = () => {
                                             autoComplete="off"
                                             onChange={(e) => handleUserNameChange(e.target.value)}
                                             value={username}
-                                            minlength="5"
-                                            maxlength="16"
+                                            minLength="5"
+                                            maxLength="16"
                                             required
                                             aria-invalid={validName ? "false" : "true"}
                                             aria-describedby="uidnote"
@@ -266,7 +271,7 @@ const Register = () => {
                                             autoComplete="off"
                                             onChange={(e) => setEmail(e.target.value)}
                                             value={email}
-                                            maxlength="24"
+                                            maxLength="24"
                                             required
                                             aria-invalid={validEmail ? "false" : "true"}
                                             aria-describedby="emailnote"
@@ -311,8 +316,8 @@ const Register = () => {
                                                 id="password"
                                                 onChange={(e)=>handlePwdChange(e.target.value)}
                                                 value={password}
-                                                minlength="6"
-                                                maxlength="16"
+                                                minLength="6"
+                                                maxLength="16"
                                                 required
                                                 aria-invalid={validPwd ? "false" : "true"}
                                                 aria-describedby="pwdnote"
@@ -438,8 +443,8 @@ const Register = () => {
                                                 id="confirm_pwd"
                                                 onChange={(e) => setMatchPwd(e.target.value)}
                                                 value={matchPwd}
-                                                minlength="6"
-                                                maxlength="16"
+                                                minLength="6"
+                                                maxLength="16"
                                                 required
                                                 aria-invalid={validMatch ? "false" : "true"}
                                                 aria-describedby="confirmnote"
@@ -476,18 +481,21 @@ const Register = () => {
                                     </p>
                                     <button
                                         className={
-                                            !validName || !validEmail || !validPwd || !validMatch 
+                                            !darkMode && (!validName || !validEmail || !validPwd || !validMatch)
                                                 ? 'btn-custom-disabled my-4'
-                                                : 'btn-custom my-4'
+                                                : darkMode && (!validName || !validEmail || !validPwd || !validMatch)
+                                                    ? 'btn-custom-disabled-dark my-4'
+                                                    : !darkMode && (validName || validEmail || validPwd || validMatch)
+                                                        ? 'btn-custom my-4'
+                                                        : 'btn-custom-dark my-4' 
                                         }
-                                        
                                         disabled={
                                             !validName || !validEmail || !validPwd || !validMatch 
                                                 ? true
                                                 : false
                                         }
                                     >
-                                        <span className='btn-custom_top'> sign up
+                                        <span className={ darkMode ? 'btn-custom_top-dark' : 'btn-custom_top' }> sign up
                                         </span>
                                     </button>
                                 </Form>

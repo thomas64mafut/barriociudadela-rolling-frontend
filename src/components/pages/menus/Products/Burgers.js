@@ -1,9 +1,10 @@
-import './burgers.css'
-import React, { useEffect, useState } from 'react'
-import { Alert, Card, Row, Col } from 'react-bootstrap'
 import axios from '../../../../api/axios';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Alert, Card, Row, Col } from 'react-bootstrap';
 import ProductModal from '../modal/ProductModal';
+import './burgers.css';
+
 import Leaf from '../../../../assets/icons/Leaf';
 import Loading from '../../../loading/Loading';
 
@@ -25,6 +26,7 @@ const Burgers = (props) => {
     const [itemsToRemove, setItemsToRemove] = useState([])
     const [toppings, setToppings] = useState([])
     const [principalIngredientPricePrice, setPrincipalIngredientPrice] = useState()
+    const { darkMode } = useContext(ThemeContext);
     const [errorBurgers, setErrorBurgers] = useState('')
 
     useEffect(() => {
@@ -86,42 +88,40 @@ const Burgers = (props) => {
                     : (
                         <div>
                             {
-                                errorBurgers &&
-                                <Alert variant='danger'>
-                                    {errorBurgers}
-                                </Alert>
-                            }
-                            <Row l={4} className='px-3 burguer-section'>
-                                {
-                                    products?.length ? (
-                                        products?.map((product, index) => {
-                                            return (
-                                                <Col className='mb-5' key={index}>
-                                                    <Card className='h-100 w-100 card burger-card'>
-                                                        <div className='card-image-container' style={{
-                                                            backgroundImage: `url(${product.image})`
-                                                        }}
-                                                        ></div>
-                                                        <Card.Header>
-                                                            <Card.Title>
-                                                                <h5 className='product-card-title'>
-                                                                    {product.name.toString().toLowerCase()}
-                                                                </h5>
-                                                            </Card.Title>
-                                                            <b className="product-price">
-                                                                $ {product.price} {product?.isVegan && <Leaf />}
-                                                            </b>
-                                                        </Card.Header>
-                                                        <Card.Body>
-                                                            <div className='ingredients-list'>
-                                                                <span>
-                                                                    Ingredients: <br />
-                                                                </span>
-                                                                {
-                                                                    product.ingredients.map((ingredient, index) => (
-                                                                        index === (product.ingredients.length - 1)
-                                                                            ? <span key={index}>{ingredient.name + '.'}</span>
-                                                                            : <span key={index}>{ingredient.name + ', '}</span>
+                              errorBurgers && 
+                              <Alert variant='danger'>{errorBurgers}</Alert>
+                             }
+            <Row md='3' xl='4' className='p-3 burguer-section'>
+                {
+                    products.length ? (
+                        products?.map((product, index) => {
+                            return (
+                                <Col className='mb-5' key={index}>
+                                    <Card className={ darkMode ? "h-100 w-100 card-dark burger-card" : "h-100 w-100 card burger-card"}>
+                                        <div className='card-image-container' style={{
+                                            backgroundImage: `url(${product.image})`
+                                        }}
+                                        ></div>
+                                        <Card.Header className={ darkMode ? "card-header-dark" : "card-header"}>
+                                            <Card.Title>
+                                                <h5 className='product-card-title'>
+                                                    {product.name.toString().toLowerCase()}
+                                                </h5>
+                                            </Card.Title>
+                                            <b className="product-price">
+                                                $ {product.price} { product?.isVegan && <Leaf />}
+                                            </b>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <div className='ingredients-list'>
+                                                <span>
+                                                    Ingredients: <br />
+                                                </span>
+                                                {
+                                                    product.ingredients.map((ingredient, index) => (
+                                                        index === (product.ingredients.length - 1)
+                                                            ? <span key={index}>{ingredient.name + '.'}</span>
+                                                            : <span key={index}>{ingredient.name + ', '}</span>
 
                                                                     ))
                                                                 }

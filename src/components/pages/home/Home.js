@@ -1,18 +1,23 @@
-import React from 'react'
-import './home.css'
-import Carousel from './Carousel'
-import Hambuno from '../../../assets/img/burguerDoble.jpeg'
-import Hambdos from '../../../assets/img/burguerLechuga.jpeg'
-import Hambtres from '../../../assets/img/burguerQueso.jpeg'
-import Hambcuatro from '../../../assets/img/burguerXxl.jpeg'
-import Hambcinco from '../../../assets/img/burguerChocloPalta.jpeg'
-import Hambseis from '../../../assets/img/burguerQuesoDos.jpeg'
-import Mafut from '../../../assets/img/mafut.jpeg'
-import Mauri from '../../../assets/img/mauri.jpg'
-import Adriano from '../../../assets/img/adriano.jpeg'
-import Tomi from '../../../assets/img/tomi.jpeg'
+import './home.css';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
+
+import Carousel from './Carousel';
+import Hambuno from '../../../assets/img/burguerDoble.jpeg';
+import Hambdos from '../../../assets/img/burguerLechuga.jpeg';
+import Hambtres from '../../../assets/img/burguerQueso.jpeg';
+import Hambcuatro from '../../../assets/img/burguerXxl.jpeg';
+import Hambcinco from '../../../assets/img/burguerChocloPalta.jpeg';
+import Hambseis from '../../../assets/img/burguerQuesoDos.jpeg';
+import Mafut from '../../../assets/img/mafut.jpeg';
+import Mauri from '../../../assets/img/mauri.jpg';
+import Adriano from '../../../assets/img/adriano.jpeg';
+import Tomi from '../../../assets/img/tomi.jpeg';
 
 const Home = () => {
+
+    const { darkMode } = useContext(ThemeContext);
+
     return (
         <div className='homeContainer'>
             <Carousel />
@@ -20,7 +25,7 @@ const Home = () => {
                 <div className='text-white welcome'>WELCOME</div>
                 <div className='text-white under-welcome'>To Barrio Ciudadela, our home in Tucuman.</div>
             </div>
-            <div className='homeBack'>
+            <div className={ darkMode ? "homeBack-dark" : "homeBack" }>
                 <div className='d-flex flex-column align-items-center'>
                     <h2 className='mt-4 mb-3 barrioCiudadela'>BARRIO CIUDADELA</h2>
                     <div className='texto-home-container'>

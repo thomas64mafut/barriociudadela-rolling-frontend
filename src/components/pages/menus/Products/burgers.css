@@ -116,3 +116,16 @@
     transition: .4s;
 }
 
+.card-dark {
+    max-width: 20rem;
+    position: relative;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    font-family: 'VictorMono';
+    background: var(--inverted-dutch-white) !important;
+    border: 3px solid #353c9e!important;
+}
+
+.card-header-dark {
+    border-bottom: 4px dotted #353c9e!important;
+}

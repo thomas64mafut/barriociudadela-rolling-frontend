@@ -1,5 +1,6 @@
 import './missing.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 import Card from './Card';
@@ -16,6 +17,9 @@ const cardImages = [
 ]
 
 function Missing() {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
     const [choiceOne, setChoiceOne] = useState(null)
@@ -72,7 +76,7 @@ function Missing() {
     }, [])
 
     return (
-        <div className="main-container row g-0 w-100">
+        <div className={ darkMode ? "main-404-container-dark row g-0 w-100" : "main-404-container row g-0 w-100"}>
             <div className="message-container col-lg-6">
                 <h1>Oops!</h1>
                 <h4>Page Not Found</h4>
@@ -102,8 +106,8 @@ function Missing() {
                         <h4 className='turno'>Turns: {turns}</h4>
                     </div>
                     <div>
-                        <button className='btn-custom' onClick={shuffleCards}>
-                            <span className='btn-custom_top'>
+                        <button className={ darkMode ? "btn-custom-dark mt-4" : "btn-custom mt-4" } onClick={shuffleCards}>
+                            <span className={ darkMode ? "btn-custom_top-dark" : "btn-custom_top" }>
                                 Refresh
                             </span>
                         </button>
