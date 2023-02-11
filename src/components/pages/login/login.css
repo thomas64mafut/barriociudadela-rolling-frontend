@@ -12,7 +12,6 @@ body {
     font-family: 'VictorMono';
     display: flex;
     justify-content: center;
-
     background-image: url(../../../assets/img/bg-login.jpg);
     background-size: cover;
     background-position: center;
@@ -58,6 +57,7 @@ body {
     --button_radius: 0.75em;
     --button_color: #aaaaaa;
     --button_outline_color: #000000;
+    font-family: "Leonardo-Rounded";
     font-size: 17px;
     font-weight: bold;
     border: none;
@@ -89,4 +89,86 @@ body {
 
 .btn-custom:active .btn-custom_top {
     transform: translateY(0);
+}
+
+.main-login-container-dark {
+    height: 100%;
+    font-family: 'VictorMono';
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../../../assets/img/bg-login.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.login-container-dark {
+    background-color: var(--inverted-dutch-white);
+    background-size: cover;
+    margin-block: 2rem;
+    padding: .6rem;
+    border: 2px solid rgba(152, 189, 254, 0.5);
+    border-radius: .3rem;
+    color: whitesmoke;
+}
+
+.border-container-dark {
+    border: 2px dashed rgba(152, 189, 254, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.login-container-dark label {
+    font-family: 'Leonardo-Rounded';
+    margin-top: 1rem;
+}
+
+.login-container-dark input {
+    font-family: 'VictorMono'!important;
+}
+
+.btn-custom-dark {
+    --button_radius: 0.75em;
+    font-family: "Leonardo-Rounded";
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background:  #e8e8e8;
+}
+
+.btn-custom_top-dark {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid  #c7c7c7;
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: #000000;
+    color:  #c7c7c7;
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+    cursor: pointer;
+}
+
+.btn-custom-dark:hover .btn-custom_top-dark {
+    transform: translateY(-0.33em);
+}
+
+.btn-custom-dark:active .btn-custom_top-dark {
+    transform: translateY(0);
+}
+
+.btn-custom-disabled-dark {
+    --button_radius: 0.75em;
+    --button_color: #aaaaaa;
+    font-family: "Leonardo-Rounded";
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: #aaaaaa;
+}
+.btn-custom-disabled-dark span {
+    color: #666565;
+    cursor: not-allowed;
 }

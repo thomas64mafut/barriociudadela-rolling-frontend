@@ -1,12 +1,14 @@
-import './header.css'
-import React, { useState, useEffect } from 'react'
+import './header.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../context/ThemeContext';
+import ThemeToggler from '../themeToggler/ThemeToggler';
 
-import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
 
-import logo from '../../assets/img/logo-red.png'
-import axios from '../../api/axios'
-import Cart from '../../assets/icons/Cart'
+import logo from '../../assets/img/logo-red.png';
+import axios from '../../api/axios';
+import Cart from '../../assets/icons/Cart';
 import Config from '../../assets/icons/Config';
 
 const Header = () => {
@@ -15,8 +17,10 @@ const Header = () => {
     const [userToShow, setUserToShow] = useState({});
     const [userRole, setUserRole] = useState('');
     const [cartTotalPrice, setCartTotalPrice] = useState('');
-    const [profileImg, setProfileImg] = useState('')
+    const [profileImg, setProfileImg] = useState('');
     const [setErrorMessage] = useState('');
+    const { darkMode } = useContext(ThemeContext);
+
 
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
@@ -117,6 +121,7 @@ const Header = () => {
                         <Link to={'/menus'} className='navOptions boton1'>
                             MENU
                         </Link>
+                        <ThemeToggler/>
                     </div>
                     <div className='d-flex flex-lg-row flex-column '>
                         {

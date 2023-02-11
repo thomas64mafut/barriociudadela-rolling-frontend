@@ -218,3 +218,8 @@
         width: 8rem;
     }
 }
+
+.homeBack-dark {
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}

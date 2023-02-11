@@ -188,8 +188,8 @@ const Register = () => {
                                             autoComplete="off"
                                             onChange={(e) => handleUserNameChange(e.target.value)}
                                             value={username}
-                                            minlength="5"
-                                            maxlength="16"
+                                            minLength="5"
+                                            maxLength="16"
                                             required
                                             aria-invalid={validName ? "false" : "true"}
                                             aria-describedby="uidnote"
@@ -266,7 +266,7 @@ const Register = () => {
                                             autoComplete="off"
                                             onChange={(e) => setEmail(e.target.value)}
                                             value={email}
-                                            maxlength="24"
+                                            maxLength="24"
                                             required
                                             aria-invalid={validEmail ? "false" : "true"}
                                             aria-describedby="emailnote"
@@ -311,8 +311,8 @@ const Register = () => {
                                                 id="password"
                                                 onChange={(e)=>handlePwdChange(e.target.value)}
                                                 value={password}
-                                                minlength="6"
-                                                maxlength="16"
+                                                minLength="6"
+                                                maxLength="16"
                                                 required
                                                 aria-invalid={validPwd ? "false" : "true"}
                                                 aria-describedby="pwdnote"
@@ -438,8 +438,8 @@ const Register = () => {
                                                 id="confirm_pwd"
                                                 onChange={(e) => setMatchPwd(e.target.value)}
                                                 value={matchPwd}
-                                                minlength="6"
-                                                maxlength="16"
+                                                minLength="6"
+                                                maxLength="16"
                                                 required
                                                 aria-invalid={validMatch ? "false" : "true"}
                                                 aria-describedby="confirmnote"

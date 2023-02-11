@@ -1,16 +1,18 @@
-import './login.css'
-import React, { useRef, useState, useEffect } from 'react';
+import './login.css';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import axios from '../../../api/axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 import Info from '../../../assets/icons/Info';
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /.{6,16}$/;
 
-
-
 const Login = () => {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const emailRef = useRef();
     const errorRef = useRef();
 
@@ -55,9 +57,9 @@ const Login = () => {
 
     return (
         <>
-            <div className='main-login-container'>
-                <div className='login-container'>
-                    <div className='border-container'>
+            <div className={ darkMode ? "main-login-container-dark" : "main-login-container" }>
+                <div className={ darkMode ? "login-container-dark" : "login-container" }>
+                    <div className={ darkMode ? "border-container-dark" : "border-container" }>
                         <h1>Login </h1>
                         <p
                             ref={errorRef}
@@ -77,7 +79,7 @@ const Login = () => {
                                     autoComplete="off"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
-                                    maxlength="24"
+                                    maxLength="24"
                                     required
                                     aria-invalid={validEmail ? "false" : "true"}
                                     aria-describedby="emailnote"
@@ -110,8 +112,8 @@ const Login = () => {
                                     id="password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
-                                    minlength="6"
-                                    maxlength="16"
+                                    minLength="6"
+                                    maxLength="16"
                                     required
                                     aria-invalid={validPwd ? "false" : "true"}
                                     aria-describedby="pwdnote"
@@ -138,9 +140,13 @@ const Login = () => {
                             </Form.Group>
                             <button 
                                 className={
-                                    !validEmail  || !validPwd
+                                    !darkMode && (!validEmail  || !validPwd)
                                         ? 'btn-custom-disabled my-4'
-                                        : 'btn-custom my-4'
+                                        : darkMode && (!validEmail  || !validPwd)
+                                            ? 'btn-custom-disabled-dark my-4'
+                                            : !darkMode && (validEmail  || validPwd)
+                                                ? 'btn-custom my-4'
+                                                : 'btn-custom-dark my-4'
                                 }
                                 disabled={
                                     !validEmail || !validPwd
@@ -148,7 +154,7 @@ const Login = () => {
                                         : false
                                 }
                             >
-                                <span className='btn-custom_top'> sign in
+                                <span className={ darkMode ? 'btn-custom_top-dark' : 'btn-custom_top' }> sign in
                                 </span>
                             </button>
                         </Form>

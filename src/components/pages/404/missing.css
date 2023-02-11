@@ -1,8 +1,8 @@
-.main-container {
+.main-404-container {
     min-height: calc(100vh - 15rem);
     padding-top: 0.5rem;
     width: 100vw;
-    background-color: rgb(237, 227, 199);
+    background-image: url(../../../assets/img/papelTexture.webp);
 }
 
 .message-container {
@@ -12,6 +12,10 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 1rem;
+}
+
+h4, a {
+    font-family: 'VictorMono';
 }
 
 .img404-container > img{
@@ -36,7 +40,7 @@
 }
 
 .turno{
-    width: 6rem;
+    width: 8rem;
 }
 
 .turns-container {
@@ -81,6 +85,15 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
     width: 30rem;
+}
+
+.main-404-container-dark {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
+    width: 100vw;
+    background-color: rgb(237, 227, 199);
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
 }
 
 @media (max-width: 991.5px){
