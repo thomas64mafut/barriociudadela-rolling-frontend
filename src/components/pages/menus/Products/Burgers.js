@@ -93,7 +93,7 @@ const Burgers = (props) => {
                             }
                             <Row l={4} className='px-3 burguer-section'>
                                 {
-                                    products.length ? (
+                                    products?.length ? (
                                         products?.map((product, index) => {
                                             return (
                                                 <Col className='mb-5' key={index}>

@@ -1,21 +1,37 @@
 import './cart.css';
 import React, { useEffect, useState } from 'react'
-import { Accordion, Button, Spinner } from 'react-bootstrap';
+import { Accordion, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
 
 import { Cart } from './Cart';
 import BuyModal from './cart modal/BuyModal';
+import Loading from '../../loading/Loading';
 
 const Carts = () => {
     let navigate = useNavigate();
     const [carts, setCarts] = useState({})
     const [activeCart, setActiveCart] = useState({})
     const [buyModalShow, setBuyModalShow] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     useEffect(() => {
-        handleGetCart();
+        handleGetData();
     }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setErrorMessage('')
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [errorMessage])
+
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetCart();
+        setIsLoading(false);
+    }
 
     const handleGetCart = async () => {
         try {
@@ -81,50 +97,63 @@ const Carts = () => {
                     </div>
                 )
             }
-            <Accordion defaultActiveKey="0" >
-                <Accordion.Header className='orders-title'>your last carts</Accordion.Header>
-                <Accordion.Body>
-                    {
-                        carts?.length ? (
-                            carts?.map((cart, index) => {
-                                return (
-                                    <div className={'order-container ' + cart?.cartStatus} key={index}>
-                                        <div className='w-100 py-2'>
-                                            <div className='w-100 overflow-table-container'>
-                                                <div className='ps-3'>
-                                                    <div>Cart id: {cart?._id}</div>
-                                                    <div className='mb-2'>Status: {cart?.cartStatus}</div>
-                                                    {
-                                                        cart?.cartStatus === 'bought' &&
-                                                        <div>
-                                                            Bought on {
-                                                                new Date(cart?.boughtAt).toLocaleDateString('en-us', {
-                                                                    weekday: "long",
-                                                                    year: "numeric",
-                                                                    month: "short",
-                                                                    day: "numeric"
-                                                                })
-                                                            }
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <Cart
-                                                    cart={cart}
-                                                    className='w-100'
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
+            {
+                isLoading
+                    ? (
+                        <Loading />
+                    )
+                    : (
+                        <Accordion defaultActiveKey="0" >
+                            {
+                                errorMessage &&
+                                <Alert variant="danger">
+                                    {errorMessage}
+                                </Alert>
                             }
-                            )
-                        ) :
-                            (
-                                <Spinner className='spinnerLoading' animation="border" variant="success" />
-                            )
-                    }
-                </Accordion.Body>
-            </Accordion>
+                            <Accordion.Header className='orders-title'>your last carts</Accordion.Header>
+                            <Accordion.Body>
+                                {
+                                    carts?.length ? (
+                                        carts?.map((cart, index) => {
+                                            return (
+                                                <div className={'order-container ' + cart?.cartStatus} key={index}>
+                                                    <div className='w-100 py-2'>
+                                                        <div className='w-100 overflow-table-container'>
+                                                            <div className='ps-3'>
+                                                                <div>Cart id: {cart?._id}</div>
+                                                                <div className='mb-2'>Status: {cart?.cartStatus}</div>
+                                                                {
+                                                                    cart?.cartStatus === 'bought' &&
+                                                                    <div>
+                                                                        Bought on {
+                                                                            new Date(cart?.boughtAt).toLocaleDateString('en-us', {
+                                                                                weekday: "long",
+                                                                                year: "numeric",
+                                                                                month: "short",
+                                                                                day: "numeric"
+                                                                            })
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            <Cart
+                                                                cart={cart}
+                                                                className='w-100'
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                        )
+                                    ) : (
+                                        <h2>you dont have any previous purchases</h2>
+                                    )
+                                }
+                            </Accordion.Body>
+                        </Accordion>
+                    )
+            }
 
             <div className='w-100 text-center mb-3 button-buy-cart-container'>
                 <Button
