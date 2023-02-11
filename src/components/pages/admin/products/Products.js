@@ -288,9 +288,9 @@ const Products = () => {
                 setProduct={setProductToEdit}
                 categoryToAdd={categoryToAdd}
                 isEditing={isEditing}
-                handleGetProducts={handleGetProducts}
                 allIngredients={allIngredients}
                 getAllIngredients={handleGetIngredients}
+                handleGetData={handleGetData}
             />
         </>
     )
