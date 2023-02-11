@@ -32,7 +32,12 @@ const Drinks = ({ category, defaultItem, item2, setError, setMessageModalShow, s
                         drinks?.length ? (
                             drinks?.map((drink, index) => {
                                 return (
-                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-4' key={index}>
+                                    <Col 
+                                        md={6} 
+                                        lg={4} 
+                                        className='d-flex justify-content-center mb-4' 
+                                        key={index}
+                                    >
                                         <DrinksCard
                                             key={drink._id}
                                             drink={drink}

@@ -25,12 +25,17 @@ const Snacks = ({ setError, setMessageModalShow, setMessageToShow }) => {
     return (
         <div>
             <div className='cards_container'>
-                <Row className='p-3 snack-container'>
+                <Row className='p-3 snack-container justify-content-center'>
                     {
                         snacks?.length ? (
                             snacks?.map((snack, index) => {
                                 return (
-                                    <Col md={6} lg={4} className='d-flex justify-content-center mb-3' key={index}>
+                                    <Col 
+                                        md={6} 
+                                        lg={4} 
+                                        className='d-flex justify-content-center mb-4' 
+                                        key={index}
+                                    >
                                         <SnacksCard
                                             key={snack._id}
                                             snack={snack}

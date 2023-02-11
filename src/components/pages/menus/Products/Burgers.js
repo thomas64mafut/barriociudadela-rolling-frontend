@@ -63,7 +63,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
         <div>
             {errorBurgers && <Alert variant='danger'>{errorBurgers}</Alert>}
 
-            <Row md='3' xl='4' className='p-3 burguer-section'>
+            <Row l={4} className='px-3 burguer-section'>
                 {
                     products.length ? (
                         products?.map((product, index) => {
@@ -81,7 +81,7 @@ const Burgers = ({ category, defaultItem, item2, setError, setMessageModalShow, 
                                                 </h5>
                                             </Card.Title>
                                             <b className="product-price">
-                                                $ {product.price} { product?.isVegan && <Leaf />}
+                                                $ {product.price} {product?.isVegan && <Leaf />}
                                             </b>
                                         </Card.Header>
                                         <Card.Body>

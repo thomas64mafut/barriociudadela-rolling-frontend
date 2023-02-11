@@ -34,9 +34,9 @@
     justify-content: space-around;
 }
 
-/* CARD */
 .card {
-    max-width: 20rem;
+    max-width: 15rem;
+    min-width: 10rem;
     position: relative;
     transition: 0.5s ease-out;
     overflow: visible;
@@ -46,7 +46,6 @@
 }
 
 .col {
-    margin-block: 3rem ;
     display: flex;
     justify-content: center;
 }
@@ -84,8 +83,7 @@
 
 .ingredients-list {
     margin-bottom: .3rem;
-    font-size: smaller;
-    
+    font-size: 16px;
 }
 
 .product-card-title, .product-price {
