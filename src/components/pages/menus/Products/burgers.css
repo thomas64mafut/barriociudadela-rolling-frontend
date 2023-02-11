@@ -45,6 +45,10 @@
     border: 3px solid rgb(202, 195, 97)!important;
 }
 
+.cart:hover {
+    transform: scale(1.02);
+}
+
 .col {
     display: flex;
     justify-content: center;
