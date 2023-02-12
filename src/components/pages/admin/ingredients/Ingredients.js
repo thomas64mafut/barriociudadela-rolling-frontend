@@ -9,7 +9,12 @@ import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 import Loading from '../../../loading/Loading';
 
-const Ingredients = () => {
+const Ingredients = (props) => {
+    const {
+        allIngredients,
+        handleGetIngredients,
+    } = props;
+
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);

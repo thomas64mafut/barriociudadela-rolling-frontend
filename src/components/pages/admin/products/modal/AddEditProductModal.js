@@ -19,7 +19,6 @@ const AddEditProductModal = (props) => {
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([]);
-
     const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [detail, setDetail] = useState('');

@@ -9,7 +9,14 @@ import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 import Loading from '../../../loading/Loading';
 
-const Roles = () => {
+const Roles = (props) => {
+    const {
+        allRoles,
+        handleGetRoles,
+        users,
+        handleGetUsers,
+    } = props;
+
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
