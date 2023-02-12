@@ -1,12 +1,11 @@
 .main-404-container {
     min-height: calc(100vh - 15rem);
     padding-top: 0.5rem;
-    width: 100vw;
+    /* width: 100vw; */
     background-image: url(../../../assets/img/papelTexture.webp);
 }
 
 .message-container {
-    width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,8 +18,8 @@ h4, a {
 }
 
 .img404-container > img{
-    width: 25rem;
-    padding-bottom: 1rem;
+    max-height: 15rem;
+    padding-block: 1rem;
 }
 
 .game-container {
@@ -84,7 +83,6 @@ h4, a {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
-    width: 30rem;
 }
 
 .main-404-container-dark {
@@ -94,88 +92,4 @@ h4, a {
     background-color: rgb(237, 227, 199);
     background-image: url(../../../assets/img/papelTextureInverted.jpg);
     color: whitesmoke;
-}
-
-@media (max-width: 991.5px){
-    .card-grid{
-        margin-right: 0;
-    }
-    .main-container{
-        height: 100% !important ;
-    }
-}
-
-@media (min-width: 991px){
-    .card-grid{
-        width: 20rem !important;
-    }
-    .img404-container > img{
-        width: 20rem !important;
-    }
-}
-
-@media (min-width: 1246px){
-    .card-grid{
-        width: 30rem !important;
-    }
-    .img404-container > img{
-        width: 25rem !important;
-    }
-}
-
-@media (min-width: 279px){
-    .img404-container > img{
-        width: 10rem;
-    }
-    .card-grid{
-        width: 12rem;
-    }
-    .stats-container{
-        width: 10rem;
-    }
-    .memoria{
-        font-size: 15px;
-    }
-}
-
-@media (min-width: 380px){
-    .img404-container > img{
-        width: 14rem;
-    }
-    .card-grid{
-        width: 16rem;
-    }
-    .stats-container{
-        width: 10rem;
-    }
-    .memoria{
-        font-size: 25px;
-    }
-}
-
-@media (min-width: 550px){
-    .img404-container > img{
-        width: 20rem;
-    }
-    .card-grid{
-        width: 20rem;
-    }
-    .stats-container{
-        width: 10rem;
-    }
-    .memoria{
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 750px){
-    .img404-container > img{
-        width: 25rem;
-    }
-    .card-grid{
-        width: 25rem;
-    }
-    .stats-container{
-        width: 10rem;
-    }
 }
