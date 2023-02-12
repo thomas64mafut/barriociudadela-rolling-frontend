@@ -1,6 +1,6 @@
 import './orders.css'
 import React, { useEffect, useState } from 'react'
-import { Spinner, Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom'
 import axios from '../../../api/axios';
 
@@ -13,7 +13,8 @@ const Orders = (props) => {
     const [carts, setCarts] = useState([]);
     const [cartStatus, setCartStatus] = useState('');
     const [role, setRole] = useState('')
-    const [isLoading, setIsLoading] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState('')
 
     useEffect(() => {
         const { auth } = authProvider;
@@ -48,7 +49,7 @@ const Orders = (props) => {
                 setCarts(activeCarts)
             }
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -57,7 +58,7 @@ const Orders = (props) => {
             await axios.patch('/cart/cancel/' + id)
             setCartStatus('cancelled')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -66,7 +67,7 @@ const Orders = (props) => {
             await axios.patch('/cart/preparing/' + id)
             setCartStatus('preparing')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -75,13 +76,17 @@ const Orders = (props) => {
             await axios.patch('/cart/delivered/' + id)
             setCartStatus('delivered')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
     return (
         <div className='main-container mt-2'>
             <h2 className='text-center orders-title my-2'>all orders</h2>
+            {
+                errorMessage &&
+                <Alert variant='danger'>{errorMessage}</Alert>
+            }
             <div>
                 {
                     carts?.length ? (
