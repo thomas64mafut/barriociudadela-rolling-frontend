@@ -1,7 +1,7 @@
 import './orders.css';
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../context/ThemeContext';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
 import axios from '../../../api/axios';
 
@@ -13,7 +13,6 @@ const Orders = (props) => {
     const [carts, setCarts] = useState([]);
     const [cartStatus, setCartStatus] = useState('');
     const [role, setRole] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const { darkMode } = useContext(ThemeContext);
     const [errorMessage, setErrorMessage] = useState('')
 

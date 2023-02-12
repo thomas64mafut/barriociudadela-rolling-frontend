@@ -65,7 +65,7 @@ const Carts = () => {
             {
                 activeCart?._id ? (
                     <div>
-                        <h3>Your active Cart</h3>
+                        <h2 className='carts-title text-center'>Your active Cart</h2>
                         <div className='p-3 active-cart-container'>
                             <div className='overflow-table-container'>
                                 <div className='ps-2'>

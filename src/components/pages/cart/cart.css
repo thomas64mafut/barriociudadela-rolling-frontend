@@ -26,3 +26,7 @@
     background-image: url(../../../assets/img/papelTextureInverted.jpg);
     color: whitesmoke;
 }
+
+.carts-title {
+    font-family: 'Blogh';
+}

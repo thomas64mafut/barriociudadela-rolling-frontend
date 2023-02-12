@@ -2,21 +2,14 @@ import './roles.css';
 import '../admin.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from '../../../../context/ThemeContext';
-import { Alert, OverlayTrigger, Popover, Button, Form, Spinner } from 'react-bootstrap';
+import { Alert, OverlayTrigger, Popover, Button, Form } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
 import Loading from '../../../loading/Loading';
 
-const Roles = (props) => {
-    const {
-        allRoles,
-        handleGetRoles,
-        users,
-        handleGetUsers,
-    } = props;
-
+const Roles = () => {
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
