@@ -43,10 +43,6 @@ const Snacks = (props) => {
                     <Loading />
                 ) : (
                     <div className='cards_container'>
-                        {
-                            error &&
-                            <Alert variant='danger'>{error}</Alert>
-                        }
                         <Row className='p-3 snack-container justify-content-center'>
                             {
                                 snacks?.length ? (
