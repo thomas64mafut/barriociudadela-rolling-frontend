@@ -38,12 +38,12 @@ const Carts = () => {
     const handleGetCart = async () => {
         try {
             const { data } = await axios('/cart');
-            const activeCart = data.ownCarts.find(cart => cart.cartStatus === 'active')
-            const cartstoShow = data.ownCarts.filter(cart => cart.cartStatus === 'bought' || cart.cartStatus === 'cancelled' || cart.cartStatus === 'delivered' || cart.cartStatus === 'preparing')
-            setActiveCart(activeCart)
-            setCarts(cartstoShow.reverse())
+            const activeCart = data.ownCarts.find(cart => cart.cartStatus === 'active');
+            const cartstoShow = data.ownCarts.filter(cart => cart.cartStatus === 'bought' || cart.cartStatus === 'cancelled' || cart.cartStatus === 'delivered' || cart.cartStatus === 'preparing');
+            setActiveCart(activeCart);
+            setCarts(cartstoShow.reverse());
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -52,12 +52,16 @@ const Carts = () => {
             await axios.patch('/cart/' + activeCart._id)
             navigate('/menus')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
     return (
         <div className={ darkMode ? "main-container-dark" : "main-container"}>
+            {
+                errorMessage &&
+                <Alert variant="danger">{errorMessage}</Alert>
+            }
             {
                 activeCart?._id ? (
                     <div>
@@ -177,6 +181,7 @@ const Carts = () => {
                 show={buyModalShow}
                 setShow={setBuyModalShow}
                 cart={activeCart}
+                setErrorMessage={setErrorMessage}
             />
         </div>
     )
