@@ -138,3 +138,32 @@
     align-items: center;
     border-top: 4px dotted rgb(202, 195, 97)!important;
 }
+
+.snack-card-dark {
+    max-width: 20rem;
+    position: relative;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    font-family: 'VictorMono';
+    background: var(--inverted-dutch-white) !important;
+    border: 3px solid #353c9e!important;
+}
+
+.button-footer-dark {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 4px dotted #353c9e!important;
+}
+
+.snack-card-dark:hover {
+    border-color: var(--blue-gray)!important;
+    color: var(--blue-gray);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.snack-card-dark:hover svg {
+    transition: .4s;
+    stroke: var(--blue-gray)!important;
+}
