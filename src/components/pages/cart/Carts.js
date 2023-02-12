@@ -1,5 +1,6 @@
 import './cart.css';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Accordion, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
@@ -10,11 +11,12 @@ import Loading from '../../loading/Loading';
 
 const Carts = () => {
     let navigate = useNavigate();
-    const [carts, setCarts] = useState({})
-    const [activeCart, setActiveCart] = useState({})
-    const [buyModalShow, setBuyModalShow] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+    const [carts, setCarts] = useState({});
+    const [activeCart, setActiveCart] = useState({});
+    const [buyModalShow, setBuyModalShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetData();
@@ -55,7 +57,7 @@ const Carts = () => {
     }
 
     return (
-        <div className='main-container'>
+        <div className={ darkMode ? "main-container-dark" : "main-container"}>
             {
                 errorMessage &&
                 <Alert variant="danger">{errorMessage}</Alert>
@@ -108,7 +110,20 @@ const Carts = () => {
                     )
                     : (
                         <Accordion defaultActiveKey="0" >
-                            <Accordion.Header className='orders-title'>your last carts</Accordion.Header>
+                            {
+                                errorMessage &&
+                                <Alert variant="danger">
+                                    {errorMessage}
+                                </Alert>
+                            }
+                            <Accordion.Header 
+                                className={darkMode
+                                    ? "main-container-dark orders-title"
+                                    : "main-container orders-title"
+                                }
+                            >
+                                your last carts
+                            </Accordion.Header>
                             <Accordion.Body>
                                 {
                                     carts?.length ? (

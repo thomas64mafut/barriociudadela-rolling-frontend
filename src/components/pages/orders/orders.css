@@ -1,3 +1,7 @@
+.main-orders-container {
+    background-image: url(../../../assets/img/papelTexture.webp);
+}
+
 .order-container {
     color: white;
     font-family: 'VictorMono';
@@ -39,4 +43,13 @@
 
 .bought{
     background-color: rgb(72, 72, 249);
+}
+
+.main-orders-container-dark {
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+}
+
+.orders-title-dark {
+    font-family: 'Leonardo-Rounded';
+    color: whitesmoke;
 }

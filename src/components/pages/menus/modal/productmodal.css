@@ -63,3 +63,7 @@
 .total-price {
     font-family: 'Leonardo-Rounded';
 }
+
+.modal-counter-container .count-shower-dark {
+    color: black !important;
+}

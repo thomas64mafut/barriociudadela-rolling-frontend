@@ -1,5 +1,6 @@
 import "./admin.css";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeContext";
 import { Tabs, Tab } from 'react-bootstrap';
 
 import Users from "./users/Users";
@@ -8,9 +9,12 @@ import Roles from './roles/Roles';
 import Ingredients from './ingredients/Ingredients';
 
 const Admin = () => {
+
+    const { darkMode } = useContext(ThemeContext);
+
     return (
         <>
-            <h1 className="abm-container">Admin Control Panel</h1>
+            <h1 className={ darkMode ? "abm-container-dark" : "abm-container" }>Admin Control Panel</h1>
             <Tabs
                 defaultActiveKey="users"
                 id="control-panel"
@@ -21,7 +25,7 @@ const Admin = () => {
                     eventKey="users"
                     title="users"
                 >
-                    <Users />
+                    <Users className={ darkMode ? "active-dark" : "active" } />
                 </Tab>
                 <Tab
                     eventKey="roles"

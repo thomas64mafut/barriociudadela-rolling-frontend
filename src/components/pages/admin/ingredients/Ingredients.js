@@ -1,6 +1,7 @@
 import '../admin.css';
 import './ingredients.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
 import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip, Spinner } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
@@ -20,6 +21,8 @@ const Ingredients = () => {
     const [newPrice, setNewPrice] = useState(0);
     const [categoryToAdd, setCategoryToAdd] = useState([]);
     const [newIngredient, setNewIngredient] = useState('');
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetData();
@@ -185,7 +188,7 @@ const Ingredients = () => {
     );
 
     return (
-        <div className='abm-container'>
+        <div className={ darkMode ? "abm-container-dark" : "abm-container" }>
             {
                 isLoading
                     ? (

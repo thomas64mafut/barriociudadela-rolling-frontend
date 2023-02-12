@@ -1,14 +1,16 @@
-import './drinks.css'
-import React, { useEffect, useState } from 'react'
+import './drinks.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../../context/ThemeContext';
 import axios from '../../../../../api/axios';
-import { Card, Form } from 'react-bootstrap'
+import { Card, Form } from 'react-bootstrap';
 
-import Counter from '../../../../counter/Counter'
+import Counter from '../../../../counter/Counter';
 import Beer from '../../../../../assets/icons/Beer';
 
 const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
-    const [cart, setCart] = useState({})
+    const [cart, setCart] = useState({});
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         if (cart.name) {
@@ -56,12 +58,12 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
     }
     return (
         <div>
-            <Card className='drink-card'>
+            <Card className={ darkMode ? "drink-card-dark" : "drink-card" }>
                 <div className='card-image-container' style={{
                     backgroundImage: `url(${drink.image})`
                 }}
                 ></div>
-                <Card.Header>
+                <Card.Header className={ darkMode ? "card-header-dark" : "card-header"}>
                     <Card.Title >
                         <h5 className='product-card-title'>
                             {drink.name.toString().toLowerCase()}
@@ -97,7 +99,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
                                 />
                             </div>
                         </div>
-                        <div className='text-center button-footer'>
+                        <div className={ darkMode ? "text-center button-footer-dark" : "text-center button-footer" }>
                             <button className='icon-btn drinks-icon-btn add-btn' type='submit'>
                                 <div className="add-icon"></div>
                                 <div className="btn-txt">Add to Cart</div>
@@ -110,4 +112,4 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
     )
 }
 
-export default DrinksCard
+export default DrinksCard;
