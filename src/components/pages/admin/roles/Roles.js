@@ -1,8 +1,9 @@
-import './roles.css'
-import '../admin.css'
-import React, { useState, useEffect } from 'react'
-import { Alert, OverlayTrigger, Popover, Button, Form, Spinner } from 'react-bootstrap'
-import axios from '../../../../api/axios'
+import './roles.css';
+import '../admin.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Alert, OverlayTrigger, Popover, Button, Form, Spinner } from 'react-bootstrap';
+import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
@@ -10,12 +11,14 @@ import Loading from '../../../loading/Loading';
 
 const Roles = () => {
     const [show, setShow] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const [rolesToShow, setRolesToShow] = useState([]);
     const [users, setUsers] = useState([]);
     const [newRole, setNewRole] = useState('');
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetData();
@@ -111,7 +114,7 @@ const Roles = () => {
     );
 
     return (
-        <div className='abm-container'>
+        <div className={ darkMode ? "abm-container-dark" : "abm-container" }>
             {
                 isLoading
                     ? (
@@ -172,4 +175,4 @@ const Roles = () => {
     )
 }
 
-export default Roles
+export default Roles;

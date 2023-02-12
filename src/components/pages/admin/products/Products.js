@@ -1,6 +1,7 @@
-import './products.css'
-import '../admin.css'
-import React, { useState, useEffect } from 'react'
+import './products.css';
+import '../admin.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
 import axios from '../../../../api/axios';
 import { Table, Button, Alert, Accordion, Dropdown, Row, Col, Spinner } from 'react-bootstrap';
 
@@ -24,6 +25,8 @@ const Products = () => {
 
     const [addEditModalShow, setAddEditModalShow] = useState(false);
     const [productToEdit, setProductToEdit] = useState({});
+
+    const { darkMode } = useContext(ThemeContext);
 
     const foodSizes = ['l', 'xl'];
     const drinkSizes = ['750ml', '1,5lts'];
@@ -120,7 +123,7 @@ const Products = () => {
 
     return (
         <>
-            <div className='abm-container'>
+            <div className={ darkMode ? "abm-container-dark" : "abm-container" }>
                 {
                     isLoading
                         ? (

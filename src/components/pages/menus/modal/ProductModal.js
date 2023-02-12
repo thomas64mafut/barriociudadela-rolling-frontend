@@ -1,6 +1,7 @@
-import './productmodal.css'
-import React, { useEffect, useState } from 'react'
-import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap'
+import './productmodal.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
 import Counter from '../../../counter/Counter';
@@ -21,6 +22,8 @@ const ProductModal = (props) => {
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         if (cart.name) {
@@ -101,7 +104,9 @@ const ProductModal = (props) => {
 
     return (
         <Modal show={show} onHide={resetModal}>
-            <Modal.Header closeButton>
+            <Modal.Header
+                className={ darkMode ? "modal-header-dark" : "modal-header" }
+                closeButton>
                 <Modal.Title>{product.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='p-0'>
@@ -157,7 +162,7 @@ const ProductModal = (props) => {
                         </Accordion.Item>
                     </Accordion>
                     <div className="p-3 d-flex flex-column">
-                        <Row className='preferences-container py-2'>
+                        <Row className={ darkMode ? "preferences-container-dark py-2" : "preferences-container py-2" }>
                             <h5>preferences</h5>
                             <Col sm={6} className='m-0'>
                                 <div>
@@ -212,7 +217,13 @@ const ProductModal = (props) => {
                             </Row>
                         </div>
                     </div>
-                    <div className='modal-footer d-flex justify-content-center'>
+                    <div
+                        className={
+                            darkMode 
+                                ? "modal-footer-dark d-flex justify-content-center" 
+                                : "modal-footer d-flex justify-content-center" 
+                        }
+                        >
                         <button className='icon-btn add-btn modal-btn' type="submit">
                             <div className="add-icon"></div>
                             <div className="btn-txt">Add to Cart</div>
@@ -224,4 +235,4 @@ const ProductModal = (props) => {
     )
 }
 
-export default ProductModal
+export default ProductModal;

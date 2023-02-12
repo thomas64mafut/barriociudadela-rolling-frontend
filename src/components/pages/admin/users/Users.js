@@ -1,9 +1,10 @@
 import "../admin.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "../../../../context/ThemeContext";
 import { Table, Button, Dropdown, Spinner, Alert } from "react-bootstrap";
 import axios from "../../../../api/axios";
 
-import UserX from '../../../../assets/icons/UserX'
+import UserX from '../../../../assets/icons/UserX';
 import Loading from "../../../loading/Loading";
 
 const Users = () => {
@@ -12,6 +13,8 @@ const Users = () => {
 
     const [usersToShow, setUsersToShow] = useState([]);
     const [roles, setRoles] = useState([]);
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetData();
@@ -79,7 +82,7 @@ const Users = () => {
     };
 
     return (
-        <div className="abm-container">
+        <div className={ darkMode ? "abm-container-dark" : "abm-container" }>
             {
                 isLoading
                     ? (
@@ -155,4 +158,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default Users;
