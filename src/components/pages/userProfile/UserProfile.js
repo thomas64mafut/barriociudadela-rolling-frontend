@@ -4,21 +4,29 @@ import { Alert } from "react-bootstrap";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { useOutletContext } from 'react-router-dom';
 import axios from '../../../api/axios';
+import Loading from '../../loading/Loading';
 
 const USER_URL = '/user';
 
 const UserProfile = (props) => {
     const { auth } = useOutletContext();
+    const [isLoading, setIsLoading] = useState(false)
     const [userToShow, setUserToShow] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [hasEdited, setHasEdited] = useState(false);
     const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
-        handleGetUser();
+        handleGetData();
     }, []);
+
+    const handleGetData = async () => {
+        await handleGetUser();
+    }
 
     const handleGetUser = async () => {
         try {
+            setIsLoading(true);
             const token = localStorage.getItem('jwt');
             const { data } = await axios.get(USER_URL, { headers: { Authorization: token } });
             setUserToShow(data?.userFound);
@@ -26,6 +34,8 @@ const UserProfile = (props) => {
         } catch (error) {
             setErrorMessage(error.response.data.message);
             setUserToShow([]);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -47,6 +57,7 @@ const UserProfile = (props) => {
         beforeUpload(fileUploaded);
         const base64 = await getBase64(fileUploaded);
         setProfileImg(base64);
+        setHasEdited(true);
     };
 
     const getBase64 = (img) => {
@@ -75,63 +86,77 @@ const UserProfile = (props) => {
     };
 
     return (
-        <div className={ darkMode ? "main-profile-container-dark" : "main-profile-container" }>
-            <div className="users-header">
-                <h1>User's Profile</h1>
-            </div>
-            {errorMessage ? (
-                <Alert variant="danger">{errorMessage}</Alert>
-            ) : (
-                ""
-            )}
+        <div className={darkMode ? "main-profile-container-dark" : "main-profile-container"}>
+            {
+                isLoading
+                    ? (
+                        <Loading />
+                    )
+                    : (
+                        <div>
+                            <div className="users-header">
+                                <h1>User's Profile</h1>
+                            </div>
+                            {errorMessage ? (
+                                <Alert variant="danger">{errorMessage}</Alert>
+                            ) : (
+                                ""
+                            )}
 
-            <div className="profile-container row">
-                <div className='col-md-6 p-0'>
-                    <div className='flex-grow-1 w-100 d-flex justify-content-center align-items-center'>
-                        <div className='profile-imgContainer'>
-                            <img src={profileImg} alt='' />
+                            <div className="profile-container row">
+                                <div className='col-md-6 p-0'>
+                                    <div className='flex-grow-1 w-100 d-flex justify-content-center align-items-center'>
+                                        <div className='profile-imgContainer'>
+                                            <img src={profileImg} alt='' />
+                                        </div>
+                                    </div>
+                                    <div className='button-container'>
+                                        <button
+                                            className={darkMode ? "btn-custom-dark my-3" : "btn-custom my-3"}
+                                            onClick={handleClick}
+                                        >
+                                            <span className={darkMode ? "btn-custom_top-dark" : "btn-custom_top"}>
+                                                select profile picture
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input
+                                    type="file"
+                                    ref={hiddenFileInput}
+                                    onChange={handleUploadImg}
+                                    style={{ display: 'none' }}
+                                    onClick={handleUploadImg}
+                                >
+                                </input>
+
+                                <div className='data-container col-md-6'>
+                                    <ul>
+                                        <li><h5><b><u>Role:</u></b>   {auth?.role}</h5></li>
+                                        <li><h5><b><u>Username:</u></b>   {userToShow?.username}</h5></li>
+                                        <li><h5><b><u>Email:</u></b>   {userToShow?.email}</h5></li>
+                                        <li><h5><b><u>Member since:</u></b>   {dateFormatter(userToShow?.createdAt)}</h5></li>
+                                    </ul>
+                                </div>
+                                {
+                                    hasEdited &&
+                                    <div className='button-container'>
+                                        <button
+                                            className={darkMode ? "btn-custom-dark my-3" : "btn-custom my-3"}
+                                            onClick={handleEditUser}
+                                        >
+                                            <span className={darkMode ? "btn-custom_top-dark" : "btn-custom_top"}>
+                                                save changes
+                                            </span>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div className='button-container'>
-                        <button
-                            className={ darkMode ? "btn-custom-dark my-3" : "btn-custom my-3" }
-                            onClick={handleClick}
-                            >
-                            <span className={ darkMode ? "btn-custom_top-dark" : "btn-custom_top" }>
-                                select profile picture
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                    )
+            }
 
-                <input
-                    type="file"
-                    ref={hiddenFileInput}
-                    onChange={handleUploadImg}
-                    style={{ display: 'none' }}
-                    onClick={handleUploadImg}
-                >
-                </input>
-
-                <div className='data-container col-md-6'>
-                    <ul>
-                        <li><h5><b><u>Role:</u></b>   {auth?.role}</h5></li>
-                        <li><h5><b><u>Username:</u></b>   {userToShow?.username}</h5></li>
-                        <li><h5><b><u>Email:</u></b>   {userToShow?.email}</h5></li>
-                        <li><h5><b><u>Member since:</u></b>   {dateFormatter(userToShow?.createdAt)}</h5></li>
-                    </ul>
-                </div>
-                <div className='button-container'>
-                    <button
-                        className={ darkMode ? "btn-custom-dark my-3" : "btn-custom my-3" }
-                        onClick={handleEditUser}
-                        >
-                        <span className={ darkMode ? "btn-custom_top-dark" : "btn-custom_top" }>
-                            save changes
-                        </span>
-                    </button>
-                </div>
-            </div>
         </div>
     )
 }
