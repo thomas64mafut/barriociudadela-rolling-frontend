@@ -1,6 +1,6 @@
 import axios from '../../../../../api/axios';
 import React, { useEffect, useState } from 'react'
-import {  Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 import SnacksCard from './SnacksCard';
 import Loading from '../../../../loading/Loading';
@@ -8,10 +8,10 @@ import Loading from '../../../../loading/Loading';
 
 const Snacks = (props) => {
     const {
-        setError, 
-        setMessageModalShow, 
+        setError,
+        setMessageModalShow,
         setMessageToShow
-    } = props; 
+    } = props;
 
     const [snacks, setSnacks] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +43,10 @@ const Snacks = (props) => {
                     <Loading />
                 ) : (
                     <div className='cards_container'>
+                        {
+                            error &&
+                            <Alert variant='danger'>{error}</Alert>
+                        }
                         <Row className='p-3 snack-container justify-content-center'>
                             {
                                 snacks?.length ? (
