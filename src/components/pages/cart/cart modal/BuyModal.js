@@ -2,7 +2,14 @@ import React from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import axios from '../../../../api/axios';
 
-const BuyModal = ({ show , setShow, cart}) => {
+const BuyModal = (props) => {
+    const {
+        show, 
+        setShow, 
+        cart,
+        setErrorMessage,
+    } = props;
+
     const buyPayment = (e) => {
         e.preventDefault();
         handleBuy()
@@ -14,7 +21,8 @@ const BuyModal = ({ show , setShow, cart}) => {
             await axios.put('/cart/buy/'+cart._id)
             window.location.replace('/menus')
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
+            setShow(false);
         }
     }   
 

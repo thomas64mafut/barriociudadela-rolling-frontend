@@ -1,13 +1,12 @@
-.main-container {
-    margin-top: 3.3rem;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+.main-unAuth-container {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
+    width: 100vw;
     background-image: url(../../../assets/img/papelTexture.webp);
 }
 
 .title-container {
-    margin-top: 4rem;
+    margin-top: 1rem;
     margin-left: 1rem;
 }
 
@@ -23,4 +22,46 @@ p {
     align-items: center;
     font-family: 'VictorMono';
     margin-left: 1rem;
+}
+
+.main-unAuth-container-dark {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
+    width: 100vw;
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}
+
+.title-container-dark {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.img-container-dark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-custom-dark {
+    --button_radius: 0.75em;
+    font-family: "Leonardo-Rounded";
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background:  #e8e8e8;
+}
+
+.btn-custom_top-dark {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid  #e8e8e8;
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: #000000;
+    color:  #e8e8e8;
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+    cursor: pointer;
 }

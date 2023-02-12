@@ -13,14 +13,12 @@ const AddEditProductModal = (props) => {
         product,
         categoryToAdd,
         isEditing,
-        handleGetProducts,
+        handleGetData,
         allIngredients,
         getAllIngredients,
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
     const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [detail, setDetail] = useState('');
@@ -43,7 +41,6 @@ const AddEditProductModal = (props) => {
 
     useEffect(() => {
         getFilteredIngredients();
-        setIsLoading(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ingredientsList]);
 
@@ -106,7 +103,7 @@ const AddEditProductModal = (props) => {
             const item1Str = JSON.stringify(item1);
             return !ingredientsList.find(item2 => item1Str === JSON.stringify(item2))
         });
-        
+
         let secondFilteredIngredients = [];
         filteredIngredients.forEach((ingredient) => {
             ingredient.category.forEach((category) => {
@@ -139,7 +136,7 @@ const AddEditProductModal = (props) => {
             ingredients: ingredientsList,
         }
         await axios.post(`/product/${category?.name}`, payload);
-        handleGetProducts();
+        handleGetData();
         setShow(false);
     };
 
@@ -156,199 +153,192 @@ const AddEditProductModal = (props) => {
             ingredients: ingredientsList,
         }
         await axios.put(`/product/${productCategory}/${productId}`, payload);
-        handleGetProducts();
+        handleGetData();
         setShow(false);
     };
 
     return (
         <>
             <Modal centered show={show} onHide={() => setShow(false)}>
-                {
-                    isLoading ?
-                        <h1>Loading</h1>
-                        :
-                        <div>
-                            <Form>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>{product?.name || 'add product'}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body className='p-2'>
-                                    <Form.Label className='mt-2 mb-3 text-center'>Category: {category?.name}</Form.Label>
-                                    <Accordion>
-                                        <Accordion.Item eventKey='1'>
-                                            <Accordion.Header >
-                                                Basic product data
-                                            </Accordion.Header>
-                                            <Accordion.Body className='p-2'>
-                                                <Form.Group className='mb-3'>
-                                                    <Form.Label>name</Form.Label>
-                                                    <Form.Control
-                                                        type="text"
-                                                        defaultValue={product?.name}
-                                                        id='name'
-                                                        onChange={(e) => setName(e.target.value)}
-                                                    />
-                                                </Form.Group>
-                                                <Form.Group className='mb-3'>
-                                                    <Form.Label>detail</Form.Label>
-                                                    <Form.Control
-                                                        type="text"
-                                                        defaultValue={product?.detail}
-                                                        id='detail'
-                                                        onChange={(e) => setDetail(e.target.value)}
-                                                    />
-                                                </Form.Group>
-                                                {
-                                                    category?.name === 'drink' &&
-                                                    <Form.Group className='mb-3'>
-                                                        <Form.Label>brand</Form.Label>
-                                                        <Form.Control
-                                                            type="text"
-                                                            defaultValue={product?.brand}
-                                                            id='brand'
-                                                            onChange={(e) => setBrand(e.target.value)}
-                                                        />
-                                                    </Form.Group>
-                                                }
-                                                <Form.Group className='mb-3'>
-                                                    <Form.Label>price</Form.Label>
-                                                    <Form.Control
-                                                        type="number"
-                                                        defaultValue={product?.price}
-                                                        id='price'
-                                                        onChange={(e) => setPrice(e.target.value)}
-                                                    />
-                                                </Form.Group>
-                                                {
-                                                    category?.name !== 'drink' ?
-                                                        (
-                                                            <Form.Group className='mb-3'>
-                                                                <Form.Check
-                                                                    label="is this product vegan?"
-                                                                    id="checkbox-id"
-                                                                    onChange={(e) => setIsVegan(e?.target?.checked)}
-                                                                    defaultChecked={
-                                                                        product?.isVegan ? (
-                                                                            true
-                                                                        ) : (
-                                                                            false
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </Form.Group>
-                                                        ) : (
-                                                            <Form.Group className='mb-3'>
-                                                                <Form.Check
-                                                                    label="does it has alcohol?"
-                                                                    id="checkbox-id"
-                                                                    onChange={(e) => setHasAlcohol(e?.target?.checked)}
-                                                                    defaultChecked={
-                                                                        product?.hasAlcohol ? (
-                                                                            true
-                                                                        ) : (
-                                                                            false
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </Form.Group>
-                                                        )
-                                                }
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey='2'>
-                                            <Accordion.Header>
-                                                product image
-                                            </Accordion.Header>
-                                            <Accordion.Body className='d-flex flex-column align-items-center'>
-                                                {
-                                                    image &&
-                                                    <img
-                                                        src={image}
-                                                        alt={'image of' + product?.name}
-                                                        className='product-image my-3'
-                                                    />
-                                                }
-                                                <Button onClick={handleClick}>
-                                                    {
-                                                        image ? (
-                                                            'Change image'
-                                                        ) : (
-                                                            'Add image'
-                                                        )
-                                                    }
-                                                </Button>
-                                                <input
-                                                    type="file"
-                                                    ref={hiddenFileInput}
-                                                    onChange={handleUploadImg}
-                                                    style={{ display: 'none' }}
-                                                    onClick={handleUploadImg}
-                                                >
-                                                </input>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        {
-                                            category?.name !== 'drink' &&
-                                            <Accordion.Item eventKey='3'>
-                                                <Accordion.Header>
-                                                    ingredients
-                                                </Accordion.Header>
-                                                <Accordion.Body className='p-1'>
-                                                    <Form.Group >
-                                                        <ul className='ps-1 mt-3 m-0 ingredients-modal-list'>
-                                                            {
-                                                                ingredientsList?.map((ingredient) => (
-                                                                    <div className='d-flex flex-row justify-content-between ingredient-item'>
-                                                                        <li>
-                                                                            {ingredient?.name}
-                                                                        </li>
-                                                                        <Button
-                                                                            variant='danger'
-                                                                            onClick={() => removeIngredientFromList(ingredient)}
-                                                                            className='ingredient-delete-button p-0'
-                                                                        >
-                                                                            <X />
-                                                                        </Button>
-                                                                    </div>
-                                                                ))
-                                                            }
-                                                        </ul>
-                                                    </Form.Group>
-                                                    <Dropdown className="m-1 d-flex justify-content-end">
-                                                        <Dropdown.Toggle variant='danger' className="btn-dropdown px-2 d-flex justify-content-between">
-                                                            <Plus />
-                                                        </Dropdown.Toggle>
-                                                        <Dropdown.Menu>
-                                                            {
-                                                                ingredientsToAdd?.map((ingredient) => (
-                                                                    <Dropdown.Item
-                                                                        onClick={() => setIngredientsList(current => [...current, ingredient])}
-                                                                        className='w-100'
-                                                                    >
-                                                                        {ingredient?.name}
-                                                                    </Dropdown.Item>
-                                                                ))
-                                                            }
-                                                        </Dropdown.Menu>
-                                                    </Dropdown>
-                                                </Accordion.Body>
-                                            </Accordion.Item>
-                                        }
-                                    </Accordion>
-                                </Modal.Body>
-                                <Modal.Footer className='d-flex justify-content-center'>
+                <Form>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{product?.name || 'add product'}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='p-2'>
+                        <Form.Label className='mt-2 mb-3 text-center'>Category: {category?.name}</Form.Label>
+                        <Accordion>
+                            <Accordion.Item eventKey='1'>
+                                <Accordion.Header >
+                                    Basic product data
+                                </Accordion.Header>
+                                <Accordion.Body className='p-2'>
+                                    <Form.Group className='mb-3'>
+                                        <Form.Label>name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            defaultValue={product?.name}
+                                            id='name'
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className='mb-3'>
+                                        <Form.Label>detail</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            defaultValue={product?.detail}
+                                            id='detail'
+                                            onChange={(e) => setDetail(e.target.value)}
+                                        />
+                                    </Form.Group>
                                     {
-                                        isEditing
-                                            ? (
-                                                <Button variant="success" onClick={() => handleEditModal(product?.category?.name, product?._id)}>Edit Product</Button>
+                                        category?.name === 'drink' &&
+                                        <Form.Group className='mb-3'>
+                                            <Form.Label>brand</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                defaultValue={product?.brand}
+                                                id='brand'
+                                                onChange={(e) => setBrand(e.target.value)}
+                                            />
+                                        </Form.Group>
+                                    }
+                                    <Form.Group className='mb-3'>
+                                        <Form.Label>price</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            defaultValue={product?.price}
+                                            id='price'
+                                            onChange={(e) => setPrice(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    {
+                                        category?.name !== 'drink' ?
+                                            (
+                                                <Form.Group className='mb-3'>
+                                                    <Form.Check
+                                                        label="is this product vegan?"
+                                                        id="checkbox-id"
+                                                        onChange={(e) => setIsVegan(e?.target?.checked)}
+                                                        defaultChecked={
+                                                            product?.isVegan ? (
+                                                                true
+                                                            ) : (
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                </Form.Group>
                                             ) : (
-                                                <Button variant="success" onClick={handleAddModal}>Add product</Button>
+                                                <Form.Group className='mb-3'>
+                                                    <Form.Check
+                                                        label="does it has alcohol?"
+                                                        id="checkbox-id"
+                                                        onChange={(e) => setHasAlcohol(e?.target?.checked)}
+                                                        defaultChecked={
+                                                            product?.hasAlcohol ? (
+                                                                true
+                                                            ) : (
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                </Form.Group>
                                             )
                                     }
-                                </Modal.Footer>
-                            </Form>
-                        </div>
-                }
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey='2'>
+                                <Accordion.Header>
+                                    product image
+                                </Accordion.Header>
+                                <Accordion.Body className='d-flex flex-column align-items-center'>
+                                    {
+                                        image &&
+                                        <img
+                                            src={image}
+                                            alt={'image of' + product?.name}
+                                            className='product-image my-3'
+                                        />
+                                    }
+                                    <Button onClick={handleClick}>
+                                        {
+                                            image ? (
+                                                'Change image'
+                                            ) : (
+                                                'Add image'
+                                            )
+                                        }
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        ref={hiddenFileInput}
+                                        onChange={handleUploadImg}
+                                        style={{ display: 'none' }}
+                                        onClick={handleUploadImg}
+                                    >
+                                    </input>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            {
+                                category?.name !== 'drink' &&
+                                <Accordion.Item eventKey='3'>
+                                    <Accordion.Header>
+                                        ingredients
+                                    </Accordion.Header>
+                                    <Accordion.Body className='p-1'>
+                                        <Form.Group >
+                                            <ul className='ps-1 mt-3 m-0 ingredients-modal-list'>
+                                                {
+                                                    ingredientsList?.map((ingredient) => (
+                                                        <div className='d-flex flex-row justify-content-between ingredient-item'>
+                                                            <li>
+                                                                {ingredient?.name}
+                                                            </li>
+                                                            <Button
+                                                                variant='danger'
+                                                                onClick={() => removeIngredientFromList(ingredient)}
+                                                                className='ingredient-delete-button p-0'
+                                                            >
+                                                                <X />
+                                                            </Button>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </Form.Group>
+                                        <Dropdown className="m-1 d-flex justify-content-end">
+                                            <Dropdown.Toggle variant='danger' className="btn-dropdown px-2 d-flex justify-content-between">
+                                                <Plus />
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {
+                                                    ingredientsToAdd?.map((ingredient) => (
+                                                        <Dropdown.Item
+                                                            onClick={() => setIngredientsList(current => [...current, ingredient])}
+                                                            className='w-100'
+                                                        >
+                                                            {ingredient?.name}
+                                                        </Dropdown.Item>
+                                                    ))
+                                                }
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            }
+                        </Accordion>
+                    </Modal.Body>
+                    <Modal.Footer className='d-flex justify-content-center'>
+                        {
+                            isEditing
+                                ? (
+                                    <Button variant="success" onClick={() => handleEditModal(product?.category?.name, product?._id)}>Edit Product</Button>
+                                ) : (
+                                    <Button variant="success" onClick={handleAddModal}>Add product</Button>
+                                )
+                        }
+                    </Modal.Footer>
+                </Form>
             </Modal>
         </>
     )

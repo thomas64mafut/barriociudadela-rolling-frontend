@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.burguer-section{
+    width: 100vw;
+}
+
 .toRemove :checked+label {
     color: rgb(133, 133, 133);
     text-decoration: line-through;
@@ -30,9 +34,9 @@
     justify-content: space-around;
 }
 
-/* CARD */
 .card {
-    max-width: 20rem;
+    max-width: 15rem;
+    min-width: 10rem;
     position: relative;
     transition: 0.5s ease-out;
     overflow: visible;
@@ -41,8 +45,11 @@
     border: 3px solid rgb(202, 195, 97)!important;
 }
 
+.cart:hover {
+    transform: scale(1.02);
+}
+
 .col {
-    margin-block: 3rem ;
     display: flex;
     justify-content: center;
 }
@@ -80,8 +87,7 @@
 
 .ingredients-list {
     margin-bottom: .3rem;
-    font-size: smaller;
-    
+    font-size: 16px;
 }
 
 .product-card-title, .product-price {
@@ -110,3 +116,16 @@
     transition: .4s;
 }
 
+.card-dark {
+    max-width: 20rem;
+    position: relative;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    font-family: 'VictorMono';
+    background: var(--inverted-dutch-white) !important;
+    border: 3px solid #353c9e!important;
+}
+
+.card-header-dark {
+    border-bottom: 4px dotted #353c9e!important;
+}

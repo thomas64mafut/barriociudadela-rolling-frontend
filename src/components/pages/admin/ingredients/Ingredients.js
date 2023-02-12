@@ -1,11 +1,13 @@
 import '../admin.css';
 import './ingredients.css';
-import React, { useState, useEffect } from 'react';
-import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Alert, OverlayTrigger, Popover, Button, Form, Tooltip, Spinner } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
 import X from '../../../../assets/icons/X';
 import Plus from '../../../../assets/icons/Plus';
+import Loading from '../../../loading/Loading';
 
 const Ingredients = (props) => {
     const {
@@ -15,20 +17,68 @@ const Ingredients = (props) => {
 
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const [allCategories, setAllCategories] = useState([]);
-    const [newIngredient, setNewIngredient] = useState('');
+    const [allProducts, setAllProducts] = useState([]);
+    const [allIngredients, setAllIngredients] = useState([]);
+
     const [newPrice, setNewPrice] = useState(0);
     const [categoryToAdd, setCategoryToAdd] = useState([]);
+    const [newIngredient, setNewIngredient] = useState('');
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
-        handleGetIngredients();
-        handleGetCategories();
+        handleGetData();
     }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setErrorMessage('')
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [errorMessage])
+
+    const handleGetData = async () => {
+        setIsLoading(true);
+        await handleGetCategories();
+        await handleGetIngredients();
+        await handleGetProducts();
+        setIsLoading(false);
+    };
+
+    const handleGetProducts = async () => {
+        try {
+            const { data } = await axios.get('/product/');
+            setAllProducts(data?.products);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    };
+
+    const handleGetIngredients = async () => {
+        try {
+            const { data } = await axios.get('/ingredient');
+            setAllIngredients(data?.ingredients);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
+
+    const handleGetCategories = async () => {
+        try {
+            const { data } = await axios.get('/category/');
+            setAllCategories(data?.categories);
+        } catch (error) {
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
 
     const handleCreateNewIngredient = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const payload = {
                 name: newIngredient,
                 price: newPrice,
@@ -37,9 +87,11 @@ const Ingredients = (props) => {
             await axios.post('/ingredient/add', payload);
             setShow(false);
             setNewIngredient('');
-            handleGetIngredients();
+            await handleGetIngredients();
         } catch (error) {
             setErrorMessage(error?.response?.data?.message)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -58,19 +110,23 @@ const Ingredients = (props) => {
 
     const handleDeleteIngredient = async (id) => {
         try {
+            setIsLoading(true);
+            const productsWithIngredient = allProducts?.filter(product => {
+                if(product.category.name !== 'drink'){
+                    const ingredientInProduct = product?.ingredients?.filter(ingredient => ingredient._id === id);
+                    if (ingredientInProduct.length !== 0) return product;
+                }
+                return false;
+            })
+            if (productsWithIngredient.length !== 0) {
+                throw new Error('There is an existing product with this ingredient, please either modify it or delete it before trying this modification again.');
+            }
             await axios.patch(`/ingredient/${id}`, {});
-            handleGetIngredients();
+            await handleGetIngredients();
         } catch (error) {
-            setErrorMessage(error?.response?.data?.message);
-        }
-    }
-
-    const handleGetCategories = async () => {
-        try {
-            const { data } = await axios.get('/category');
-            setAllCategories(data?.categories);
-        } catch (error) {
-            setErrorMessage(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message || error.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -137,52 +193,63 @@ const Ingredients = (props) => {
     );
 
     return (
-        <div className='abm-container'>
-            <div className='table-header'>
-                <OverlayTrigger
-                    trigger='click'
-                    placement='bottom'
-                    overlay={addIngredientPopover}
-                    rootCloseEvent="mousedown"
-                    rootClose={true}
-                >
-                    <Button
-                        variant='success'
-                        onClick={() => setShow(!show)}
-                        className='mt-3 p-0 btn-add-role'
-                    >
-                        <Plus />
-                    </Button>
-                </OverlayTrigger>
-            </div>
+        <div className={ darkMode ? "abm-container-dark" : "abm-container" }>
             {
-                errorMessage &&
-                <Alert variant='danger'>{errorMessage}</Alert>
-            }
-            <div>
-                <ul>
-                    {
-                        allIngredients?.map((ingredient, index) => (
-                            <div className='d-flex flex-row justify-content-between' key={index}>
+                isLoading
+                    ? (
+                        <Loading />
+                    )
+                    : (
+                        <div>
+
+                            {
+                                errorMessage &&
+                                <Alert variant='danger'>{errorMessage}</Alert>
+                            }
+                            <div className='table-header'>
                                 <OverlayTrigger
+                                    trigger='click'
                                     placement='bottom'
-                                    delay={{ show: 250, hide: 400 }}
-                                    overlay={ingredientCategoryTooltip(ingredient)}
+                                    overlay={addIngredientPopover}
+                                    rootCloseEvent="mousedown"
+                                    rootClose={true}
                                 >
-                                    <li>{ingredient?.name} - $ {ingredient?.price}</li>
+                                    <Button
+                                        variant='success'
+                                        onClick={() => setShow(!show)}
+                                        className='mt-3 p-0 btn-add-role'
+                                    >
+                                        <Plus />
+                                    </Button>
                                 </OverlayTrigger>
-                                <Button
-                                    variant='danger'
-                                    onClick={() => handleDeleteIngredient(ingredient?._id)}
-                                    className='p-0 mb-1 btn-delete-role'
-                                >
-                                    <X />
-                                </Button>
                             </div>
-                        ))
-                    }
-                </ul>
-            </div>
+                            <div>
+                                <ul>
+                                    {
+                                        allIngredients?.map((ingredient, index) => (
+                                            <div className='d-flex flex-row justify-content-between' key={index}>
+                                                <OverlayTrigger
+                                                    placement='bottom'
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={ingredientCategoryTooltip(ingredient)}
+                                                >
+                                                    <li>{ingredient?.name} - $ {ingredient?.price}</li>
+                                                </OverlayTrigger>
+                                                <Button
+                                                    variant='danger'
+                                                    onClick={() => handleDeleteIngredient(ingredient?._id)}
+                                                    className='p-0 mb-1 btn-delete-role'
+                                                >
+                                                    <X />
+                                                </Button>
+                                            </div>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    )
+            }
         </div>
     )
 }
