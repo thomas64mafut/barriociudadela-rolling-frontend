@@ -108,25 +108,22 @@ const Header = () => {
     );
 
     return (
-        <Navbar 
-            className={ darkMode 
+        <Navbar
+            className={darkMode
                 ? "navContainer-dark m-0"
                 : "navContainer m-0"
             }
             expand="lg"
-            expanded={expanded} 
+            expanded={expanded}
             onBlur={() => setExpanded(false)}
-            >
-            className='navContainer m-0' 
-            expand="lg" 
         >
             <Navbar.Brand href="/">
                 <img className='logoa' src={logo} alt='' />
             </Navbar.Brand>
-            <Navbar.Toggle 
-                aria-controls="navbarScroll" 
-                className='me-2 p-0 border-0' 
-                onClick={() => setExpanded(expanded ? false : "expanded")} 
+            <Navbar.Toggle
+                aria-controls="navbarScroll"
+                className='me-2 p-0 border-0'
+                onClick={() => setExpanded(expanded ? false : "expanded")}
             />
             <Navbar.Collapse id="navbarScroll">
                 <div className="w-100 h-100 d-flex flex-lg-row flex-column justify-content-between navbar-complete" >
@@ -140,7 +137,7 @@ const Header = () => {
                         <Link to={'/menus'} className='navOptions boton1' onClick={() => setExpanded(false)}>
                             MENU
                         </Link>
-                        <ThemeToggler/>
+                        <ThemeToggler />
                     </div>
                     <div className='d-flex flex-lg-row flex-column '>
                         {
@@ -183,13 +180,13 @@ const Header = () => {
                                                     <button onClick={handleLogOut} className='border-0'>log out</button>
                                                 </div>
                                             </InputGroup.Text>
-                                            <InputGroup.Text 
+                                            <InputGroup.Text
                                                 className="img-profile-container"
                                                 onClick={showUserProfile}
-                                                >
-                                                <img 
-                                                    className={ darkMode ? "img-profile-pic-dark" : "img-profile-pic"}
-                                                    src={profileImg} alt="" 
+                                            >
+                                                <img
+                                                    className={darkMode ? "img-profile-pic-dark" : "img-profile-pic"}
+                                                    src={profileImg} alt=""
                                                 />
                                             </InputGroup.Text>
                                         </InputGroup>
