@@ -6,12 +6,14 @@ import axios from '../../../api/axios';
 
 import Order from './Order';
 import './orders.css'
+import Loading from '../../loading/Loading';
 
 const Orders = (props) => {
     const authProvider = useOutletContext();
     const [carts, setCarts] = useState([]);
     const [cartStatus, setCartStatus] = useState('');
     const [role, setRole] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const { auth } = authProvider;
@@ -78,74 +80,76 @@ const Orders = (props) => {
     }
 
     return (
-        <div className='main-container'>
+        <div className='main-container mt-2'>
             <h2 className='text-center orders-title my-2'>all orders</h2>
-            {
-                carts?.length ? (
-                    carts?.map((cart, index) => {
-                        let productsShow = productsSelector(cart)
-                        if (productsShow.length !== 0) {
-                            return (
-                                <div className={'order-container py-3 m-2 ' + cart.cartStatus} key={index}>
-                                    <div className='overflow-table-container'>
-                                        <div className='d-flex flex-column ps-2 mb-2'>
-                                            <span>Owner: {cart?.owner?.username}</span>
-                                            <span>Status: {cart?.cartStatus}</span>
+            <div>
+                {
+                    carts?.length ? (
+                        carts?.map((cart, index) => {
+                            let productsShow = productsSelector(cart)
+                            if (productsShow.length !== 0) {
+                                return (
+                                    <div className={'order-container py-3 m-2 ' + cart.cartStatus} key={index}>
+                                        <div className='overflow-table-container'>
+                                            <div className='d-flex flex-column ps-2 mb-2'>
+                                                <span>Owner: {cart?.owner?.username}</span>
+                                                <span>Status: {cart?.cartStatus}</span>
+                                            </div>
+                                            <div className='cart-table-container'>
+                                                <Order
+                                                    productsShow={productsShow}
+                                                    id={cart._id}
+                                                    role={role}
+                                                    cartStatus={cart.cartStatus}
+                                                    setCartStatus={setCartStatus}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className='cart-table-container'>
-                                            <Order
-                                                productsShow={productsShow}
-                                                id={cart._id}
-                                                role={role}
-                                                cartStatus={cart.cartStatus}
-                                                setCartStatus={setCartStatus}
-                                            />
+                                        <div className='mt-3'>
+                                            {
+                                                cart?.cartStatus === 'bought' &&
+                                                <div className='button-cart-container button-buy-cart-container flex-column flex-sm-row'>
+                                                    <Button variant='warning' onClick={() => handlePreparingCart(cart._id)}>Preparing</Button>
+                                                    <Button variant='danger' onClick={() => handleCancelCart(cart._id)}>Cancel</Button>
+                                                </div>
+                                            }
+                                            {
+                                                cart?.cartStatus === 'preparing' && role === 'admin' &&
+                                                <div className='button-cart-container button-buy-cart-container flex-column flex-sm-row'>
+                                                    <Button
+                                                        variant='success'
+                                                        onClick={() => handledeliveredCart(cart._id)}
+                                                    >
+                                                        Delivered
+                                                    </Button>
+                                                    <Button
+                                                        variant='danger'
+                                                        onClick={() => handleCancelCart(cart._id)}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                </div>
+                                            }
+                                            {
+                                                cart?.cartStatus === 'cancelled' &&
+                                                <p>This order was cancelled by the administrator</p>
+                                            }
+                                            {
+                                                cart?.cartStatus === 'delivered' &&
+                                                <p>This order was delivered</p>
+                                            }
                                         </div>
                                     </div>
-                                    <div className='mt-3'>
-                                        {
-                                            cart?.cartStatus === 'bought' &&
-                                            <div className='button-cart-container button-buy-cart-container flex-column flex-sm-row'>
-                                                <Button variant='warning' onClick={() => handlePreparingCart(cart._id)}>Preparing</Button>
-                                                <Button variant='danger' onClick={() => handleCancelCart(cart._id)}>Cancel</Button>
-                                            </div>
-                                        }
-                                        {
-                                            cart?.cartStatus === 'preparing' && role === 'admin' &&
-                                            <div className='button-cart-container button-buy-cart-container flex-column flex-sm-row'>
-                                                <Button
-                                                    variant='success'
-                                                    onClick={() => handledeliveredCart(cart._id)}
-                                                >
-                                                    Delivered
-                                                </Button>
-                                                <Button
-                                                    variant='danger'
-                                                    onClick={() => handleCancelCart(cart._id)}
-                                                >
-                                                    Cancel
-                                                </Button>
-                                            </div>
-                                        }
-                                        {
-                                            cart?.cartStatus === 'cancelled' &&
-                                            <p>This order was cancelled by the administrator</p>
-                                        }
-                                        {
-                                            cart?.cartStatus === 'delivered' &&
-                                            <p>This order was delivered</p>
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        } else return <></>
-                    }
-                    )
-                ) :
-                    (
-                        <Spinner className='spinnerLoading' animation="border" variant="success" />
-                    )
-            }
+                                )
+                            } else return <></>
+                        }
+                        )
+                    ) :
+                        (
+                            <Loading />
+                        )
+                }
+            </div>
         </div>
     )
 }
