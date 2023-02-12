@@ -105,7 +105,7 @@ const ProductModal = (props) => {
     return (
         <Modal show={show} onHide={resetModal}>
             <Modal.Header
-                className={ darkMode ? "modal-header-dark" : "modal-header" }
+                className="modal-header"
                 closeButton>
                 <Modal.Title>{product.name}</Modal.Title>
             </Modal.Header>
@@ -162,7 +162,7 @@ const ProductModal = (props) => {
                         </Accordion.Item>
                     </Accordion>
                     <div className="p-3 d-flex flex-column">
-                        <Row className={ darkMode ? "preferences-container-dark py-2" : "preferences-container py-2" }>
+                        <Row className="preferences-container py-2">
                             <h5>preferences</h5>
                             <Col sm={6} className='m-0'>
                                 <div>
@@ -206,10 +206,12 @@ const ProductModal = (props) => {
                         <div className='button_container w-100'>
                             <Row className='w-100 mt-2'>
                                 <Col sm={6} className='text-center my-2 p-0'>
-                                    <Counter
-                                        count={count}
-                                        setCount={setCount}
-                                    />
+                                    <div className="modal-counter-container">
+                                        <Counter
+                                            count={count}
+                                            setCount={setCount}
+                                        />
+                                    </div>
                                 </Col>
                                 <Col sm={6} className='text-center my-2 p-0'>
                                     <span className='total-price'>total: ${(product.price + addition) * count}</span>

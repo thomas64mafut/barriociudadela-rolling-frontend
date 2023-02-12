@@ -64,26 +64,6 @@
     font-family: 'Leonardo-Rounded';
 }
 
-
-
-/*///////////////////DARK THEME///////////////////*/
-
-.preferences-container-dark {
-    font-size: 18px;
-    border-block: 4px dotted #353c9e !important;
-}
-
-.modal-content-dark {
-    background-color: var(--inverted-dutch-white) !important;
-    border: 4px solid var(--inverted-fire-opal) !important;
-    font-family: 'VictorMono';
-}
-
-.modal-header-dark {
-    border-bottom: 4px dotted #353c9e !important;
-    font-family: 'Blogh';
-}
-
-.modal-footer-dark {
-    border-top: 4px dotted #353c9e !important;
+.modal-counter-container .count-shower-dark {
+    color: black !important;
 }

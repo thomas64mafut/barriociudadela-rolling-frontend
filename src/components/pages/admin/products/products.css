@@ -29,3 +29,12 @@
 .product-icons svg {
     stroke: white;
 }
+
+.dark > .accordion-item, .dark .accordion-header > button  {
+    background-color: black!important;
+    color: whitesmoke;
+}
+
+.light > .accordion-item, .light .accordion-header > button  {
+    background-color: whitesmoke !important;
+}
