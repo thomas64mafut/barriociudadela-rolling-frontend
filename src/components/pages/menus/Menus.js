@@ -17,6 +17,7 @@ const Menus = () => {
                 setError('')
                 setMessageToShow('')
                 setMessageModalShow(false)
+                window.location.replace('/menus');
             }, 1000);
         }
     }, [messageModalShow])
