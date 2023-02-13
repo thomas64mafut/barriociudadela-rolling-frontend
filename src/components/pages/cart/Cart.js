@@ -13,10 +13,11 @@ export const Cart = ({ cart }) => {
     }, [])
 
     const handleSetTotalPrice = () => {
+        totalPrice=0;
         for (const product of cart?.products) {
             totalPrice = totalPrice + (product?.price * product?.quantity)
         }
-        setCartTotalPrice(totalPrice)
+        setCartTotalPrice(totalPrice);
     }
 
     return (
@@ -69,6 +70,12 @@ export const Cart = ({ cart }) => {
                                             product.preferences &&
                                             <tr>
                                                 preferences: {product.preferences}
+                                            </tr>
+                                        }
+                                        {
+                                            product.isVegan &&
+                                            <tr>
+                                                Vegan option
                                             </tr>
                                         }
                                     </td>
