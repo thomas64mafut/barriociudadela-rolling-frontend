@@ -65,6 +65,12 @@ const Order = ({ productsShow, cartStatus, role }) => {
                                                 }
                                             </tr>
                                         }
+                                        {
+                                            product.isVegan &&
+                                            <tr>
+                                                Vegan option
+                                            </tr>
+                                        }
                                     </td>
                                     <td>{product.quantity}</td>
                                 </tr>

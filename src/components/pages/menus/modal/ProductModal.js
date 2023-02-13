@@ -21,6 +21,7 @@ const ProductModal = ({
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+    const [isVegan, setIsVegan] = useState(false)
 
     useEffect(() => {
         if (cart.name) {
@@ -71,10 +72,11 @@ const ProductModal = ({
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
         preferences.category = product.category;
+        preferences.isVegan = isVegan
         setCart(preferences);
         setMessageModalShow(true);
         resetModal();
-        window.location.replace('/menus');
+        
     }
 
     const additionToppings = (e) => {
@@ -160,6 +162,13 @@ const ProductModal = ({
                     <div className="p-3 d-flex flex-column">
                         <Row className='preferences-container py-2'>
                             <h5>preferences</h5>
+                            <Form.Group className='mb-3'>
+                                <Form.Check
+                                    label="Do you prefer the vegan option?"
+                                    id="checkbox-id"
+                                    onChange={(e) => setIsVegan(e?.target?.checked)}
+                                />
+                            </Form.Group>
                             <Col sm={6} className='m-0'>
                                 <div>
                                     <div className='my-2 w-100'>
