@@ -1,4 +1,4 @@
-.card {
+.card-game {
   position: relative;
   box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.75);
 }
@@ -10,7 +10,6 @@
 .card img {
   width: 100%;
   height: 100%;
-  display: block;
   border: 2px solid #fff;
   border-radius: 6px;
   cursor: pointer;

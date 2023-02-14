@@ -20,3 +20,9 @@
 label {
     margin: 0;
 }
+
+.orders_container-dark {
+    min-height: auto;
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+}

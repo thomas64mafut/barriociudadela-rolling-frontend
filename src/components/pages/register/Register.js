@@ -1,25 +1,39 @@
 import '../login/login.css';
 import './register.css';
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import { ThemeContext } from '../../../context/ThemeContext';
 import axios from '../../../api/axios';
 import { Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+
+import Icon from 'react-icons-kit';
+import {basic_eye} from 'react-icons-kit/linea/basic_eye';
+import {basic_eye_closed} from 'react-icons-kit/linea/basic_eye_closed';
+import {arrows_exclamation} from 'react-icons-kit/linea/arrows_exclamation';
+import {arrows_circle_check} from 'react-icons-kit/linea/arrows_circle_check';
 
 import Check from '../../../assets/icons/Check';
 import Info from '../../../assets/icons/Info';
 import X from '../../../assets/icons/X';
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+
+const USER_REGEX = /^[A-z][A-z0-9-_]{4,16}$/;
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,16}$/;
 
 const Register = () => {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const userRef = useRef();
     const errorRef = useRef();
 
     const [username, setUsername] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
+    const [letterInitValidated, setLetterInitValidated]=useState(false);
+    const [specialUserValidated, setSpecialUserValidated]=useState(false);
+    const [lengthUserValidated, setLengthUserValidated]=useState(false);
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
@@ -28,6 +42,12 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
+    const [type, setType] = useState('password');
+    const [lowerValidated, setLowerValidated]=useState(false);
+    const [upperValidated, setUpperValidated]=useState(false);
+    const [numberValidated, setNumberValidated]=useState(false);
+    const [specialValidated, setSpecialValidated]=useState(false);
+    const [lengthValidated, setLengthValidated]=useState(false);
 
     const [matchPwd, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
@@ -56,6 +76,54 @@ const Register = () => {
     useEffect(() => {
         setErrorMsg('');
     }, [username, email, password, matchPwd])
+    
+    const handleUserNameChange=(value)=>{
+        setUsername(value)
+        const letterInit = new RegExp('(^[a-zA-Z])');
+        const specialUser = new RegExp('(?=.*[A-z0-9-_])');
+        const lengthUser = new RegExp('(?=.{5,16})');
+
+        letterInit.test(value)
+            ? setLetterInitValidated(true)
+            : setLetterInitValidated(false)
+        
+        specialUser.test(value)
+            ? setSpecialUserValidated(true)
+            : setSpecialUserValidated(false)
+
+        lengthUser.test(value)
+            ? setLengthUserValidated(true)
+            : setLengthUserValidated(false)
+    }
+    
+    const handlePwdChange=(value)=>{
+        setPassword(value)
+        const lower = new RegExp('(?=.*[a-z])');
+        const upper = new RegExp('(?=.*[A-Z])');
+        const number = new RegExp('(?=.*[0-9])');
+        const special = new RegExp('(?=.*[!@#$%])');
+        const length = new RegExp('(?=.{6,16})')
+
+        lower.test(value)
+            ? setLowerValidated(true)
+            : setLowerValidated(false)
+
+        upper.test(value)
+            ? setUpperValidated(true)
+            : setUpperValidated(false)
+
+        number.test(value)
+            ? setNumberValidated(true)
+            : setNumberValidated(false)
+        
+        special.test(value)
+            ? setSpecialValidated(true)
+            : setSpecialValidated(false)
+        
+        length.test(value)
+            ? setLengthValidated(true)
+            : setLengthValidated(false)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -90,9 +158,9 @@ const Register = () => {
 
     return (
         <>
-            <div className='main-login-container'>
-                <div className="login-container">
-                    <div className="border-container">
+            <div className={ darkMode ? "main-login-container-dark" : "main-login-container" }>
+                <div className={ darkMode ? "login-container-dark" : "login-container" }>
+                    <div className={ darkMode ? "border-container-dark" : "border-container" }>
                         {success ? (
                             <div>
                                 <h1>Success!</h1>
@@ -123,8 +191,10 @@ const Register = () => {
                                             id="username"
                                             ref={userRef}
                                             autoComplete="off"
-                                            onChange={(e) => setUsername(e.target.value)}
+                                            onChange={(e) => handleUserNameChange(e.target.value)}
                                             value={username}
+                                            minLength="5"
+                                            maxLength="16"
                                             required
                                             aria-invalid={validName ? "false" : "true"}
                                             aria-describedby="uidnote"
@@ -141,17 +211,44 @@ const Register = () => {
                                         >
                                             <div className='valid-icons'>
                                                 <Info />
-                                                <ul>
-                                                    <li>
-                                                        4 to 24 characters. <br />
-                                                    </li>
-                                                    <li>
-                                                        Must begin with a letter. <br />
-                                                    </li>
-                                                    <li>
+                                                <div className='tacker-box'>
+                                                    <div className={letterInitValidated?'validated':'not-validated'}>
+                                                        {letterInitValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        Must begin with a letter.
+                                                    </div>
+                                                    <div className={lengthUserValidated?'validated':'not-validated'}>
+                                                        {lengthUserValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least 5 characters
+                                                    </div>
+                                                    <div className={specialUserValidated?'validated':'not-validated'}>
+                                                        {specialUserValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
                                                         Letters, numbers, underscores, hyphens allowed.
-                                                    </li>
-                                                </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </p>
                                     </Form.Group>
@@ -168,12 +265,13 @@ const Register = () => {
                                             </div>
                                         </Form.Label>
                                         <Form.Control
-                                            placeholder="Placeholder text"
+                                            placeholder="email"
                                             type="email"
                                             id="email"
                                             autoComplete="off"
                                             onChange={(e) => setEmail(e.target.value)}
                                             value={email}
+                                            maxLength="24"
                                             required
                                             aria-invalid={validEmail ? "false" : "true"}
                                             aria-describedby="emailnote"
@@ -210,18 +308,32 @@ const Register = () => {
                                                 </div>
                                             </div>
                                         </Form.Label>
-                                        <Form.Control
-                                            placeholder="Placeholder text"
-                                            type="password"
-                                            id="password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            value={password}
-                                            required
-                                            aria-invalid={validPwd ? "false" : "true"}
-                                            aria-describedby="pwdnote"
-                                            onFocus={() => setPwdFocus(true)}
-                                            onBlur={() => setPwdFocus(false)}
-                                        />
+                                        <div className='input-with-icon-div form-control'>
+                                            <input
+                                                className='custom-input'
+                                                placeholder="password"
+                                                type= {type}
+                                                id="password"
+                                                onChange={(e)=>handlePwdChange(e.target.value)}
+                                                value={password}
+                                                minLength="6"
+                                                maxLength="16"
+                                                required
+                                                aria-invalid={validPwd ? "false" : "true"}
+                                                aria-describedby="pwdnote"
+                                                onFocus={() => setPwdFocus(true)}
+                                                onBlur={() => setPwdFocus(false)}
+                                            />
+                                            {type==="password"?(
+                                                <span className='icon-span' onClick={()=>setType("text")}>
+                                                <Icon icon={basic_eye_closed} size={18}/>
+                                                </span>
+                                            ):(
+                                                <span className='icon-span' onClick={()=>setType("password")}>
+                                                <Icon icon={basic_eye} size={18}/>
+                                                </span>
+                                            )}
+                                        </div>
                                         <p id="pwdnote" className={
                                             pwdFocus && !validPwd 
                                                 ? "instructions" 
@@ -229,36 +341,75 @@ const Register = () => {
                                             }
                                         >
                                             <div className="valid-icons flex-row ">
-                                                <Info />
-                                                <ul className='w-100'>
-                                                    <li>
-                                                        6 to 16 characters.<br />
-                                                    </li>
-                                                    <li>
-                                                        Must include
-                                                        <ul>
-                                                            <li>
-                                                                Uppercase and lowercase letters,
-                                                            </li>
-                                                            <li>
-                                                                An number
-                                                            </li>
-                                                            <li>
-                                                                A special character.
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <div className='flex-row '>
-                                                            Allowed special characters:
-                                                            <span aria-label="exclamation mark">!</span>
-                                                            <span aria-label="at symbol">@</span>
-                                                            <span aria-label="hashtag">#</span>
-                                                            <span aria-label="dollar sign">$</span>
-                                                            <span aria-label="percent">%</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                <div className='tracker-box'>
+                                                    <Info />
+                                                    <u>Must include:</u>
+                                                    <div className={lengthValidated?'validated':'not-validated'}>
+                                                        {lengthValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least 6 characters
+                                                    </div>
+                                                    <div className={lowerValidated?'validated':'not-validated'}>
+                                                        {lowerValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least one lowercase letter
+                                                    </div>
+                                                    <div className={upperValidated?'validated':'not-validated'}>
+                                                        {upperValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least one uppercase letter
+                                                    </div>
+                                                    <div className={numberValidated?'validated':'not-validated'}>
+                                                        {numberValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least one number
+                                                    </div>
+                                                    <div className={specialValidated?'validated':'not-validated'}>
+                                                        {specialValidated?(
+                                                        <span className='list-icon green'>
+                                                            <Icon icon={arrows_circle_check}/>  
+                                                        </span>
+                                                        ):(
+                                                        <span className='list-icon'>
+                                                            <Icon icon={arrows_exclamation}/>  
+                                                        </span>
+                                                        )}
+                                                        At least one special character:
+                                                        <span aria-label="exclamation mark">!</span>
+                                                        <span aria-label="at symbol">@</span>
+                                                        <span aria-label="hashtag">#</span>
+                                                        <span aria-label="dollar sign">$</span>
+                                                        <span aria-label="percent">%</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </p>
                                     </Form.Group>
@@ -284,18 +435,32 @@ const Register = () => {
                                                 </div>
                                             </div>
                                         </Form.Label>
-                                        <Form.Control
-                                            placeholder="Placeholder text"
-                                            type="password"
-                                            id="confirm_pwd"
-                                            onChange={(e) => setMatchPwd(e.target.value)}
-                                            value={matchPwd}
-                                            required
-                                            aria-invalid={validMatch ? "false" : "true"}
-                                            aria-describedby="confirmnote"
-                                            onFocus={() => setMatchFocus(true)}
-                                            onBlur={() => setMatchFocus(false)}
-                                        />
+                                        <div className='input-with-icon-div form-control'>
+                                            <input
+                                                className='custom-input'
+                                                placeholder="confirm password"
+                                                type= {type}
+                                                id="confirm_pwd"
+                                                onChange={(e) => setMatchPwd(e.target.value)}
+                                                value={matchPwd}
+                                                minLength="6"
+                                                maxLength="16"
+                                                required
+                                                aria-invalid={validMatch ? "false" : "true"}
+                                                aria-describedby="confirmnote"
+                                                onFocus={() => setMatchFocus(true)}
+                                                onBlur={() => setMatchFocus(false)}
+                                            />
+                                            {type==="password"?(
+                                                <span className='icon-span' onClick={()=>setType("text")}>
+                                                <Icon icon={basic_eye_closed} size={18}/>
+                                                </span>
+                                            ):(
+                                                <span className='icon-span' onClick={()=>setType("password")}>
+                                                <Icon icon={basic_eye} size={18}/>
+                                                </span>
+                                            )}
+                                        </div>
                                     </Form.Group>
                                     <p
                                         id="confirmnote"
@@ -307,23 +472,30 @@ const Register = () => {
                                     >
                                         <div className='valid-icons'>
                                             <Info />
-                                            Must match the first password input field.
+                                            <ul className='w-100'>
+                                                <li>
+                                                    Must match the first password input field.
+                                                </li>
+                                            </ul>
                                         </div>
                                     </p>
                                     <button
                                         className={
-                                            !validName || !validEmail || !validPwd || !validMatch 
+                                            !darkMode && (!validName || !validEmail || !validPwd || !validMatch)
                                                 ? 'btn-custom-disabled my-4'
-                                                : 'btn-custom my-4'
+                                                : darkMode && (!validName || !validEmail || !validPwd || !validMatch)
+                                                    ? 'btn-custom-disabled-dark my-4'
+                                                    : !darkMode && (validName || validEmail || validPwd || validMatch)
+                                                        ? 'btn-custom my-4'
+                                                        : 'btn-custom-dark my-4' 
                                         }
-                                        
                                         disabled={
                                             !validName || !validEmail || !validPwd || !validMatch 
                                                 ? true
                                                 : false
                                         }
                                     >
-                                        <span className='btn-custom_top'> sign up
+                                        <span className={ darkMode ? 'btn-custom_top-dark' : 'btn-custom_top' }> sign up
                                         </span>
                                     </button>
                                 </Form>

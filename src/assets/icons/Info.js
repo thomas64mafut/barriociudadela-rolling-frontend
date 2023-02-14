@@ -10,7 +10,7 @@ const Info = () => {
                 height="44" 
                 viewBox="0 0 24 24" 
                 strokeWidth="1.5" 
-                stroke="#000000" 
+                stroke="#fff" 
                 fill="none" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"

@@ -1,10 +1,12 @@
-import './cart.css'
-import React, { useEffect, useState } from 'react'
+import './cart.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Table } from 'react-bootstrap';
 
 export const Cart = ({ cart }) => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
     let idkey = 0;
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleSetTotalPrice();
@@ -21,7 +23,12 @@ export const Cart = ({ cart }) => {
     }
 
     return (
-        <div className={cart.cartStatus + ' w-100'}>
+        <div className={
+            darkMode 
+                ? (`${cart.cartStatus} w-100 main-container-dark`)
+                : (`${cart.cartStatus} w-100 `)
+            }
+        >
             <Table bordered className='w-100 cart-table-container'>
                 <thead>
                     <tr>
