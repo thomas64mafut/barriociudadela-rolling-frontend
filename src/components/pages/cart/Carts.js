@@ -51,6 +51,7 @@ const Carts = () => {
         try {
             await axios.patch('/cart/' + activeCart._id)
             navigate('/menus')
+            window.location.replace('/menus');
         } catch (error) {
             setErrorMessage(error.message);
         }
