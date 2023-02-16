@@ -19,14 +19,12 @@ const AddEditProductModal = (props) => {
     } = props;
 
     const [ingredientsToAdd, setIngredientsToAdd] = useState([]);
-
     const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [detail, setDetail] = useState('');
     const [price, setPrice] = useState(0);
     const [brand, setBrand] = useState('');
-    const [isVegan, setIsVegan] = useState(false);
-    const [hasAlcohol, setHasAlcohol] = useState(false);
+    const [hasAlcohol, setHasAlcohol] = useState(false)
     const [image, setImage] = useState('');
     const [ingredientsList, setIngredientsList] = useState([]);
 
@@ -51,7 +49,6 @@ const AddEditProductModal = (props) => {
         setDetail(product?.detail);
         setPrice(product?.price);
         setBrand(product?.brand);
-        setIsVegan(product?.isVegan);
         setHasAlcohol(product?.hasAlcohol);
         setImage(product?.image);
         if (product?.ingredients) {
@@ -131,7 +128,6 @@ const AddEditProductModal = (props) => {
             detail: detail,
             price: price,
             brand: brand,
-            isVegan: isVegan,
             hasAlcohol: hasAlcohol,
             image: image,
             ingredients: ingredientsList,
@@ -148,7 +144,6 @@ const AddEditProductModal = (props) => {
             detail: detail,
             price: price,
             brand: brand,
-            isVegan: isVegan,
             hasAlcohol: hasAlcohol,
             image: image,
             ingredients: ingredientsList,
@@ -213,37 +208,24 @@ const AddEditProductModal = (props) => {
                                         />
                                     </Form.Group>
                                     {
-                                        category?.name !== 'drink' ?
-                                            (
-                                                <Form.Group className='mb-3'>
-                                                    <Form.Check
-                                                        label="is this product vegan?"
-                                                        id="checkbox-id"
-                                                        onChange={(e) => setIsVegan(e?.target?.checked)}
-                                                        defaultChecked={
-                                                            product?.isVegan ? (
-                                                                true
-                                                            ) : (
-                                                                false
-                                                            )
-                                                        }
-                                                    />
-                                                </Form.Group>
-                                            ) : (
-                                                <Form.Group className='mb-3'>
-                                                    <Form.Check
-                                                        label="does it has alcohol?"
-                                                        id="checkbox-id"
-                                                        onChange={(e) => setHasAlcohol(e?.target?.checked)}
-                                                        defaultChecked={
-                                                            product?.hasAlcohol ? (
-                                                                true
-                                                            ) : (
-                                                                false
-                                                            )
-                                                        }
-                                                    />
-                                                </Form.Group>
+                                                 category?.name !== 'drink' ?
+                                                        (
+                                                            <></>
+                                                        ) : (
+                                                            <Form.Group className='mb-3'>
+                                                                <Form.Check
+                                                                    label="does it has alcohol?"
+                                                                    id="checkbox-id"
+                                                                    onChange={(e) => setHasAlcohol(e?.target?.checked)}
+                                                                    defaultChecked={
+                                                                        product?.hasAlcohol ? (
+                                                                            true
+                                                                        ) : (
+                                                                            false
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </Form.Group>
                                             )
                                     }
                                 </Accordion.Body>
@@ -289,7 +271,7 @@ const AddEditProductModal = (props) => {
                                     <Accordion.Body className='p-1'>
                                         <Form.Group >
                                             <ul className='ps-1 mt-3 m-0 ingredients-modal-list'>
-                                                {
+                                                {          
                                                     ingredientsList?.map((ingredient) => (
                                                         <div className='d-flex flex-row justify-content-between ingredient-item'>
                                                             <li>

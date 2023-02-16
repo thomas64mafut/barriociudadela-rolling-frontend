@@ -59,7 +59,7 @@ const Home = () => {
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9'>
                                 <h4 className='owners-name'>Thomas Mafut</h4>
-                                <p>Developer, amante de la música y los videojuegos, se caracteriza por su constante busqueda hacia el progreso y perfección. Uno de los fundadores de 'Barrio Ciudadela'.</p>
+                                <p>Developer, music and videogames enthusiast, He is characterized by his constant search of progress and perfection. One of the founders of 'Barrio Ciudadela'.</p>
                             </div>
                         </div>
                         <div className='owners-photo row'>
@@ -70,7 +70,7 @@ const Home = () => {
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9'>
                                 <h4 className='owners-name'>Mauricio Lenz</h4>
-                                <p>Developer, amante de la música y los videojuegos, se caracteriza por su constante busqueda hacia el progreso y perfección. Uno de los fundadores de 'Barrio Ciudadela'.</p>
+                                <p>Developer, music and videogames enthusiast, He is characterized by his constant search of progress and perfection. One of the founders of 'Barrio Ciudadela'.</p>
                             </div>
                         </div>
                         <div className='owners-photo row'>
@@ -81,7 +81,7 @@ const Home = () => {
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9 '>
                                 <h4 className='owners-name'>Adriano Adbelnur</h4>
-                                <p>Developer, amante de la música y los videojuegos, se caracteriza por su constante busqueda hacia el progreso y perfección. Uno de los fundadores de 'Barrio Ciudadela'.</p>
+                                <p>Developer, music and videogames enthusiast, He is characterized by his constant search of progress and perfection. One of the founders of 'Barrio Ciudadela'.</p>
                             </div>
                         </div>
                         <div className='owners-photo row mb-4'>
@@ -92,7 +92,7 @@ const Home = () => {
                             </div>
                             <div className=' d-flex flex-column justify-content-center align-items-center  col-12 col-md-9 '>
                                 <h4 className='owners-name'>Tomas Garcia</h4>
-                                <p>Developer, amante de la música y los videojuegos, se caracteriza por su constante busqueda hacia el progreso y perfección. Uno de los fundadores de 'Barrio Ciudadela'.</p>
+                                <p>Developer, music and videogames enthusiast, He is characterized by his constant search of progress and perfection. One of the founders of 'Barrio Ciudadela'.</p>
                             </div>
                         </div>
                     </div>

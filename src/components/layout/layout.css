@@ -5,4 +5,9 @@
 .layout-style {
     margin-top: 63.25px;
     min-height: calc(100vh - 15rem);
+    background-image: url(../../assets/img/papelTexture.webp);
+}
+
+.dark {
+    background-image: url(../../assets/img/papelTextureInverted.jpg);
 }

@@ -1,11 +1,12 @@
-import './cart.css'
-import React, { useEffect, useState } from 'react'
+import './cart.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Table } from 'react-bootstrap';
 
 export const Cart = ({ cart }) => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
     let idkey = 0;
-    let totalPrice = 0;
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleSetTotalPrice();
@@ -13,14 +14,21 @@ export const Cart = ({ cart }) => {
     }, [])
 
     const handleSetTotalPrice = () => {
+        /* let totalPrice=0; */
         for (const product of cart?.products) {
-            totalPrice = totalPrice + (product?.price * product?.quantity)
+            setCartTotalPrice(cartTotalPrice + (product?.price * product?.quantity))
+            /* totalPrice = totalPrice + (product?.price * product?.quantity) */
         }
-        setCartTotalPrice(totalPrice)
+        /* setCartTotalPrice(totalPrice); */
     }
 
     return (
-        <div className={cart.cartStatus + ' w-100'}>
+        <div className={
+            darkMode 
+                ? (`${cart.cartStatus} w-100 main-container-dark`)
+                : (`${cart.cartStatus} w-100 `)
+            }
+        >
             <Table bordered className='w-100 cart-table-container'>
                 <thead>
                     <tr>
@@ -69,6 +77,12 @@ export const Cart = ({ cart }) => {
                                             product.preferences &&
                                             <tr>
                                                 preferences: {product.preferences}
+                                            </tr>
+                                        }
+                                        {
+                                            product.isVegan &&
+                                            <tr>
+                                                Vegan option
                                             </tr>
                                         }
                                     </td>

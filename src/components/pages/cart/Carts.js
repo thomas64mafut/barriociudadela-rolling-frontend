@@ -1,5 +1,6 @@
 import './cart.css';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Accordion, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
@@ -10,11 +11,12 @@ import Loading from '../../loading/Loading';
 
 const Carts = () => {
     let navigate = useNavigate();
-    const [carts, setCarts] = useState({})
-    const [activeCart, setActiveCart] = useState({})
-    const [buyModalShow, setBuyModalShow] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+    const [carts, setCarts] = useState({});
+    const [activeCart, setActiveCart] = useState({});
+    const [buyModalShow, setBuyModalShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         handleGetData();
@@ -36,12 +38,12 @@ const Carts = () => {
     const handleGetCart = async () => {
         try {
             const { data } = await axios('/cart');
-            const activeCart = data.ownCarts.find(cart => cart.cartStatus === 'active')
-            const cartstoShow = data.ownCarts.filter(cart => cart.cartStatus === 'bought' || cart.cartStatus === 'cancelled' || cart.cartStatus === 'delivered' || cart.cartStatus === 'preparing')
-            setActiveCart(activeCart)
-            setCarts(cartstoShow.reverse())
+            const activeCart = data.ownCarts.find(cart => cart.cartStatus === 'active');
+            const cartstoShow = data.ownCarts.filter(cart => cart.cartStatus === 'bought' || cart.cartStatus === 'cancelled' || cart.cartStatus === 'delivered' || cart.cartStatus === 'preparing');
+            setActiveCart(activeCart);
+            setCarts(cartstoShow.reverse());
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -49,17 +51,22 @@ const Carts = () => {
         try {
             await axios.patch('/cart/' + activeCart._id)
             navigate('/menus')
+            window.location.replace('/menus');
         } catch (error) {
-            console.log(error)
+            setErrorMessage(error.message);
         }
     }
 
     return (
-        <div className='main-container'>
+        <div className={ darkMode ? "main-container-dark" : "main-container"}>
+            {
+                errorMessage &&
+                <Alert variant="danger">{errorMessage}</Alert>
+            }
             {
                 activeCart?._id ? (
                     <div>
-                        <h3>Your active Cart</h3>
+                        <h2 className='carts-title text-center'>Your active Cart</h2>
                         <div className='p-3 active-cart-container'>
                             <div className='overflow-table-container'>
                                 <div className='ps-2'>
@@ -110,7 +117,14 @@ const Carts = () => {
                                     {errorMessage}
                                 </Alert>
                             }
-                            <Accordion.Header className='orders-title'>your last carts</Accordion.Header>
+                            <Accordion.Header 
+                                className={darkMode
+                                    ? "main-container-dark orders-title"
+                                    : "main-container orders-title"
+                                }
+                            >
+                                your last carts
+                            </Accordion.Header>
                             <Accordion.Body>
                                 {
                                     carts?.length ? (
@@ -168,6 +182,7 @@ const Carts = () => {
                 show={buyModalShow}
                 setShow={setBuyModalShow}
                 cart={activeCart}
+                setErrorMessage={setErrorMessage}
             />
         </div>
     )

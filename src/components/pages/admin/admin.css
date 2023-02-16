@@ -1,7 +1,7 @@
 .abm-container {
     width: 100%;
     padding: 1rem;
-    background-color: white;
+    background-image: url(../../../assets/img/papelTexture.webp);
     color: var(--fire-opal);
     font-family: "VictorMono";
     font-weight: 100;
@@ -77,14 +77,30 @@ button {
     padding: .2rem;
     text-align: center;
     color: black !important;
+    background-color: var(--fire-opal)!important;
 }
 
 .active {
     color: var(--fire-opal) !important;
+    background-image: url(../../../assets/img/papelTexture.webp)!important;
 }
 
 @media (min-width:576px) {
     .nav-item {
         width: 25%;
     }
+}
+
+.abm-container-dark {
+    width: 100%;
+    padding: 1rem;
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: var(--fire-opal);
+    font-family: "VictorMono";
+    font-weight: 100;
+}
+
+.active-dark {
+    color: var(--fire-opal) !important;
+    background-image: url(../../../assets/img/papelTextureInverted.jpg)!important;
 }

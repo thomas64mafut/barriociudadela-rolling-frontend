@@ -11,7 +11,7 @@ function ThemeToggler() {
   return (
     <>
         <label className="switch">
-            <input type="checkbox" onChange={handleTheme}/>
+            <input defaultChecked={darkMode} type="checkbox" onChange={handleTheme}/>
             <span className="slider"></span>
         </label>
     </>
