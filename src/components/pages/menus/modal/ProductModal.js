@@ -1,26 +1,29 @@
-import './productmodal.css'
-import React, { useEffect, useState } from 'react'
-import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap'
+import './productmodal.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../context/ThemeContext';
+import { Accordion, Form, Modal, Row, Col } from 'react-bootstrap';
 import axios from '../../../../api/axios';
 
 import Counter from '../../../counter/Counter';
 
-const ProductModal = ({
-    show,
-    setShow,
-    product,
-    itemsToRemove,
-    toppings,
-    principalIngredientPricePrice,
-    defaultItem,
-    item2,
-    setError,
-    setMessageModalShow,
-    setMessageToShow
-}) => {
+const ProductModal = (props) => {
+    const {
+        show,
+        setShow,
+        product,
+        itemsToRemove,
+        toppings,
+        defaultItem,
+        item2,
+        setError,
+        setMessageToShow,
+    } = props; 
+
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         if (cart.name) {
@@ -72,7 +75,6 @@ const ProductModal = ({
         preferences.toppings = toppingsToAdd;
         preferences.category = product.category;
         setCart(preferences);
-        setMessageModalShow(true);
         resetModal();
         window.location.replace('/menus');
     }
@@ -88,9 +90,9 @@ const ProductModal = ({
 
     const additionSize = (e) => {
         if (e.target.id === '2' && e.target.checked) {
-            setAddition(addition + principalIngredientPricePrice)
+            setAddition(addition + (product.price * 0.3))
         } else if (e.target.id === '1' && e.target.checked) {
-            setAddition(addition - principalIngredientPricePrice)
+            setAddition(addition - (product.price * 0.3))
         }
     }
 
@@ -102,7 +104,9 @@ const ProductModal = ({
 
     return (
         <Modal show={show} onHide={resetModal}>
-            <Modal.Header closeButton>
+            <Modal.Header
+                className="modal-header"
+                closeButton>
                 <Modal.Title>{product.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='p-0'>
@@ -125,7 +129,7 @@ const ProductModal = ({
                                                 disabled={
                                                     index === 0 || index === 1 ? (
                                                         true
-                                                    ) : ( 
+                                                    ) : (
                                                         false
                                                     )
                                                 }
@@ -158,7 +162,7 @@ const ProductModal = ({
                         </Accordion.Item>
                     </Accordion>
                     <div className="p-3 d-flex flex-column">
-                        <Row className='preferences-container py-2'>
+                        <Row className="preferences-container py-2">
                             <h5>preferences</h5>
                             <Col sm={6} className='m-0'>
                                 <div>
@@ -202,10 +206,12 @@ const ProductModal = ({
                         <div className='button_container w-100'>
                             <Row className='w-100 mt-2'>
                                 <Col sm={6} className='text-center my-2 p-0'>
-                                    <Counter
-                                        count={count}
-                                        setCount={setCount}
-                                    />
+                                    <div className="modal-counter-container">
+                                        <Counter
+                                            count={count}
+                                            setCount={setCount}
+                                        />
+                                    </div>
                                 </Col>
                                 <Col sm={6} className='text-center my-2 p-0'>
                                     <span className='total-price'>total: ${(product.price + addition) * count}</span>
@@ -213,7 +219,13 @@ const ProductModal = ({
                             </Row>
                         </div>
                     </div>
-                    <div className='modal-footer d-flex justify-content-center'>
+                    <div
+                        className={
+                            darkMode 
+                                ? "modal-footer-dark d-flex justify-content-center" 
+                                : "modal-footer d-flex justify-content-center" 
+                        }
+                        >
                         <button className='icon-btn add-btn modal-btn' type="submit">
                             <div className="add-icon"></div>
                             <div className="btn-txt">Add to Cart</div>
@@ -225,4 +237,4 @@ const ProductModal = ({
     )
 }
 
-export default ProductModal
+export default ProductModal;

@@ -111,6 +111,15 @@
     }
 }
 
+@media (max-width:324px){
+    .input-group-text {
+        padding: .2rem;
+    }
+    .input-group-text > div {
+        font-size: smaller;
+    }
+}
+
 .profile-panel {
     font-family: 'VictorMono';
 }
@@ -135,7 +144,7 @@
     cursor: pointer;
 }
 
-.img-profile-container img {
+.img-profile-pic {
     width: 2.5rem;
     height: 100%;
     border-radius: 2rem;
@@ -148,4 +157,19 @@
 
 .cart-button:active {
     border: 0;
+}
+
+.navContainer-dark {
+    filter: invert(1);
+    z-index: 6;
+    background-color: rgba(238, 238, 238, 0.94) !important;
+    position: fixed !important;
+    width: 100%;
+    top: 0;
+}
+.img-profile-pic-dark{
+    filter: invert(1);
+    width: 2.5rem;
+    height: 100%;
+    border-radius: 2rem;
 }
