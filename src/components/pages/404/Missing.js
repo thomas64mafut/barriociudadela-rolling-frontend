@@ -1,5 +1,7 @@
 import './missing.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Row, Col } from 'react-bootstrap'
+import { ThemeContext } from '../../../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 import Card from './Card';
@@ -16,6 +18,9 @@ const cardImages = [
 ]
 
 function Missing() {
+
+    const { darkMode } = useContext(ThemeContext);
+
     const [cards, setCards] = useState([])
     const [turns, setTurns] = useState(0)
     const [choiceOne, setChoiceOne] = useState(null)

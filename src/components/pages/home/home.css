@@ -27,9 +27,14 @@
     background-image: url(../../../assets/img/papelTexture.webp);
 }
 
+.texto-home-container {
+    width: 90%;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 .texto-home {
-    padding-left: 11rem;
-    padding-right: 11rem;
+    font-family: 'VictorMono';
     font-size: 20px;
 }
 
@@ -107,11 +112,6 @@
         padding-right: 2rem;
     }
 
-    .texto-home {
-        padding-left: 5rem;
-        padding-right: 5rem;
-    }
-
     .picture-radius {
         height: 6rem;
         width: 6rem;
@@ -123,6 +123,9 @@
         padding-left: 2rem;
         padding-right: 2rem;
     }
+    .owners-photo{
+        max-width: 90vw;
+    }
 }
 
 @media (max-width: 767.5px) {
@@ -130,17 +133,12 @@
         margin-top: 2rem !important;
     }
 
-    .texto-home {
-        padding-left: 4.5rem;
-        padding-right: 4.5rem;
-    }
-
     .owners-photo {
         height: 28rem !important;
     }
 
     .picture-radius {
-        height: 11rem;
+        height: 9rem;
         width: 11rem;
     }
 }
@@ -150,9 +148,8 @@
         font-size: 60px;
     }
 
-    .texto-home {
-        padding-left: 20px;
-        padding-right: 20px;
+    .texto-home{
+        font-size: 16px;
     }
 
     .owners-photo {
@@ -163,6 +160,10 @@
     .under-welcome {
         font-size: 15px;
     }
+    .picture-radius {
+        height: 9rem;
+        width: 11rem;
+    }
 }
 
 @media (max-width: 450px) {
@@ -171,9 +172,16 @@
         padding-right: 0;
     }
 
-    .texto-home {
-        padding-left: 2rem;
-        padding-right: 2rem;
+    .picture-radius {
+        height: 9rem;
+        width: 11rem;
+    }
+}
+
+@media(max-width: 397px){
+    .picture-radius{
+        height: 9rem ;
+        width: 10rem;
     }
 }
 
@@ -192,4 +200,16 @@
     .owners-photo {
         height: 33rem !important;
     }
+}
+
+@media (max-width: 290px){
+    .picture-radius{
+        height: 8rem;
+        width: 8rem;
+    }
+}
+
+.homeBack-dark {
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
 }

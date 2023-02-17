@@ -23,3 +23,9 @@
 button.btn-counter {
     padding: 0;
 }
+
+.count-shower-dark {
+    display: inline;
+    margin: 0 1rem;
+    color: rgb(255, 255, 255);
+}

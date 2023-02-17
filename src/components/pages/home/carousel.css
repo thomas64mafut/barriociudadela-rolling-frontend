@@ -4,7 +4,6 @@
 }
 
 .carousel-indicators{
-  background-image: url(../../../assets/img/papelTexture.webp);
   position: absolute;
   bottom: -1rem !important;
   height: 3rem;
