@@ -72,44 +72,48 @@ function Missing() {
     }, [])
 
     return (
-        <div className="main-container row g-0 w-100">
-            <div className="message-container col-lg-6">
-                <h1>Oops!</h1>
-                <h4>Page Not Found</h4>
-                <div className='img404-container'>
-                    <img src={notFound} alt='404' />
-                </div>
-                <div className="flexGrow">
-                    <Link to="/">Visit Our Homepage</Link>
-                </div>
-            </div>
-            <div className="game-container col-lg-6">
-                <h1>Wanna play?</h1>
-                <h4 className='memoria'>Memory game, find all matches.</h4>
-                <div className="card-grid">
-                    {cards.map(card => (
-                        <Card
-                            key={card.id}
-                            card={card}
-                            handleChoice={handleChoice}
-                            flipped={card === choiceOne || card === choiceTwo || card.matched}
-                            disabled={disabled}
-                        />
-                    ))}
-                </div>
-                <div className='stats-container '>
-                    <div className='turns-container'>
-                        <h4 className='turno'>Turns: {turns}</h4>
+        <div className={darkMode ? "main-404-container-dark row g-0 w-100" : "main-404-container row g-0 w-100"}>
+            <Row>
+                <Col lg={6} className='message-container'>
+                    <h1>Oops!</h1>
+                    <h4>Page Not Found</h4>
+                    <div className='img404-container'>
+                        <img src={notFound} className="img-fluid" alt='404' />
                     </div>
-                    <div>
-                        <button className='btn-custom' onClick={shuffleCards}>
-                            <span className='btn-custom_top'>
-                                Refresh
-                            </span>
-                        </button>
+                    <div className="flexGrow">
+                        <Link to="/">Visit Our Homepage</Link>
                     </div>
-                </div>
-            </div>
+                </Col>
+                <Col lg={6} className='game-container'>
+                    <h1>Wanna play?</h1>
+                    <h4 className='memoria'>Memory game, find all matches.</h4>
+                    <div className="card-grid">
+                        {
+                            cards.map(card => (
+                                <Card
+                                    key={card.id}
+                                    card={card}
+                                    handleChoice={handleChoice}
+                                    flipped={card === choiceOne || card === choiceTwo || card.matched}
+                                    disabled={disabled}
+                                />
+                            ))
+                        }
+                    </div>
+                    <div className='stats-container '>
+                        <div className='turns-container'>
+                            <h4 className='turno'>Turns: {turns}</h4>
+                        </div>
+                        <div>
+                            <button className={darkMode ? "btn-custom-dark mt-4" : "btn-custom mt-4"} onClick={shuffleCards}>
+                                <span className={darkMode ? "btn-custom_top-dark" : "btn-custom_top"}>
+                                    Refresh
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
         </div>
     );
 }

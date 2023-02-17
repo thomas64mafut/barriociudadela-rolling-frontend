@@ -1,8 +1,8 @@
 .main-container {
     min-height: calc(100vh - 15rem);
     padding-top: 0.5rem;
-    width: 100vw;
-    background-color: rgb(237, 227, 199);
+    background-image: url(../../../assets/img/papelTexture.webp);
+    overflow: hidden;
 }
 
 .message-container {
@@ -155,14 +155,12 @@
     }
 }
 
-@media (min-width: 750px){
-    .img404-container > img{
-        width: 25rem;
-    }
-    .card-grid{
-        width: 25rem;
-    }
-    .stats-container{
-        width: 10rem;
-    }
+.main-404-container-dark {
+    min-height: calc(100vh - 15rem);
+    padding-top: 0.5rem;
+    width: 100vw;
+    background-color: rgb(237, 227, 199);
+    background-image: url(../../../assets/img/papelTextureInverted.jpg);
+    color: whitesmoke;
+    overflow: hidden;
 }
