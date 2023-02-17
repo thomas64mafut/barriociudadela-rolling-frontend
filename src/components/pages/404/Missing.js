@@ -83,7 +83,7 @@ function Missing() {
                     <h1>Oops!</h1>
                     <h4>Page Not Found</h4>
                     <div className='img404-container'>
-                        <img src={notFound} alt='404' />
+                        <img src={notFound} className="img-fluid" alt='404' />
                     </div>
                     <div className="flexGrow">
                         <Link to="/">Visit Our Homepage</Link>
