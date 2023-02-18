@@ -8,17 +8,18 @@ export const Cart = ({ cart }) => {
     let idkey = 0;
     let totalPrice = 0;
     const { darkMode } = useContext(ThemeContext);
-
     useEffect(() => {
         handleSetTotalPrice();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleSetTotalPrice = () => {
+        /* let totalPrice=0; */
         for (const product of cart?.products) {
-            totalPrice = totalPrice + (product?.price * product?.quantity)
+            setCartTotalPrice(cartTotalPrice + (product?.price * product?.quantity))
+            /* totalPrice = totalPrice + (product?.price * product?.quantity) */
         }
-        setCartTotalPrice(totalPrice)
+        /* setCartTotalPrice(totalPrice); */
     }
 
     return (
@@ -76,6 +77,12 @@ export const Cart = ({ cart }) => {
                                             product.preferences &&
                                             <tr>
                                                 preferences: {product.preferences}
+                                            </tr>
+                                        }
+                                        {
+                                            product.isVegan &&
+                                            <tr>
+                                                Vegan option
                                             </tr>
                                         }
                                     </td>
