@@ -4,6 +4,10 @@
     margin-top: 1rem;
 }
 
+.drink-container{
+    width: 100vw;
+}
+
 .drink-card:hover {
     border-color: var(--gold-metalic)!important;
     color: rgb(193, 147, 31);
@@ -26,4 +30,25 @@
 
 .drink-card svg {
     transition: .4s;
+}
+
+.drink-card-dark {
+    max-width: 20rem;
+    position: relative;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    font-family: 'VictorMono';
+    background: var(--inverted-dutch-white) !important;
+    border: 3px solid #353c9e!important;
+}
+
+.drink-card-dark:hover {
+    border-color: var(--gold-metalic)!important;
+    color: rgb(193, 147, 31);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.drink-card-dark:hover svg {
+    transition: .4s;
+    stroke: rgb(193, 147, 31)!important;
 }

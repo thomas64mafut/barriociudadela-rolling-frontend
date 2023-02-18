@@ -1,12 +1,14 @@
-import React from 'react'
-import './counter.css'
+import './counter.css';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 
-import { Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap';
 
-import Plus from '../../assets/icons/Plus'
-import Minus from '../../assets/icons/Minus'
+import Plus from '../../assets/icons/Plus';
+import Minus from '../../assets/icons/Minus';
 
 const Counter = ({ count, setCount }) => {
+    const { darkMode } = useContext(ThemeContext);
     return (
         <div>
             <Button
@@ -17,7 +19,7 @@ const Counter = ({ count, setCount }) => {
             >
                 <Minus />
             </Button>
-            <div className='count-shower'>{count}</div>
+            <div className={ darkMode ? "count-shower-dark" : "count-shower" }>{count}</div>
             <Button
                 variant='success'
                 onClick={() => setCount(count + 1)}
@@ -30,4 +32,4 @@ const Counter = ({ count, setCount }) => {
     )
 }
 
-export default Counter
+export default Counter;

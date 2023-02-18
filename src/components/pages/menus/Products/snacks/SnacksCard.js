@@ -1,5 +1,6 @@
-import './snacks.css'
-import React, { useEffect, useState } from 'react'
+import './snacks.css';
+import React, { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../../../../context/ThemeContext';
 import { Card, Form } from 'react-bootstrap';
 import Counter from '../../../../counter/Counter';
 import axios from '../../../../../api/axios';
@@ -7,7 +8,8 @@ import Leaf from '../../../../../assets/icons/Leaf';
 
 const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) => {
     const [count, setCount] = useState(1);
-    const [cart, setCart] = useState({})
+    const [cart, setCart] = useState({});
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         if (cart.name) {
@@ -54,12 +56,12 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
         setCart(preferences)
     }
     return (
-        <Card className='snack-card'>
+        <Card className={ darkMode ? "snack-card-dark" : "snack-card" }>
             <div className='card-image-container' style={{
                 backgroundImage: `url(${snack.image})`
             }}
             ></div>
-            <Card.Header>
+            <Card.Header className={ darkMode ? "card-header-dark" : "card-header"}>
                 <Card.Title >
                     <h5 className='product-card-title'>
                         {snack.name.toString().toLowerCase()}
@@ -95,7 +97,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
                             />
                         </div>
                     </div>
-                    <div className='text-center button-footer'>
+                    <div className={ darkMode ? "text-center button-footer-dark" : "text-center button-footer" }>
                         <button className='icon-btn add-btn' type='submit'>
                             <div className="add-icon"></div>
                             <div className="btn-txt">Add to Cart</div>
@@ -107,4 +109,4 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
     )
 }
 
-export default SnacksCard
+export default SnacksCard;

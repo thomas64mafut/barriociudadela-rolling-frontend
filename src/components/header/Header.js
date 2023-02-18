@@ -1,22 +1,26 @@
-import './header.css'
-import React, { useState, useEffect } from 'react'
+import './header.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../context/ThemeContext';
+import ThemeToggler from '../themeToggler/ThemeToggler';
 
-import { Navbar, Tooltip, OverlayTrigger, InputGroup, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
 
-import logo from '../../assets/img/logo-red.png'
-import axios from '../../api/axios'
-import Cart from '../../assets/icons/Cart'
+import logo from '../../assets/img/logo-red.png';
+import axios from '../../api/axios';
+import Cart from '../../assets/icons/Cart';
 import Config from '../../assets/icons/Config';
 
 const Header = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState('')
+    const [expanded, setExpanded] = useState(false)
     const [userToShow, setUserToShow] = useState({});
     const [userRole, setUserRole] = useState('');
     const [cartTotalPrice, setCartTotalPrice] = useState('');
-    const [profileImg, setProfileImg] = useState('')
+    const [profileImg, setProfileImg] = useState('');
     const [setErrorMessage] = useState('');
+    const { darkMode } = useContext(ThemeContext);
 
     useEffect(() => {
         const token = sessionStorage.getItem('jwt')
@@ -63,20 +67,24 @@ const Header = () => {
     }
 
     const handleLogOut = () => {
+        setExpanded(false);
         sessionStorage.clear();
         window.location.replace('/')
     }
 
     const showCart = () => {
-        navigate('/myCarts')
+        setExpanded(false);
+        navigate('/myCarts');
     }
 
     const showAdminPage = () => {
-        navigate('/admin')
+        setExpanded(false);
+        navigate('/admin');
     }
 
     const showUserProfile = () => {
-        navigate('/profile')
+        setExpanded(false);
+        navigate('/profile');
     }
 
     const handleGetCart = async () => {
@@ -100,23 +108,36 @@ const Header = () => {
     );
 
     return (
-        <Navbar className='navContainer m-0' expand="lg">
+        <Navbar
+            className={darkMode
+                ? "navContainer-dark m-0"
+                : "navContainer m-0"
+            }
+            expand="lg"
+            expanded={expanded}
+            onBlur={() => setExpanded(false)}
+        >
             <Navbar.Brand href="/">
                 <img className='logoa' src={logo} alt='' />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="navbarScroll" className='me-2 p-0 border-0 ' />
+            <Navbar.Toggle
+                aria-controls="navbarScroll"
+                className='me-2 p-0 border-0'
+                onClick={() => setExpanded(expanded ? false : "expanded")}
+            />
             <Navbar.Collapse id="navbarScroll">
                 <div className="w-100 h-100 d-flex flex-lg-row flex-column justify-content-between navbar-complete" >
                     <div className='d-flex flex-lg-row flex-column nav-options-container'>
-                        <Link to={'/'} className='navOptions boton1'>
+                        <Link to={'/'} className='navOptions boton1' onClick={() => setExpanded(false)}>
                             ABOUT US
                         </Link>
-                        <a href='https://wa.me/543816681643' className='navOptions boton1'>
+                        <Link href='https://wa.me/543816681643' className='navOptions boton1' onClick={() => setExpanded(false)}>
                             CONTACT US
-                        </a>
-                        <Link to={'/menus'} className='navOptions boton1'>
+                        </Link>
+                        <Link to={'/menus'} className='navOptions boton1' onClick={() => setExpanded(false)}>
                             MENU
                         </Link>
+                        <ThemeToggler />
                     </div>
                     <div className='d-flex flex-lg-row flex-column '>
                         {
@@ -126,7 +147,7 @@ const Header = () => {
                                         {
                                             userRole === 'admin' &&
                                             <>
-                                                <Link to={'/orders'} className='navOptions boton1'>
+                                                <Link to={'/orders'} className='navOptions boton1' onClick={() => setExpanded(false)}>
                                                     orders
                                                 </Link>
                                             </>
@@ -159,8 +180,14 @@ const Header = () => {
                                                     <button onClick={handleLogOut} className='border-0'>log out</button>
                                                 </div>
                                             </InputGroup.Text>
-                                            <InputGroup.Text className='img-profile-container' onClick={showUserProfile}>
-                                                <img src={profileImg} alt="" />
+                                            <InputGroup.Text
+                                                className="img-profile-container"
+                                                onClick={showUserProfile}
+                                            >
+                                                <img
+                                                    className={darkMode ? "img-profile-pic-dark" : "img-profile-pic"}
+                                                    src={profileImg} alt=""
+                                                />
                                             </InputGroup.Text>
                                         </InputGroup>
                                     </div>

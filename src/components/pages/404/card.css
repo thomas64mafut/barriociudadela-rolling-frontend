@@ -1,22 +1,22 @@
-.card {
+.cardPlay {
   position: relative;
   box-shadow: 10px 10px 19px 1px rgba(0,0,0,0.75);
 }
 
-.card:hover {
+.cardPlay:hover {
   transform: scale(1.1);
 }
 
-.card img {
+.cardPlay img {
   width: 100%;
   height: 100%;
-  display: block;
   border: 2px solid #fff;
   border-radius: 6px;
   cursor: pointer;
+  background-color: var(--inverted-silver-sand);
 }
 
-.card .front {
+.cardPlay .front {
   transform: rotateY(90deg);
   transition: all ease-in 0.2s;
   position: absolute;
@@ -28,7 +28,7 @@
 }
 
 
-.card .back {
+.cardPlay .back {
   transition: all ease-in 0.2s;
   transition-delay: 0.2s;
 }
