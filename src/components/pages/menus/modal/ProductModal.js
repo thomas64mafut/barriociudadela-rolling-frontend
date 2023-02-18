@@ -22,6 +22,7 @@ const ProductModal = (props) => {
     const [cart, setCart] = useState({});
     const [count, setCount] = useState(1);
     const [addition, setAddition] = useState(0);
+    const [isVegan, setIsVegan] = useState(false)
 
     const { darkMode } = useContext(ThemeContext);
 
@@ -74,9 +75,10 @@ const ProductModal = (props) => {
         preferences.removed = removed;
         preferences.toppings = toppingsToAdd;
         preferences.category = product.category;
+        preferences.isVegan = isVegan
         setCart(preferences);
         resetModal();
-        window.location.replace('/menus');
+        
     }
 
     const additionToppings = (e) => {
@@ -164,6 +166,13 @@ const ProductModal = (props) => {
                     <div className="p-3 d-flex flex-column">
                         <Row className="preferences-container py-2">
                             <h5>preferences</h5>
+                            <Form.Group className='mb-3'>
+                                <Form.Check
+                                    label="Do you prefer the vegan option?"
+                                    id="checkbox-id"
+                                    onChange={(e) => setIsVegan(e?.target?.checked)}
+                                />
+                            </Form.Group>
                             <Col sm={6} className='m-0'>
                                 <div>
                                     <div className='my-2 w-100'>
