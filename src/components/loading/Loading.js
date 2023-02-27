@@ -1,13 +1,13 @@
-import './loading.css'
-import React from 'react'
+import './loading.css';
+import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
 const Loading = () => {
   return (
     <div className='spinner-container'>
-        <Spinner /> 
+      <Spinner /> 
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;
