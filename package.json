@@ -9,6 +9,7 @@
         "@testing-library/user-event": "^13.5.0",
         "axios": "^1.2.2",
         "bootstrap": "^5.3.0-alpha1",
+        "dotenv": "^16.0.3",
         "react": "^18.2.0",
         "react-bootstrap": "^2.7.0",
         "react-dom": "^18.2.0",
@@ -21,7 +22,8 @@
         "start": "react-scripts --max_old_space_size=1024 start",
         "build": "react-scripts --max_old_space_size=1024 build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "lint": "eslint ./src --fix"
     },
     "eslintConfig": {
         "extends": [
@@ -40,5 +42,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "eslint": "8.34.0",
+        "eslint-plugin-react": "^7.32.2"
     }
 }
