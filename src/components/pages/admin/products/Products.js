@@ -134,15 +134,15 @@ const Products = () => {
                 <div className='table-header'>
                   <Dropdown className='m-1'>
                     <Dropdown.Toggle variant='danger' className='btn-dropdown'>
-                                            Add
+                      Add
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       {
-                        allCategories?.map((category, index) => (
+                        allCategories?.map((category) => (
                           <Dropdown.Item
                             onClick={() => handleOpenAddModal({}, category)}
                             className='w-100'
-                            key={index}
+                            key={category?.name}
                           >
                             {category?.name}
                           </Dropdown.Item>
@@ -159,8 +159,8 @@ const Products = () => {
                 <Accordion>
                   {
                     allProducts?.map((product, index) => (
-                      <div className={darkMode ? 'dark' : 'light'}>
-                        <Accordion.Item eventKey={index} key={index}>
+                      <div className={darkMode ? 'dark' : 'light'} key={index}>
+                        <Accordion.Item eventKey={index} >
                           <Accordion.Header>
                             {product?.name}
                           </Accordion.Header>
@@ -173,7 +173,7 @@ const Products = () => {
                                     <th className='col-3'>name</th>
                                     {
                                       product?.category?.name === 'drink' &&
-                                                                            <th>brand</th>
+                                      <th>brand</th>
                                     }
                                     <th className='col-3'>price</th>
                                   </tr>
@@ -184,7 +184,7 @@ const Products = () => {
                                     <td>{product?.name}{product?.isVegan && <Leaf />}{product?.hasAlcohol && <Beer />}</td>
                                     {
                                       product?.category?.name === 'drink' &&
-                                                                            <td>{product?.brand}</td>
+                                      <td>{product?.brand}</td>
                                     }
                                     <td>$ {product?.price}</td>
                                   </tr>
@@ -201,22 +201,22 @@ const Products = () => {
                             </div>
                             {
                               product?.ingredients &&
-                                                            <Accordion>
-                                                              <Accordion.Item eventKey={'ingredientOf' + index}>
-                                                                <Accordion.Header>
-                                                                        Ingredients
-                                                                </Accordion.Header>
-                                                                <Accordion.Body>
-                                                                  <ul className='d-flex flex-wrap p-0'>
-                                                                    {
-                                                                      product?.ingredients.map((ingredient, index) => (
-                                                                        <li className='mx-4' key={index}>{ingredient?.name}</li>
-                                                                      ))
-                                                                    }
-                                                                  </ul>
-                                                                </Accordion.Body>
-                                                              </Accordion.Item>
-                                                            </Accordion>
+                              <Accordion>
+                                <Accordion.Item eventKey={'ingredientOf' + index}>
+                                  <Accordion.Header>
+                                    Ingredients
+                                  </Accordion.Header>
+                                  <Accordion.Body>
+                                    <ul className='d-flex flex-wrap p-0'>
+                                      {
+                                        product?.ingredients.map((ingredient, index) => (
+                                          <li className='mx-4' key={index}>{ingredient?.name}</li>
+                                        ))
+                                      }
+                                    </ul>
+                                  </Accordion.Body>
+                                </Accordion.Item>
+                              </Accordion>
                             }
                             <div className='w-100 d-flex justify-content-evenly'>
                               <Row>
@@ -260,7 +260,7 @@ const Products = () => {
                               >
                                 <Edit />
                                 <span className='d-sm-block d-none'>
-                                                                    Edit
+                                  Edit
                                 </span>
                               </Button>
                               <Button
@@ -271,7 +271,7 @@ const Products = () => {
                               >
                                 <X />
                                 <span className='d-sm-block d-none'>
-                                                                    Delete
+                                  Delete
                                 </span>
                               </Button>
                             </div>

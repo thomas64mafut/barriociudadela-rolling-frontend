@@ -38,37 +38,37 @@ const Order = ({ productsShow, cartStatus, role }) => {
                     size: {product.size}
                     {
                       product.removed.length > 0 &&
-                      <tr>to remove:
+                      <div>to remove:
                         {
                           product.removed.map((i) => {
-                            return `-${i.name}`;
+                            return <li key={i.name}>{i.name}</li>;
                           })
                         }
-                      </tr>
+                      </div>
                     }
                     {
                       product.toppings.length > 0 &&
-                      <tr>to topping:
+                      <div>to topping:
                         {
                           product.toppings.map((i) => {
-                            return `-${i.name}`;
+                            return <li key={i.name}>{i.name}</li>;
                           })
                         }
-                      </tr>
+                      </div>
                     }
                     {
                       product.preferences &&
-                      <tr>preferences:
+                      <li>preferences:
                         {
                           product.preferences
                         }
-                      </tr>
+                      </li>
                     }
                     {
                       product.isVegan &&
-                      <tr>
+                      <li>
                         Vegan option
-                      </tr>
+                      </li>
                     }
                   </td>
                   <td>{product.quantity}</td>
