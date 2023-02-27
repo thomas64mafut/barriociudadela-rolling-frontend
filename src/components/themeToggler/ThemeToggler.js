@@ -1,21 +1,21 @@
-import "./themeToggler.css";
-import React, { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import './themeToggler.css';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 
 function ThemeToggler() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
   const handleTheme = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem("darkMode", !darkMode);
+    localStorage.setItem('darkMode', !darkMode);
   };
   return (
     <>
-        <label className="switch">
-            <input defaultChecked={darkMode} type="checkbox" onChange={handleTheme}/>
-            <span className="slider"></span>
-        </label>
+      <label className="switch">
+        <input defaultChecked={darkMode} type="checkbox" onChange={handleTheme}/>
+        <span className="slider"></span>
+      </label>
     </>
   );
-};
+}
 
 export default ThemeToggler;
