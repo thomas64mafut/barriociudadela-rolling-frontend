@@ -56,8 +56,6 @@ const Menus = () => {
       <h2 className='titleSection drinks-title'>Drinks</h2>
       <Drinks
         category={'drink'}
-        defaultItem={'1 lt'}
-        item2={'500 cc'}
         setError={setError}
         setMessageModalShow={setMessageModalShow}
         setMessageToShow={setMessageToShow}

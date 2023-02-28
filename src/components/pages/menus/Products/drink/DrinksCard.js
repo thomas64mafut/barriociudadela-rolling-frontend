@@ -7,7 +7,7 @@ import { Card, Form } from 'react-bootstrap';
 import Counter from '../../../../counter/Counter';
 import Beer from '../../../../../assets/icons/Beer';
 
-const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, setMessageToShow }) => {
+const DrinksCard = ({ drink, setError, setMessageModalShow, setMessageToShow }) => {
   const [count, setCount] = useState(1);
   const [cart, setCart] = useState({});
   const { darkMode } = useContext(ThemeContext);
@@ -32,25 +32,23 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
   const addToCart = (e) => {
     e.preventDefault();
     const preferences = {};
-    const removed = [];
-    const toppingsToAdd = [];
     for (const target of e.target) {
       if (target.type === 'radio') {
         if (target.id === '2' && target.checked === true) {
-          preferences.size = item2;
-          preferences.price = drink.price / 2;
+          preferences.size = '1 lt';
+          preferences.price = drink.price;
           target.checked = false;
         } else {
-          preferences.size = defaultItem;
-          preferences.price = drink.price;
+          preferences.size = '500cc';
+          preferences.price = drink.price / 2;
         }
       }
     }
     preferences.name = drink.name;
     preferences.quantity = count;
-    preferences.removed = removed;
-    preferences.toppings = toppingsToAdd;
     preferences.category = drink.category;
+    preferences.toppings = [];
+    preferences.removed = [];
     setCount(1);
     e.target[0].checked = true;
     setCart(preferences);
@@ -78,7 +76,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
               <span>Size: </span>
               <Form.Check
                 inline
-                label={`${item2} ($${drink.price / 2})`}
+                label={`500cc ($${drink.price / 2})`}
                 name="size"
                 type='radio'
                 defaultChecked
@@ -86,7 +84,7 @@ const DrinksCard = ({ drink, defaultItem, item2, setError, setMessageModalShow, 
               />
               <Form.Check
                 inline
-                label={`${defaultItem} ($${drink.price})`}
+                label={`1lt ($${drink.price})`}
                 name="size"
                 type='radio'
                 id='2'

@@ -53,8 +53,6 @@ const Drinks = ({ defaultItem, item2, setError, setMessageModalShow, setMessageT
                           <DrinksCard
                             key={drink._id}
                             drink={drink}
-                            defaultItem={defaultItem}
-                            item2={item2}
                             setError={setError}
                             setMessageToShow={setMessageToShow}
                             setMessageModalShow={setMessageModalShow}
