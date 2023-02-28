@@ -16,6 +16,7 @@ const ProductModal = (props) => {
     defaultItem,
     item2,
     setError,
+    setMessageModalShow,
     setMessageToShow,
   } = props;
 
@@ -36,12 +37,14 @@ const ProductModal = (props) => {
     try {
       const { data } = await axios.post('/cart', cart);
       setMessageToShow(data.message);
+      setMessageModalShow(true);
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.message);
+      setMessageModalShow(true);
     }
   };
 
-  const addToCart = (e) => {
+  const addToCart = async (e) => {
     e.preventDefault();
     const preferences = {};
     const removed = [];
@@ -61,9 +64,9 @@ const ProductModal = (props) => {
           target.value = '';
         } else if (target.type === 'radio') {
           if (target.id === '2' && target.checked === true) {
-            preferences.size = 'l';
+            preferences.size = 'large (1 patty)';
             target.checked = false;
-          } else preferences.size = 'xl';
+          } else preferences.size = 'xl (2 patty)';
         }
 
       }
@@ -75,7 +78,7 @@ const ProductModal = (props) => {
     preferences.toppings = toppingsToAdd;
     preferences.category = product.category;
     preferences.isVegan = isVegan;
-    setCart(preferences);
+    await setCart(preferences);
     resetModal();
 
   };
