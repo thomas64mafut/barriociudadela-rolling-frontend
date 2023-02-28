@@ -64,9 +64,9 @@ const ProductModal = (props) => {
           target.value = '';
         } else if (target.type === 'radio') {
           if (target.id === '2' && target.checked === true) {
-            preferences.size = 'l';
+            preferences.size = 'large (1 patty)';
             target.checked = false;
-          } else preferences.size = 'xl';
+          } else preferences.size = 'xl (2 patty)';
         }
 
       }
