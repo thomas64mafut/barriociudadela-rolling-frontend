@@ -54,6 +54,7 @@ const SnacksCard = ({ snack, setError, setMessageModalShow, setMessageToShow }) 
     e.target[0].checked = true;
     setCart(preferences);
   };
+
   return (
     <Card className={ darkMode ? 'snack-card-dark' : 'snack-card' }>
       <div className='card-image-container' style={{

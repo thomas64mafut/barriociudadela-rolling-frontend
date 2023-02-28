@@ -13,9 +13,11 @@ export const Cart = ({ cart }) => {
   }, []);
 
   const handleSetTotalPrice = () => {
+    var cartTotalPriceCalculated = 0;
     for (const product of cart?.products) {
-      setCartTotalPrice(cartTotalPrice + product?.price * product?.quantity);
+      cartTotalPriceCalculated = cartTotalPriceCalculated + (product?.price * product?.quantity);
     }
+    setCartTotalPrice(cartTotalPriceCalculated);
   };
 
   return (
