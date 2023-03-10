@@ -147,13 +147,14 @@ const Header = () => {
             >
               ABOUT US
             </Link>
-            <Link
+            <a
               href="https://wa.me/543816681643"
+              target='_blank'
               className="navOptions boton1"
               onClick={() => setExpanded(false)}
             >
               CONTACT US
-            </Link>
+            </a>
             <Link
               to={'/menus'}
               className="navOptions boton1"
